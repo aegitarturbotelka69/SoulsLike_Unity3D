@@ -19,6 +19,9 @@ namespace SLGame.Gameplay
         [SerializeField] private Vector3 _moveDirection;
         [SerializeField] private Quaternion _moveRotation;
 
+
+        [SerializeField] private Vector3 normalVector;
+
         [Space(10)]
 
         [SerializeField] private float zAxis;
@@ -66,6 +69,9 @@ namespace SLGame.Gameplay
 
 
             Quaternion rotationAngle = Quaternion.LookRotation(targetDirection);
+            Debug.Log(rotationAngle);
+            if (rotationAngle.x == 0 && rotationAngle.y == 0 && rotationAngle.z == 0 && !VirtualInputManager.Instance.MoveFront)
+                return;
 
             Quaternion targetRotation = Quaternion.Slerp(this.gameObject.transform.rotation, rotationAngle, _rotationSpeed * Time.deltaTime);
 
@@ -74,9 +80,15 @@ namespace SLGame.Gameplay
 
         private void Move()
         {
-            _moveDirection = new Vector3(xAxis, 0f, zAxis) * _moveSpeed;
+            _moveDirection = _cameraObject.forward * zAxis;
+            _moveDirection += _cameraObject.right * xAxis;
+            _moveDirection.Normalize();
 
-            _rigidbody.MovePosition(this.transform.position + _moveDirection);
+            _moveDirection *= _moveSpeed;
+
+            Vector3 projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, normalVector);
+
+            _rigidbody.MovePosition(this.transform.position + projectedVelocity);
         }
     }
 }
