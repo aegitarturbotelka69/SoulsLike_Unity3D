@@ -11,18 +11,21 @@ namespace SLGame.Gameplay
         [SerializeField] private Transform _cameraObject;
         [SerializeField] private Rigidbody _rigidbody;
 
+        [Header("Stats:")]
+        [SerializeField] private float _moveSpeed;
+        [SerializeField] private float _rotationSpeed;
 
         [Header("Info:")]
         [SerializeField] private Vector3 _moveDirection;
-        [SerializeField] private float _moveSpeed;
-
-
-        Vector3 normalVector;
+        [SerializeField] private Quaternion _moveRotation;
 
         [Space(10)]
 
         [SerializeField] private float zAxis;
         [SerializeField] private float xAxis;
+
+
+
         private void Start()
         {
             _rigidbody = this.gameObject.GetComponent<Rigidbody>();
@@ -30,15 +33,12 @@ namespace SLGame.Gameplay
 
         private void Update()
         {
+            GetInput();
+            Rotate();
             Move();
         }
 
-        private void Rotate()
-        {
-
-        }
-
-        private void Move()
+        private void GetInput()
         {
             if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.MoveBack)
                 return;
@@ -58,11 +58,25 @@ namespace SLGame.Gameplay
                 xAxis = -1f;
             else
                 xAxis = 0f;
+        }
 
+        private void Rotate()
+        {
+            Vector3 targetDirection = new Vector3(xAxis, 0f, zAxis);
+
+
+            Quaternion rotationAngle = Quaternion.LookRotation(targetDirection);
+
+            Quaternion targetRotation = Quaternion.Slerp(this.gameObject.transform.rotation, rotationAngle, _rotationSpeed * Time.deltaTime);
+
+            this.transform.rotation = targetRotation;
+        }
+
+        private void Move()
+        {
             _moveDirection = new Vector3(xAxis, 0f, zAxis) * _moveSpeed;
 
-            Vector3 projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, normalVector);
-            _rigidbody.MovePosition(this.transform.position + projectedVelocity);
+            _rigidbody.MovePosition(this.transform.position + _moveDirection);
         }
     }
 }
