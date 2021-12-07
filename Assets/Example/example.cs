@@ -10,10 +10,10 @@ public class example : MonoBehaviour
     public Transform from;
     public Transform to;
 
-    public float speed;
+    [Range(0f, 1f)] public float t;
 
     void Update()
     {
-        transform.rotation = Quaternion.Slerp(from.rotation, to.rotation, speed);
+        transform.rotation = Quaternion.Slerp(from.rotation, to.rotation, t);
     }
 }

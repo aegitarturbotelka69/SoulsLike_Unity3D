@@ -9,7 +9,14 @@ namespace SLGame.Gameplay
         [Header("References:")]
         [SerializeField] private Transform _targetTransform;
         [SerializeField] private Transform _cameraTransform;
-        [SerializeField] private Transform _cameraPositionWithOffset;
+
+        [Space(10)]
+
+        [SerializeField] private Transform _highestPivotPointCameraPosition;
+        [SerializeField] private Transform _centerPivotPointCameraPosition;
+        [SerializeField] private Transform _lowestPivotPointCameraPosition;
+
+        [SerializeField] private Transform _cameraPivotPoint;
 
 
         [Header("Stats:")]
@@ -27,10 +34,7 @@ namespace SLGame.Gameplay
         [SerializeField] private float _lookAngle;
         [SerializeField] private float _pivotAngle;
 
-        private void Awake()
-        {
-
-        }
+        [SerializeField] private Vector3 _realPivotAngle;
 
         private void Update()
         {
@@ -47,6 +51,23 @@ namespace SLGame.Gameplay
             _pivotAngle -= UnityEngine.Input.GetAxis("Mouse Y") * _yRotationSpeed;
             _pivotAngle = Mathf.Clamp(_pivotAngle, _minPivotAngle, _maxPivotAngle);
 
+            if (-0.9f > (_pivotAngle / Mathf.Abs(_minPivotAngle)))
+            {
+                Debug.Log("Lowest");
+                _realPivotAngle = Vector3.Slerp(_centerPivotPointCameraPosition.position, _lowestPivotPointCameraPosition.position, (_pivotAngle / _minPivotAngle));
+            }
+            else if (0.9f < (_pivotAngle / Mathf.Abs(_maxPivotAngle)))
+            {
+                Debug.Log("Highest");
+                _realPivotAngle = Vector3.Slerp(_highestPivotPointCameraPosition.position, _centerPivotPointCameraPosition.position, (_pivotAngle / _minPivotAngle));
+            }
+            else
+            {
+                Debug.Log("Center");
+                _realPivotAngle = _centerPivotPointCameraPosition.position;
+            }
+            _cameraPivotPoint.position = Vector3.Slerp(_cameraPivotPoint.position, _realPivotAngle, (_pivotAngle / _minPivotAngle));
+
             Vector3 rotation = Vector3.zero;
             rotation.y = _lookAngle;
 
@@ -57,7 +78,7 @@ namespace SLGame.Gameplay
             rotation.x = _pivotAngle;
 
             targetRotation = Quaternion.Euler(rotation);
-            _cameraPositionWithOffset.localRotation = targetRotation;
+            _cameraPivotPoint.localRotation = targetRotation;
         }
     }
 }
