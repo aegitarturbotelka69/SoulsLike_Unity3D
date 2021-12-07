@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SLGame.Gameplay
@@ -32,15 +34,11 @@ namespace SLGame.Gameplay
 
         private void Update()
         {
-            FollowTarget();
             Rotation();
         }
-
-        private void FollowTarget()
+        private void FixedUpdate()
         {
-            Vector3 followPosition = Vector3.Lerp(this.transform.position, _targetTransform.position, _followSpeed * Time.deltaTime);
-
-            this.transform.position = followPosition;
+            this.transform.position = Vector3.Lerp(this.transform.position, _targetTransform.transform.position, _followSpeed);
         }
 
         private void Rotation()

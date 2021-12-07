@@ -65,30 +65,39 @@ namespace SLGame.Gameplay
 
         private void Rotate()
         {
-            Vector3 targetDirection = new Vector3(xAxis, 0f, zAxis);
+            Vector3 targetDir = Vector3.zero;
 
+            targetDir = _cameraObject.forward * zAxis;
+            targetDir += _cameraObject.right * xAxis;
 
-            Quaternion rotationAngle = Quaternion.LookRotation(targetDirection);
-            Debug.Log(rotationAngle);
-            if (rotationAngle.x == 0 && rotationAngle.y == 0 && rotationAngle.z == 0 && !VirtualInputManager.Instance.MoveFront)
-                return;
+            targetDir.Normalize();
+            targetDir.y = 0;
 
-            Quaternion targetRotation = Quaternion.Slerp(this.gameObject.transform.rotation, rotationAngle, _rotationSpeed * Time.deltaTime);
+            if (targetDir == Vector3.zero)
+                targetDir = this.transform.forward;
+
+            Quaternion rotation = Quaternion.LookRotation(targetDir);
+            Quaternion targetRotation = Quaternion.Slerp(this.transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
 
             this.transform.rotation = targetRotation;
         }
 
         private void Move()
         {
-            _moveDirection = _cameraObject.forward * zAxis;
-            _moveDirection += _cameraObject.right * xAxis;
+            Vector3 cameraPosition = _cameraObject.forward;
+            cameraPosition.y = 0;
+
+            _moveDirection = cameraPosition * zAxis;
+
+            cameraPosition = _cameraObject.right;
+            cameraPosition.y = 0;
+
+            _moveDirection += cameraPosition * xAxis;
             _moveDirection.Normalize();
 
             _moveDirection *= _moveSpeed;
 
-            Vector3 projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, normalVector);
-
-            _rigidbody.MovePosition(this.transform.position + projectedVelocity);
+            _rigidbody.MovePosition(this.transform.position + _moveDirection);
         }
     }
 }

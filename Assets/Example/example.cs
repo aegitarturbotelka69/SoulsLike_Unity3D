@@ -12,8 +12,6 @@ public class example : MonoBehaviour
 
     public float speed;
 
-    private float timeCount = 0.0f;
-
     void Update()
     {
         transform.rotation = Quaternion.Slerp(from.rotation, to.rotation, speed);
