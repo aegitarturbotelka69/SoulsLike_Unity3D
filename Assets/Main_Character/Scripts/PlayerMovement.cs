@@ -24,8 +24,8 @@ namespace SLGame.Gameplay
 
         [Space(10)]
 
-        [SerializeField] private float zAxis;
-        [SerializeField] private float xAxis;
+        [SerializeField] public float zAxis;
+        [SerializeField] public float xAxis;
 
 
 
@@ -36,31 +36,8 @@ namespace SLGame.Gameplay
 
         private void Update()
         {
-            GetInput();
             Rotate();
             Move();
-        }
-
-        private void GetInput()
-        {
-            if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.MoveBack)
-                return;
-            if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
-                return;
-
-            if (VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack)
-                zAxis = 1f;
-            else if (VirtualInputManager.Instance.MoveBack && !VirtualInputManager.Instance.MoveFront)
-                zAxis = -1f;
-            else
-                zAxis = 0f;
-
-            if (VirtualInputManager.Instance.MoveRight && !VirtualInputManager.Instance.MoveLeft)
-                xAxis = 1f;
-            else if (VirtualInputManager.Instance.MoveLeft && !VirtualInputManager.Instance.MoveRight)
-                xAxis = -1f;
-            else
-                xAxis = 0f;
         }
 
         private void Rotate()
