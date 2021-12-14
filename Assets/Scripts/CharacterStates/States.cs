@@ -7,6 +7,7 @@ namespace SLGame.Gameplay
     public enum States
     {
         Idle,
-        Move
+        Move,
+        Roll
     }
 }

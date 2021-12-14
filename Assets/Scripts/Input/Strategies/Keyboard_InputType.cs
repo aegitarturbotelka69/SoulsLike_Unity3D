@@ -41,6 +41,15 @@ namespace SLGame.Input
             {
                 VirtualInputManager.Instance.MoveBack = false;
             }
+
+            if (UnityEngine.Input.GetKey(KeyCode.Space))
+            {
+                VirtualInputManager.Instance.Roll = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.Roll = false;
+            }
         }
     }
 }

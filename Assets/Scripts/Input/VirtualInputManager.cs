@@ -13,6 +13,8 @@ namespace SLGame.Input
         public bool MoveLeft;
         public bool MoveRight;
 
+        public bool Roll;
+
 
 
         void Awake()

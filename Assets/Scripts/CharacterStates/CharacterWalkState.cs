@@ -12,6 +12,12 @@ namespace SLGame.Gameplay
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
         {
+            if (VirtualInputManager.Instance.Roll)
+            {
+                animator.SetBool(States.Roll.ToString(), true);
+                return;
+            }
+
             Apply_Z_AxisWalk(ref animator);
             Apply_X_AxisWalk(ref animator);
 

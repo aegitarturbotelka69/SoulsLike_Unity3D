@@ -12,7 +12,7 @@ namespace SLGame.Gameplay
         [SerializeField] private Rigidbody _rigidbody;
 
         [Header("Stats:")]
-        [SerializeField] private float _moveSpeed;
+        [SerializeField] public float MoveSpeed;
         [SerializeField] private float _rotationSpeed;
 
         [Header("Info:")]
@@ -72,7 +72,7 @@ namespace SLGame.Gameplay
             _moveDirection += cameraPosition * xAxis;
             _moveDirection.Normalize();
 
-            _moveDirection *= _moveSpeed;
+            _moveDirection *= MoveSpeed;
 
             _rigidbody.MovePosition(this.transform.position + _moveDirection);
         }
