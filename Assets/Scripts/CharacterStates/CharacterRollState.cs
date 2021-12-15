@@ -13,6 +13,8 @@ namespace SLGame.Gameplay
 
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            Roll();
+
             if (VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack)
             {
                 animator.SetBool(States.Move.ToString(), true);
@@ -43,6 +45,15 @@ namespace SLGame.Gameplay
         {
             PlayerMovement.MoveSpeed = PlayerMovement.MoveSpeed / 2f;
             animator.SetBool(States.Roll.ToString(), false);
+        }
+
+        private void Roll()
+        {
+            Quaternion rollRotation = Quaternion.LookRotation(PlayerMovement._moveDirection);
+            PlayerMovement.transform.rotation = rollRotation;
+
+            // PlayerMovement._moveDirection *= PlayerMovement.MoveSpeed;
+            PlayerMovement._rigidbody.MovePosition(PlayerMovement.transform.position + PlayerMovement._moveDirection);
         }
     }
 }

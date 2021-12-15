@@ -16,16 +16,6 @@ namespace SLGame.Gameplay
                 PlayerMovement = animator.gameObject.GetComponent<PlayerMovement>();
             }
 
-            if (PlayerMovement == null)
-            {
-                PlayerMovement = animator.GetComponentInParent<PlayerMovement>();
-            }
-
-            if (PlayerMovement == null)
-            {
-                PlayerMovement = animator.GetComponentInChildren<PlayerMovement>();
-            }
-
             return PlayerMovement;
         }
     }

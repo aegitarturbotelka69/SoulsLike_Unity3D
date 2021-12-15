@@ -18,8 +18,11 @@ namespace SLGame.Gameplay
                 return;
             }
 
-            Apply_Z_AxisWalk(ref animator);
-            Apply_X_AxisWalk(ref animator);
+            Get_Z_AxisWalk(ref animator);
+            Get_X_AxisWalk(ref animator);
+
+            Rotate();
+            Move();
 
             if (PlayerMovement.zAxis == 0f && PlayerMovement.xAxis == 0f)
                 animator.SetBool(States.Idle.ToString(), true);
@@ -32,7 +35,7 @@ namespace SLGame.Gameplay
 
 
 
-        private void Apply_Z_AxisWalk(ref Animator animator)
+        private void Get_Z_AxisWalk(ref Animator animator)
         {
             if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.MoveBack)
             {
@@ -54,7 +57,7 @@ namespace SLGame.Gameplay
             PlayerMovement.zAxis = 0f;
         }
 
-        private void Apply_X_AxisWalk(ref Animator animator)
+        private void Get_X_AxisWalk(ref Animator animator)
         {
             if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
             {
@@ -75,6 +78,44 @@ namespace SLGame.Gameplay
             }
 
             PlayerMovement.xAxis = 0f;
+        }
+        private void Rotate()
+        {
+            Vector3 targetDir = Vector3.zero;
+
+            targetDir = PlayerMovement._cameraObject.forward * PlayerMovement.zAxis;
+            targetDir += PlayerMovement._cameraObject.right * PlayerMovement.xAxis;
+
+            PlayerMovement.TargetDirection = targetDir;
+            targetDir.Normalize();
+            targetDir.y = 0;
+            PlayerMovement.TargetDirectionNormalized = targetDir;
+
+            if (targetDir == Vector3.zero)
+                targetDir = PlayerMovement.transform.forward;
+
+            Quaternion rotation = Quaternion.LookRotation(targetDir);
+            Quaternion targetRotation = Quaternion.Slerp(PlayerMovement.transform.rotation, rotation, PlayerMovement._rotationSpeed * Time.deltaTime);
+
+            PlayerMovement.transform.rotation = targetRotation;
+        }
+
+        private void Move()
+        {
+            Vector3 cameraPosition = PlayerMovement._cameraObject.forward;
+            cameraPosition.y = 0;
+
+            PlayerMovement._moveDirection = cameraPosition * PlayerMovement.zAxis;
+
+            cameraPosition = PlayerMovement._cameraObject.right;
+            cameraPosition.y = 0;
+
+            PlayerMovement._moveDirection += cameraPosition * PlayerMovement.xAxis;
+            PlayerMovement._moveDirection.Normalize();
+
+            PlayerMovement._moveDirection *= PlayerMovement.MoveSpeed;
+
+            PlayerMovement._rigidbody.MovePosition(PlayerMovement.transform.position + PlayerMovement._moveDirection);
         }
     }
 }

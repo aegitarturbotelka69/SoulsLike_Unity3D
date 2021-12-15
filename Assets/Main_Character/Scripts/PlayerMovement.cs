@@ -1,80 +1,50 @@
 using System;
 using UnityEngine;
 using SLGame.Input;
+using SLGame.Modules;
 
 namespace SLGame.Gameplay
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(Animator))]
     public class PlayerMovement : MonoBehaviour
     {
         [Header("References:")]
-        [SerializeField] private Transform _cameraObject;
-        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] public Transform _cameraObject;
+        [SerializeField] public Rigidbody _rigidbody;
 
         [Header("Stats:")]
-        [SerializeField] public float MoveSpeed;
-        [SerializeField] private float _rotationSpeed;
+        [SerializeField] public float MoveSpeed = 0.048f;
+        [SerializeField] public float _rotationSpeed = 5f;
 
         [Header("Info:")]
-        [SerializeField] private Vector3 _moveDirection;
-        [SerializeField] private Quaternion _moveRotation;
-
-
-        [SerializeField] private Vector3 normalVector;
+        [SerializeField] public Vector3 _moveDirection;
+        [SerializeField] public Quaternion _moveRotation;
 
         [Space(10)]
 
         [SerializeField] public float zAxis;
         [SerializeField] public float xAxis;
 
+        [Space(10)]
+
+        [SerializeField] public Vector3 CameraForward;
+        [SerializeField] public Vector3 CameraRight;
+        [SerializeField] public Vector3 TargetDirection;
+        [SerializeField] public Vector3 TargetDirectionNormalized;
 
 
-        private void Start()
+
+        private void Awake()
         {
             _rigidbody = this.gameObject.GetComponent<Rigidbody>();
         }
 
         private void Update()
         {
-            Rotate();
-            Move();
+            CameraForward = _cameraObject.forward;
+            CameraRight = _cameraObject.right;
         }
 
-        private void Rotate()
-        {
-            Vector3 targetDir = Vector3.zero;
 
-            targetDir = _cameraObject.forward * zAxis;
-            targetDir += _cameraObject.right * xAxis;
-
-            targetDir.Normalize();
-            targetDir.y = 0;
-
-            if (targetDir == Vector3.zero)
-                targetDir = this.transform.forward;
-
-            Quaternion rotation = Quaternion.LookRotation(targetDir);
-            Quaternion targetRotation = Quaternion.Slerp(this.transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
-
-            this.transform.rotation = targetRotation;
-        }
-
-        private void Move()
-        {
-            Vector3 cameraPosition = _cameraObject.forward;
-            cameraPosition.y = 0;
-
-            _moveDirection = cameraPosition * zAxis;
-
-            cameraPosition = _cameraObject.right;
-            cameraPosition.y = 0;
-
-            _moveDirection += cameraPosition * xAxis;
-            _moveDirection.Normalize();
-
-            _moveDirection *= MoveSpeed;
-
-            _rigidbody.MovePosition(this.transform.position + _moveDirection);
-        }
     }
 }
