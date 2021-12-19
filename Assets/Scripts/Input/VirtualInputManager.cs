@@ -30,7 +30,6 @@ namespace SLGame.Input
         {
             _inputStrategy.Execute();
         }
-
         private void ChangeInputStrategy(I_ExecuteInputStrategy newInputStrategy)
         {
             this._inputStrategy = newInputStrategy;
