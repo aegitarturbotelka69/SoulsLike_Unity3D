@@ -10,14 +10,14 @@ namespace SLGame.Gameplay
         {
             this.playerMovement = playerMovementReference;
         }
-        virtual public void EndTransition()
+        virtual public void EndTransition(States previousState)
         {
-            throw new System.NotImplementedException();
+            playerMovement.CharacterAnimator.SetBool(previousState.ToString(), false);
         }
 
-        virtual public void StartTransition(CharacterControllingBaseState newControllingState)
+        virtual public void StartTransition(States newState)
         {
-            throw new System.NotImplementedException();
+            playerMovement.CharacterAnimator.SetBool(newState.ToString(), true);
         }
 
         virtual public void GetInput()
@@ -27,7 +27,7 @@ namespace SLGame.Gameplay
 
         virtual public void Rotate()
         {
-            throw new System.NotImplementedException();
+
         }
 
         virtual public void Move()

@@ -4,7 +4,7 @@ namespace SLGame.Gameplay
 {
     public interface CharacterControllingTransitionState
     {
-        void StartTransition(CharacterControllingBaseState newControllingState);
-        void EndTransition();
+        void StartTransition(States newState);
+        void EndTransition(States previousState);
     }
 }

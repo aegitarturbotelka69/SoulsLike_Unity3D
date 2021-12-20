@@ -8,25 +8,14 @@ namespace SLGame.Gameplay
         public CharacterControllingIdleState(ref PlayerMovement playerMovementReference) : base(ref playerMovementReference)
         {
             this.playerMovement = playerMovementReference;
-            Debug.Log("idle state");
         }
-
-        public override void EndTransition()
-        {
-            base.EndTransition();
-        }
-
-        public override void StartTransition(CharacterControllingBaseState newControllingState)
-        {
-            base.StartTransition(newControllingState);
-        }
-
         public override void GetInput()
         {
+            Debug.Log("Idle state");
             if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveBack || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight)
             {
                 playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
-                StartTransition(new CharacterControllingMoveState(ref playerMovement));
+                playerMovement._currentCharacterControllingState = playerMovement.CharacterControllingStates[States.Move];
             }
         }
     }

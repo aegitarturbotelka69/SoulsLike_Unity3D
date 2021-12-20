@@ -10,22 +10,22 @@ namespace SLGame.Gameplay
     public class PlayerMovement : MonoBehaviour
     {
         [Header("References:")]
-        [SerializeField] private CharacterController _characterController;
-        [SerializeField] private Transform _cameraTransform;
+        [SerializeField] public CharacterController _characterController;
+        [SerializeField] public Transform _cameraTransform;
         [SerializeField] public Animator CharacterAnimator;
+        [SerializeField] public Dictionary<States, CharacterControllingBaseState> CharacterControllingStates = new Dictionary<States, CharacterControllingBaseState>();
 
         [Header("Stats:")]
-        [SerializeField] private CharacterControllingBaseState _characterControllingState;
-        [SerializeField] private Dictionary<States, CharacterControllingBaseState> states = new Dictionary<States, CharacterControllingBaseState>();
+        [SerializeField] public CharacterControllingBaseState _currentCharacterControllingState;
         [SerializeField] public float MoveSpeed = 2f;
-        [SerializeField] private float rotationSpeed = 0.1f;
+        [SerializeField] public float rotationSpeed = 0.1f;
 
 
         [Header("Info:")]
-        [SerializeField] private float zAxis;
-        [SerializeField] private float xAxis;
+        [SerializeField] public float zAxis;
+        [SerializeField] public float xAxis;
 
-        [SerializeField] private float velocity;
+        [SerializeField] public float velocity;
         [SerializeField] public Vector3 Direction;
 
 
@@ -37,17 +37,20 @@ namespace SLGame.Gameplay
             CharacterAnimator = this.gameObject.GetComponent<Animator>();
             // ! Must be a joke
             PlayerMovement playerMovementReference = this;
-            _characterControllingState = new CharacterControllingIdleState(ref playerMovementReference);
+            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(ref playerMovementReference));
+            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(ref playerMovementReference));
+            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference));
+
+            _currentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
         private void Update()
         {
             GetHorizontalInput();
             GetVerticalInput();
-            Move();
 
-            _characterControllingState.GetInput();
-            _characterControllingState.Rotate();
-            _characterControllingState.Move();
+            _currentCharacterControllingState.GetInput();
+            _currentCharacterControllingState.Rotate();
+            _currentCharacterControllingState.Move();
         }
 
 
@@ -88,22 +91,6 @@ namespace SLGame.Gameplay
             }
 
             xAxis = 0f;
-        }
-
-        private void Move()
-        {
-            Direction = new Vector3(xAxis, 0f, zAxis);
-
-            if (Direction.magnitude > 0.3f)
-            {
-                float lookAngle = Mathf.Atan2(Direction.x, Direction.z) * Mathf.Rad2Deg + _cameraTransform.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, lookAngle, ref velocity, rotationSpeed);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
-
-                _characterController.Move(moveDirection.normalized * MoveSpeed * Time.deltaTime);
-            }
         }
     }
 }
