@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using SLGame.Input;
 using SLGame.Modules;
@@ -11,9 +12,11 @@ namespace SLGame.Gameplay
         [Header("References:")]
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Transform _cameraTransform;
-
+        [SerializeField] public Animator CharacterAnimator;
 
         [Header("Stats:")]
+        [SerializeField] private CharacterControllingBaseState _characterControllingState;
+        [SerializeField] private Dictionary<States, CharacterControllingBaseState> states = new Dictionary<States, CharacterControllingBaseState>();
         [SerializeField] public float MoveSpeed = 2f;
         [SerializeField] private float rotationSpeed = 0.1f;
 
@@ -28,11 +31,23 @@ namespace SLGame.Gameplay
 
         public Vector3 norm;
         public Vector3 notNorm;
+
+        private void Start()
+        {
+            CharacterAnimator = this.gameObject.GetComponent<Animator>();
+            // ! Must be a joke
+            PlayerMovement playerMovementReference = this;
+            _characterControllingState = new CharacterControllingIdleState(ref playerMovementReference);
+        }
         private void Update()
         {
             GetHorizontalInput();
             GetVerticalInput();
             Move();
+
+            _characterControllingState.GetInput();
+            _characterControllingState.Rotate();
+            _characterControllingState.Move();
         }
 
 
