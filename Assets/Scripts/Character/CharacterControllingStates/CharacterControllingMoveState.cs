@@ -58,11 +58,8 @@ namespace SLGame.Gameplay
 
         public override void Move()
         {
-            Debug.Log(States.Move.ToString());
 
             playerMovement.Direction = new Vector3(playerMovement.xAxis, 0f, playerMovement.zAxis);
-
-            Debug.Log(playerMovement.Direction.magnitude);
 
             if (playerMovement.Direction.magnitude > 0.3f)
             {
@@ -73,6 +70,7 @@ namespace SLGame.Gameplay
                 Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
 
                 playerMovement._characterController.Move(moveDirection.normalized * playerMovement.MoveSpeed * Time.deltaTime);
+                playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
             }
             else
             {

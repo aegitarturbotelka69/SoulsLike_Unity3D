@@ -13,10 +13,8 @@ namespace SLGame.Gameplay
 
         public override void GetInput()
         {
-            Debug.Log("Idle state");
             if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveBack || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight)
             {
-                Debug.LogWarning("Changing state to Move");
                 playerMovement.ChangeControllingState(States.Move);
             }
         }

@@ -46,7 +46,6 @@ namespace SLGame.Gameplay
 
         public void ChangeControllingState(States newState)
         {
-            Debug.LogWarning("Changing state to: " + newState.ToString());
             _currentCharacterControllingState.EndTransition();
             _currentCharacterControllingState = CharacterControllingStates[newState];
             _currentCharacterControllingState.StartTransition();
