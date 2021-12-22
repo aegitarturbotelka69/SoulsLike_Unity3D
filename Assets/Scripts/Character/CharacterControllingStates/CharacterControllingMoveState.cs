@@ -10,21 +10,59 @@ namespace SLGame.Gameplay
             this.playerMovement = playerMovementReference;
         }
 
-        public override void GetInput()
+        private void GetVerticalInput()
         {
+            if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
+                return;
 
+            if (VirtualInputManager.Instance.MoveRight && !VirtualInputManager.Instance.MoveLeft)
+            {
+                playerMovement.xAxis = 1f;
+                return;
+            }
+
+            if (VirtualInputManager.Instance.MoveLeft && !VirtualInputManager.Instance.MoveRight)
+            {
+                playerMovement.xAxis = -1f;
+                return;
+            }
+
+            playerMovement.xAxis = 0f;
+        }
+        private void GetHorizontalInput()
+        {
+            if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.MoveBack)
+                return;
+
+            if (VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack)
+            {
+                playerMovement.zAxis = 1f;
+                return;
+            }
+
+            if (VirtualInputManager.Instance.MoveBack && !VirtualInputManager.Instance.MoveFront)
+            {
+                playerMovement.zAxis = -1f;
+                return;
+            }
+
+            playerMovement.zAxis = 0f;
         }
 
-        public override void StartTransition(States newState)
+        public override void GetInput()
         {
-            base.StartTransition(newState);
+            GetHorizontalInput();
+            GetVerticalInput();
         }
 
 
         public override void Move()
         {
-            Debug.Log("Move state");
+            Debug.Log(States.Move.ToString());
+
             playerMovement.Direction = new Vector3(playerMovement.xAxis, 0f, playerMovement.zAxis);
+
+            Debug.Log(playerMovement.Direction.magnitude);
 
             if (playerMovement.Direction.magnitude > 0.3f)
             {
@@ -38,8 +76,18 @@ namespace SLGame.Gameplay
             }
             else
             {
-                StartTransition(States.Idle);
+                playerMovement.ChangeControllingState(States.Idle);
             }
+        }
+
+        public override void StartTransition()
+        {
+            playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
+        }
+
+        public override void EndTransition()
+        {
+            playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), false);
         }
     }
 }

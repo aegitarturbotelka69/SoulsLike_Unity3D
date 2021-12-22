@@ -10,11 +10,6 @@ namespace SLGame.Gameplay
             this.playerMovement = playerMovementReference;
         }
 
-        public override void EndTransition()
-        {
-            base.EndTransition();
-        }
-
         public override void GetInput()
         {
 
@@ -28,11 +23,6 @@ namespace SLGame.Gameplay
         public override void Rotate()
         {
             base.Rotate();
-        }
-
-        public override void StartTransition(States newState)
-        {
-            base.StartTransition(newState);
         }
     }
 }

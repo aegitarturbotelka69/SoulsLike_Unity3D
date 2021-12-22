@@ -43,6 +43,15 @@ namespace SLGame.Gameplay
 
             _currentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
+
+        public void ChangeControllingState(States newState)
+        {
+            Debug.LogWarning("Changing state to: " + newState.ToString());
+            _currentCharacterControllingState.EndTransition();
+            _currentCharacterControllingState = CharacterControllingStates[newState];
+            _currentCharacterControllingState.StartTransition();
+
+        }
         private void Update()
         {
             GetHorizontalInput();

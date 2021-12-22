@@ -9,14 +9,26 @@ namespace SLGame.Gameplay
         {
             this.playerMovement = playerMovementReference;
         }
+
+
         public override void GetInput()
         {
             Debug.Log("Idle state");
             if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveBack || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight)
             {
-                playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
-                playerMovement._currentCharacterControllingState = playerMovement.CharacterControllingStates[States.Move];
+                Debug.LogWarning("Changing state to Move");
+                playerMovement.ChangeControllingState(States.Move);
             }
+        }
+
+        public override void StartTransition()
+        {
+            playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
+        }
+
+        public override void EndTransition()
+        {
+            playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), false);
         }
     }
 }
