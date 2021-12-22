@@ -10,6 +10,13 @@ namespace SLGame.Gameplay
             this.playerMovement = playerMovementReference;
         }
 
+        private void GetAbilitiesInput()
+        {
+            if (VirtualInputManager.Instance.Roll)
+            {
+                playerMovement.ChangeControllingState(States.Roll);
+            }
+        }
         private void GetVerticalInput()
         {
             if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
@@ -51,6 +58,7 @@ namespace SLGame.Gameplay
 
         public override void GetInput()
         {
+            GetAbilitiesInput();
             GetHorizontalInput();
             GetVerticalInput();
         }
@@ -58,7 +66,7 @@ namespace SLGame.Gameplay
 
         public override void Move()
         {
-
+            Debug.Log("Move state");
             playerMovement.Direction = new Vector3(playerMovement.xAxis, 0f, playerMovement.zAxis);
 
             if (playerMovement.Direction.magnitude > 0.3f)
