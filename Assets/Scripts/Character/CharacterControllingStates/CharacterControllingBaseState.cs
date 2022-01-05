@@ -11,17 +11,7 @@ namespace SLGame.Gameplay
             this.playerMovement = playerMovementReference;
         }
 
-        virtual public void GetInput()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        virtual public void Rotate()
-        {
-
-        }
-
-        virtual public void Move()
+        virtual public void Execute()
         {
             throw new System.NotImplementedException();
         }

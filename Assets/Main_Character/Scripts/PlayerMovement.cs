@@ -18,6 +18,7 @@ namespace SLGame.Gameplay
         [Header("Stats:")]
         [SerializeField] public CharacterControllingBaseState _currentCharacterControllingState;
         [SerializeField] public float MoveSpeed = 2f;
+        [SerializeField] public float RollMoveSpeed = 4f;
         [SerializeField] public float rotationSpeed = 0.1f;
 
 
@@ -53,52 +54,7 @@ namespace SLGame.Gameplay
         }
         private void Update()
         {
-            GetHorizontalInput();
-            GetVerticalInput();
-
-            _currentCharacterControllingState.GetInput();
-            _currentCharacterControllingState.Rotate();
-            _currentCharacterControllingState.Move();
-        }
-
-
-
-        private void GetHorizontalInput()
-        {
-            if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.MoveBack)
-                return;
-
-            if (VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack)
-            {
-                zAxis = 1f;
-                return;
-            }
-            if (VirtualInputManager.Instance.MoveBack && !VirtualInputManager.Instance.MoveFront)
-            {
-                zAxis = -1f;
-                return;
-            }
-
-            zAxis = 0f;
-
-        }
-        private void GetVerticalInput()
-        {
-            if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
-                return;
-
-            if (VirtualInputManager.Instance.MoveLeft && !VirtualInputManager.Instance.MoveRight)
-            {
-                xAxis = -1f;
-                return;
-            }
-            if (VirtualInputManager.Instance.MoveRight && !VirtualInputManager.Instance.MoveLeft)
-            {
-                xAxis = 1f;
-                return;
-            }
-
-            xAxis = 0f;
+            _currentCharacterControllingState.Execute();
         }
     }
 }

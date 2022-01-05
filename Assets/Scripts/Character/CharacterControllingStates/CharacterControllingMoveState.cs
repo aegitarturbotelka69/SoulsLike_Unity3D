@@ -56,15 +56,7 @@ namespace SLGame.Gameplay
             playerMovement.zAxis = 0f;
         }
 
-        public override void GetInput()
-        {
-            GetAbilitiesInput();
-            GetHorizontalInput();
-            GetVerticalInput();
-        }
-
-
-        public override void Move()
+        private void Move()
         {
             Debug.Log("Move state");
             playerMovement.Direction = new Vector3(playerMovement.xAxis, 0f, playerMovement.zAxis);
@@ -84,6 +76,14 @@ namespace SLGame.Gameplay
             {
                 playerMovement.ChangeControllingState(States.Idle);
             }
+        }
+
+        public override void Execute()
+        {
+            GetAbilitiesInput();
+            GetHorizontalInput();
+            GetVerticalInput();
+            Move();
         }
 
         public override void StartTransition()
