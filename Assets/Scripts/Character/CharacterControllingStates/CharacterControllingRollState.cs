@@ -14,12 +14,10 @@ namespace SLGame.Gameplay
         [Header("Stats")]
 
         /// <summary>
-        /// !Milliseconds
         /// _rollTIme = 1000f  => 1 sec real time
         /// </summary>
         ///  <param name="_rollTime"> Rolling time in milliseconds</param>
         [SerializeField] private float _rollTime = 650f;
-        [SerializeField] private float _RollSpeedMultiplier = 2f;
 
         [Header("Info:")]
         [SerializeField] private bool _rolling = false;
@@ -79,10 +77,7 @@ namespace SLGame.Gameplay
 
         public override void StartTransition()
         {
-            playerMovement.MoveSpeed = playerMovement.MoveSpeed * _RollSpeedMultiplier;
-
-            ///float lookAngle = Mathf.Atan2(playerMovement.Direction.x, playerMovement.Direction.z) * Mathf.Rad2Deg + playerMovement._cameraTransform.eulerAngles.y;
-            ///playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
+            playerMovement.MoveSpeed = playerMovement.MoveSpeed * playerMovement.RollSpeedMultiplier;
 
             playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
         }
@@ -90,8 +85,11 @@ namespace SLGame.Gameplay
         public override void EndTransition()
         {
             _rolling = false;
-            playerMovement.MoveSpeed = playerMovement.MoveSpeed / _RollSpeedMultiplier;
+
+            playerMovement.MoveSpeed = playerMovement.MoveSpeed / playerMovement.RollSpeedMultiplier;
             playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
+
+            playerMovement.SetRollOnCooldown();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SLGame.Gameplay
 
         private void GetAbilitiesInput()
         {
-            if (VirtualInputManager.Instance.Roll)
+            if (VirtualInputManager.Instance.Roll && !playerMovement.RollOnCooldown)
             {
                 playerMovement.ChangeControllingState(States.Roll);
             }

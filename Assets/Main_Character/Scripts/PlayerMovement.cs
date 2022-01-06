@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using UnityEngine;
+
 using SLGame.Input;
 using SLGame.Modules;
 
@@ -18,9 +21,16 @@ namespace SLGame.Gameplay
         [Header("Stats:")]
         [SerializeField] public CharacterControllingBaseState _currentCharacterControllingState;
         [SerializeField] public float MoveSpeed = 2f;
-        [SerializeField] public float RollMoveSpeed = 4f;
         [SerializeField] public float rotationSpeed = 0.1f;
 
+        [SerializeField] public float RollSpeedMultiplier = 2f;
+
+        /// <summary>
+        /// 1000 = 1 seconds real time
+        /// </summary>
+        /// <param = RollCooldownDuration> duration in milliseconds</param>
+        [SerializeField] public int RollCooldownDuration = 135;
+        [SerializeField] public bool RollOnCooldown = false;
 
         [Header("Info:")]
         [SerializeField] public float zAxis;
@@ -51,6 +61,13 @@ namespace SLGame.Gameplay
             _currentCharacterControllingState = CharacterControllingStates[newState];
             _currentCharacterControllingState.StartTransition();
 
+        }
+
+        public async void SetRollOnCooldown()
+        {
+            this.RollOnCooldown = true;
+            await Task.Delay(RollCooldownDuration);
+            this.RollOnCooldown = false;
         }
         private void Update()
         {
