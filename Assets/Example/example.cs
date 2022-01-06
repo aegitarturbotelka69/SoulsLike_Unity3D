@@ -7,13 +7,36 @@ using System.Collections;
 
 public class example : MonoBehaviour
 {
-    public Transform from;
-    public Transform to;
+    [SerializeField] private float mouseSensitivity;
 
-    [Range(0f, 1f)] public float t;
+    [SerializeField] private Vector3 rotationAngle;
+
+    [SerializeField] private float rotationX;
+    [SerializeField] private float rotationY;
+    void Start()
+    {
+        this.transform.rotation = Quaternion.identity;
+    }
 
     void Update()
     {
-        transform.rotation = Quaternion.Slerp(from.rotation, to.rotation, t);
+        Rotation();
+    }
+
+    private void Rotation()
+    {
+        float mouseX = UnityEngine.Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = UnityEngine.Input.GetAxis("Mouse Y") * mouseSensitivity * -1f;
+
+
+        rotationY += mouseX;
+        rotationX += mouseY;
+
+        rotationX = Mathf.Clamp(rotationX, -40f, 40f);
+
+        if (rotationY >= 360 || rotationY <= -360)
+            rotationY = 0;
+
+        transform.localEulerAngles = new Vector3(rotationX, rotationY, 0f);
     }
 }
