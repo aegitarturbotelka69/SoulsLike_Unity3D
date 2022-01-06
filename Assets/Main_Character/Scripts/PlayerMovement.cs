@@ -21,7 +21,11 @@ namespace SLGame.Gameplay
         [Header("Stats:")]
         [SerializeField] public CharacterControllingBaseState _currentCharacterControllingState;
         [SerializeField] public float MoveSpeed = 2f;
+
+        [Space(10)]
         [SerializeField] public float rotationSpeed = 0.1f;
+
+        [Space(10)]
 
         [SerializeField] public float RollSpeedMultiplier = 2f;
 
@@ -29,19 +33,20 @@ namespace SLGame.Gameplay
         /// 1000 = 1 seconds real time
         /// </summary>
         /// <param = RollCooldownDuration> duration in milliseconds</param>
-        [SerializeField] public int RollCooldownDuration = 135;
+        [SerializeField, Tooltip("Duration in milliseconds")] public int RollCooldownDuration = 135;
         [SerializeField] public bool RollOnCooldown = false;
 
         [Header("Info:")]
         [SerializeField] public float zAxis;
+        [Space(2)]
         [SerializeField] public float xAxis;
+
+        [Space(10)]
 
         [SerializeField] public float velocity;
         [SerializeField] public Vector3 Direction;
 
 
-        public Vector3 norm;
-        public Vector3 notNorm;
 
         private void Start()
         {
@@ -53,6 +58,11 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference));
 
             _currentCharacterControllingState = CharacterControllingStates[States.Idle];
+        }
+
+        private void Update()
+        {
+            _currentCharacterControllingState.Execute();
         }
 
         public void ChangeControllingState(States newState)
@@ -68,10 +78,6 @@ namespace SLGame.Gameplay
             this.RollOnCooldown = true;
             await Task.Delay(RollCooldownDuration);
             this.RollOnCooldown = false;
-        }
-        private void Update()
-        {
-            _currentCharacterControllingState.Execute();
         }
     }
 }
