@@ -8,6 +8,7 @@ namespace SLGame.Gameplay
     {
         Idle,
         Move,
-        Roll
+        Roll,
+        Run
     }
 }

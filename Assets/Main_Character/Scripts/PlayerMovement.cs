@@ -51,11 +51,12 @@ namespace SLGame.Gameplay
         private void Start()
         {
             CharacterAnimator = this.gameObject.GetComponent<Animator>();
-            // ! Must be a joke
+            // !Attentione! Must be a joke below
             PlayerMovement playerMovementReference = this;
             CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(ref playerMovementReference));
             CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(ref playerMovementReference));
             CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference));
+            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference));
 
             _currentCharacterControllingState = CharacterControllingStates[States.Idle];
         }

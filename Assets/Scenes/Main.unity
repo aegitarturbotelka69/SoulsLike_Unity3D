@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17734
+  m_Name: pb_Mesh17748
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1323,10 +1323,10 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.94
   m_Radius: 0.24
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.97, z: 0}
 --- !u!114 &919132149066765270
 MonoBehaviour:
@@ -1342,14 +1342,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterController: {fileID: 919132149066765269}
   _cameraTransform: {fileID: 1916257467}
+  CharacterAnimator: {fileID: 0}
   MoveSpeed: 2
   rotationSpeed: 0.1
+  RollSpeedMultiplier: 2
+  RollCooldownDuration: 230
+  RollOnCooldown: 0
   zAxis: 0
   xAxis: 0
   velocity: 0
   Direction: {x: 0, y: 0, z: 0}
-  norm: {x: 0, y: 0, z: 0}
-  notNorm: {x: 0, y: 0, z: 0}
 --- !u!4 &936440892561606122
 Transform:
   m_ObjectHideFlags: 0

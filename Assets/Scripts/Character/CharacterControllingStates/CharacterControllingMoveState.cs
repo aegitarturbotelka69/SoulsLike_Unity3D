@@ -16,6 +16,11 @@ namespace SLGame.Gameplay
             {
                 playerMovement.ChangeControllingState(States.Roll);
             }
+
+            if (VirtualInputManager.Instance.Run)
+            {
+                playerMovement.ChangeControllingState(States.Run);
+            }
         }
         private void GetVerticalInput()
         {

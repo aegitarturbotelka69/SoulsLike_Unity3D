@@ -54,15 +54,21 @@ namespace SLGame.Gameplay
 
         private void CheckInput()
         {
-            // TODO: Check input to move or idle state
-            // ! Rework this trash below
+            if (VirtualInputManager.Instance.Run)
+            {
+                playerMovement.ChangeControllingState(States.Run);
+            }
+
+            // !Attentione! Rework this trash below
             if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight || VirtualInputManager.Instance.MoveBack)
             {
                 playerMovement.ChangeControllingState(States.Move);
+                return;
             }
             else
             {
                 playerMovement.ChangeControllingState(States.Idle);
+                return;
             }
         }
         private void Roll()

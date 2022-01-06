@@ -14,6 +14,7 @@ namespace SLGame.Input
         public bool MoveRight;
 
         public bool Roll;
+        public bool Run;
 
 
 
