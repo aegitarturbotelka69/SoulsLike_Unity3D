@@ -13,9 +13,13 @@ namespace SLGame.Gameplay
     {
         [Header("Stats")]
 
-        // * _rollTime in ms
-        [SerializeField] private float _rollTime = 500f;
-        [SerializeField] private float _RollSpeedMultiplier = 5f;
+        /// <summary>
+        /// !Milliseconds
+        /// _rollTIme = 1000f  => 1 sec real time
+        /// </summary>
+        ///  <param name="_rollTime"> Rolling time in milliseconds</param>
+        [SerializeField] private float _rollTime = 650f;
+        [SerializeField] private float _RollSpeedMultiplier = 2f;
 
         [Header("Info:")]
         [SerializeField] private bool _rolling = false;
@@ -53,6 +57,7 @@ namespace SLGame.Gameplay
         private void CheckInput()
         {
             // TODO: Check input to move or idle state
+            // ! Rework this trash below
             if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight || VirtualInputManager.Instance.MoveBack)
             {
                 playerMovement.ChangeControllingState(States.Move);
@@ -66,13 +71,19 @@ namespace SLGame.Gameplay
         {
             float lookAngle = Mathf.Atan2(playerMovement.Direction.x, playerMovement.Direction.z) * Mathf.Rad2Deg + playerMovement._cameraTransform.eulerAngles.y;
             Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
+            playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
             playerMovement._characterController.Move(moveDirection.normalized * playerMovement.MoveSpeed * Time.deltaTime);
         }
+
 
 
         public override void StartTransition()
         {
             playerMovement.MoveSpeed = playerMovement.MoveSpeed * _RollSpeedMultiplier;
+
+            ///float lookAngle = Mathf.Atan2(playerMovement.Direction.x, playerMovement.Direction.z) * Mathf.Rad2Deg + playerMovement._cameraTransform.eulerAngles.y;
+            ///playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
+
             playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
         }
 
