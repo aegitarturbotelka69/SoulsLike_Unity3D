@@ -1346,6 +1346,7 @@ MonoBehaviour:
   MoveSpeed: 2
   rotationSpeed: 0.1
   RollSpeedMultiplier: 2
+  RunSpeedMultiplier: 2.5
   RollCooldownDuration: 230
   RollOnCooldown: 0
   zAxis: 0
