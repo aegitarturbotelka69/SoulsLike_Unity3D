@@ -28,7 +28,7 @@ namespace SLGame.Gameplay
         [Space(10)]
 
         [SerializeField] public float RollSpeedMultiplier = 2f;
-
+        [SerializeField] public float RunSpeedMultiplier = 4f;
         /// <summary>
         /// 1000 = 1 seconds real time
         /// </summary>

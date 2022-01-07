@@ -50,6 +50,15 @@ namespace SLGame.Input
             {
                 VirtualInputManager.Instance.Roll = false;
             }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                VirtualInputManager.Instance.Run = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.Run = false;
+            }
         }
     }
 }
