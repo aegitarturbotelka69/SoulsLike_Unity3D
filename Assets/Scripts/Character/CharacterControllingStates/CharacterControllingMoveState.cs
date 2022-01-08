@@ -19,7 +19,7 @@ namespace SLGame.Gameplay
 
             if (VirtualInputManager.Instance.Run)
             {
-                playerMovement.ChangeControllingState(States.Run);
+                playerMovement.ChangeControllingState(States.StartRun);
             }
         }
         private void GetVerticalInput()
@@ -75,7 +75,6 @@ namespace SLGame.Gameplay
                 Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
 
                 playerMovement._characterController.Move(moveDirection.normalized * playerMovement.MoveSpeed * Time.deltaTime);
-                playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
             }
             else
             {

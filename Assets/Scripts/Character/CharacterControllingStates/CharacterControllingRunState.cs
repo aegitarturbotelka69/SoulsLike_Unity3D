@@ -12,9 +12,18 @@ namespace SLGame.Gameplay
 
         private void GetAbilitiesInput()
         {
+            // !Attentione! Possibly can be changed to 2 different methods
+
+            if (!VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack && !VirtualInputManager.Instance.MoveLeft && !VirtualInputManager.Instance.MoveRight)
+            {
+                playerMovement.ChangeControllingState(States.StopRun);
+                return;
+            }
+
             if (VirtualInputManager.Instance.Run)
             {
                 playerMovement.ChangeControllingState(States.Move);
+                return;
             }
         }
 
@@ -71,7 +80,6 @@ namespace SLGame.Gameplay
                 Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
 
                 playerMovement._characterController.Move(moveDirection.normalized * playerMovement.MoveSpeed * playerMovement.RunSpeedMultiplier * Time.deltaTime);
-                playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
             }
             else
             {
