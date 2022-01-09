@@ -15,7 +15,7 @@ namespace SLGame.Gameplay
         /// 1000 equals 1 second
         /// </summary>
         /// <param = _getSpeedTimeForRunning> in milliseconds </param>
-        private int _getSpeedTimeForRunning = 100;
+        private int _getSpeedTimeForRunning = 700;
 
         [Header("Info")]
         [SerializeField] private bool _running = false;
@@ -32,7 +32,7 @@ namespace SLGame.Gameplay
             this.playerMovement = playerMovementReference;
         }
 
-        private async void StartRunning()
+        private async void StopRunning()
         {
             _running = true;
             await Task.Delay(_getSpeedTimeForRunning);
@@ -41,26 +41,18 @@ namespace SLGame.Gameplay
 
         private void CheckInput()
         {
-            if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight || VirtualInputManager.Instance.MoveBack)
-            {
-                playerMovement.ChangeControllingState(States.Move);
-                return;
-            }
-            else
-            {
-                playerMovement.ChangeControllingState(States.Idle);
-                return;
-            }
+            playerMovement.ChangeControllingState(States.Idle);
+            return;
         }
 
 
         public override void Execute()
         {
+            Debug.Log("STOP RUNNING STATE");
             if (_running == false)
             {
-                StartRunning();
+                StopRunning();
             }
-            Debug.Log("Stop running");
         }
 
         public override void StartTransition()

@@ -12,19 +12,13 @@ namespace SLGame.Gameplay
 
         private void GetAbilitiesInput()
         {
-            // !Attentione! Possibly can be changed to 2 different methods
-
-            if (!VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack && !VirtualInputManager.Instance.MoveLeft && !VirtualInputManager.Instance.MoveRight)
-            {
-                playerMovement.ChangeControllingState(States.StopRun);
-                return;
-            }
-
             if (VirtualInputManager.Instance.Run)
             {
                 playerMovement.ChangeControllingState(States.Move);
                 return;
             }
+
+
         }
 
         private void GetVerticalInput()
@@ -83,7 +77,7 @@ namespace SLGame.Gameplay
             }
             else
             {
-                playerMovement.ChangeControllingState(States.Idle);
+                playerMovement.ChangeControllingState(States.StopRun);
             }
         }
 
