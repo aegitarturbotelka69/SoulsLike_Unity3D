@@ -17,8 +17,6 @@ namespace SLGame.Gameplay
                 playerMovement.ChangeControllingState(States.Move);
                 return;
             }
-
-
         }
 
         private void GetVerticalInput()
@@ -62,7 +60,6 @@ namespace SLGame.Gameplay
 
         private void Move()
         {
-            Debug.Log("Run state");
             playerMovement.Direction = new Vector3(playerMovement.xAxis, 0f, playerMovement.zAxis);
 
             if (playerMovement.Direction.magnitude > 0.3f)
@@ -77,12 +74,13 @@ namespace SLGame.Gameplay
             }
             else
             {
-                playerMovement.ChangeControllingState(States.StopRun);
+                playerMovement.ChangeControllingState(States.Idle);
             }
         }
 
         public override void Execute()
         {
+            Debug.Log("Run");
             GetHorizontalInput();
             GetVerticalInput();
             GetAbilitiesInput();

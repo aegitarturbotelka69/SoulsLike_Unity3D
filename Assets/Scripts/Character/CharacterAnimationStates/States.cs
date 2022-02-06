@@ -9,8 +9,6 @@ namespace SLGame.Gameplay
         Idle,
         Move,
         Roll,
-        Run,
-        StartRun,
-        StopRun
+        Run
     }
 }
