@@ -13,7 +13,7 @@ namespace SLGame.Gameplay
 
         virtual public void Execute()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Current State:" + this.GetType().ToString());
         }
 
         virtual public void StartTransition()

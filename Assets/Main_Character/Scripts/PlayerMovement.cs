@@ -57,6 +57,7 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(ref playerMovementReference));
             CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference));
             CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference));
+            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference));
 
             _currentCharacterControllingState = CharacterControllingStates[States.Idle];
         }

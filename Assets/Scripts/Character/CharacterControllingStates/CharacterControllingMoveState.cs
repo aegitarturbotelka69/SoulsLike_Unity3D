@@ -83,7 +83,7 @@ namespace SLGame.Gameplay
 
         public override void Execute()
         {
-            Debug.Log("Move");
+            base.Execute();
             GetAbilitiesInput();
             GetHorizontalInput();
             GetVerticalInput();

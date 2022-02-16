@@ -12,6 +12,15 @@ namespace SLGame.Gameplay
 
         private void GetAbilitiesInput()
         {
+            if (!VirtualInputManager.Instance.MoveLeft
+                && !VirtualInputManager.Instance.MoveRight
+                && !VirtualInputManager.Instance.MoveFront
+                && !VirtualInputManager.Instance.MoveBack)
+            {
+                playerMovement.ChangeControllingState(States.StopRun);
+                return;
+            }
+
             if (VirtualInputManager.Instance.Run)
             {
                 playerMovement.ChangeControllingState(States.Move);
@@ -80,7 +89,7 @@ namespace SLGame.Gameplay
 
         public override void Execute()
         {
-            Debug.Log("Run");
+            base.Execute();
             GetHorizontalInput();
             GetVerticalInput();
             GetAbilitiesInput();
