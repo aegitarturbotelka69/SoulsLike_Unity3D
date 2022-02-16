@@ -13,6 +13,7 @@ namespace SLGame.Gameplay
 
         public override void Execute()
         {
+            base.Execute();
             if (VirtualInputManager.Instance.MoveFront
                 || VirtualInputManager.Instance.MoveBack
                 || VirtualInputManager.Instance.MoveLeft
