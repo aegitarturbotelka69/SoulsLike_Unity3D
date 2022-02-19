@@ -12,6 +12,9 @@ ModelImporter:
   - first:
       74: -3780516532778130023
     second: Main_Character_Stop_Running
+  - first:
+      74: -3780516532778130023
+    second: mixamo.com (1)
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -41,7 +44,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Main_Character_Stop_Running
+      name: mixamo.com (1)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0

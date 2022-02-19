@@ -19,7 +19,7 @@ namespace SLGame.Gameplay
         [SerializeField] public Dictionary<States, CharacterControllingBaseState> CharacterControllingStates = new Dictionary<States, CharacterControllingBaseState>();
 
         [Header("Stats:")]
-        [SerializeField] public CharacterControllingBaseState _currentCharacterControllingState;
+        [SerializeField] public CharacterControllingBaseState CurrentCharacterControllingState;
         [SerializeField] public float MoveSpeed = 2f;
 
         [Space(10)]
@@ -59,19 +59,19 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference));
             CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference));
 
-            _currentCharacterControllingState = CharacterControllingStates[States.Idle];
+            CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
 
         private void Update()
         {
-            _currentCharacterControllingState.Execute();
+            CurrentCharacterControllingState.Execute();
         }
 
         public void ChangeControllingState(States newState)
         {
-            _currentCharacterControllingState.EndTransition();
-            _currentCharacterControllingState = CharacterControllingStates[newState];
-            _currentCharacterControllingState.StartTransition();
+            CurrentCharacterControllingState.EndTransition();
+            CurrentCharacterControllingState = CharacterControllingStates[newState];
+            CurrentCharacterControllingState.StartTransition();
 
         }
 
@@ -80,6 +80,13 @@ namespace SLGame.Gameplay
             this.RollOnCooldown = true;
             await Task.Delay(RollCooldownDuration);
             this.RollOnCooldown = false;
+        }
+
+
+        private void EndTransition()
+        {
+            Debug.LogWarning("End transition");
+            CurrentCharacterControllingState.EndTransition();
         }
     }
 }
