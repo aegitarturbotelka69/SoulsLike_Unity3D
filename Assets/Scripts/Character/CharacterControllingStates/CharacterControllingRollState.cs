@@ -37,11 +37,12 @@ namespace SLGame.Gameplay
 
         public override void Execute()
         {
+            base.Execute();
+
             if (_rolling == false)
             {
                 StartRollOperation();
             }
-            Debug.LogWarning("ROLL STATE");
             Roll();
         }
 

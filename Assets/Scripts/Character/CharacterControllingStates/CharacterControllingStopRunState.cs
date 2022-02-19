@@ -1,5 +1,6 @@
 using UnityEngine;
 using SLGame.Input;
+using System.Threading;
 
 namespace SLGame.Gameplay
 {
@@ -15,7 +16,8 @@ namespace SLGame.Gameplay
         public override void Execute()
         {
             base.Execute();
-            throw new System.Exception("Now implemented");
+            //throw new System.Exception("Now implemented");
+            //Thread.Sleep(2090);
         }
 
         public override void StartTransition()
@@ -26,6 +28,7 @@ namespace SLGame.Gameplay
         public override void EndTransition()
         {
             playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
+            playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
         }
     }
 }
