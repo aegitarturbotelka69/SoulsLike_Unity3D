@@ -5,32 +5,36 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingIdleState : CharacterControllingBaseState
     {
-        public CharacterControllingIdleState(ref PlayerMovement playerMovementReference) : base(ref playerMovementReference)
+        public CharacterControllingIdleState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller)
         {
-            this.playerMovement = playerMovementReference;
+            this._playerMovement = playerMovementReference;
         }
 
+        private void GetAbilitiesInput()
+        {
+            if (VirtualInputManager.Instance.MoveFront
+                            || VirtualInputManager.Instance.MoveBack
+                            || VirtualInputManager.Instance.MoveLeft
+                            || VirtualInputManager.Instance.MoveRight)
+            {
+                _playerMovement.ChangeControllingState(States.Move);
+            }
+        }
 
         public override void Execute()
         {
             base.Execute();
-            if (VirtualInputManager.Instance.MoveFront
-                || VirtualInputManager.Instance.MoveBack
-                || VirtualInputManager.Instance.MoveLeft
-                || VirtualInputManager.Instance.MoveRight)
-            {
-                playerMovement.ChangeControllingState(States.Move);
-            }
+            GetAbilitiesInput();
         }
 
         public override void StartTransition()
         {
-            playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
         }
 
         public override void EndTransition()
         {
-            playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), false);
+            _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), false);
         }
     }
 }

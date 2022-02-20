@@ -13,10 +13,12 @@ namespace SLGame.Gameplay
     public class PlayerMovement : MonoBehaviour
     {
         [Header("References:")]
-        [SerializeField] public CharacterController _characterController;
+        [SerializeField] public CharacterController CharacterController;
         [SerializeField] public Transform _cameraTransform;
         [SerializeField] public Animator CharacterAnimator;
-        [SerializeField] public Dictionary<States, CharacterControllingBaseState> CharacterControllingStates = new Dictionary<States, CharacterControllingBaseState>();
+
+        [SerializeField]
+        public Dictionary<States, CharacterControllingBaseState> CharacterControllingStates = new Dictionary<States, CharacterControllingBaseState>();
 
         [Header("Stats:")]
         [SerializeField] public CharacterControllingBaseState CurrentCharacterControllingState;
@@ -29,6 +31,12 @@ namespace SLGame.Gameplay
 
         [SerializeField] public float RollSpeedMultiplier = 2f;
         [SerializeField] public float RunSpeedMultiplier = 4f;
+
+        [Space(10)]
+        [SerializeField] public Vector3 FallVelocity;
+
+        [Space(10)]
+
         /// <summary>
         /// 1000 = 1 seconds real time
         /// </summary>
@@ -43,9 +51,8 @@ namespace SLGame.Gameplay
 
         [Space(10)]
 
-        [SerializeField] public float velocity;
+        [SerializeField] public float MoveVelocity;
         [SerializeField] public Vector3 Direction;
-
 
 
         private void Start()
@@ -53,11 +60,13 @@ namespace SLGame.Gameplay
             CharacterAnimator = this.gameObject.GetComponent<Animator>();
             // !Attentione! Must be a joke below
             PlayerMovement playerMovementReference = this;
-            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(ref playerMovementReference));
-            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(ref playerMovementReference));
-            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference));
-            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference));
-            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference));
+            this.CharacterController = this.gameObject.GetComponent<CharacterController>();
+            CharacterController playerCharacterController = this.gameObject.GetComponent<CharacterController>();
+            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(ref playerMovementReference, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(ref playerMovementReference, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference, ref playerCharacterController));
+            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
@@ -67,6 +76,13 @@ namespace SLGame.Gameplay
             CurrentCharacterControllingState.Execute();
         }
 
+        private void EndTransition()
+        {
+            Debug.LogWarning("End transition");
+            CurrentCharacterControllingState.EndTransition();
+        }
+
+
         public void ChangeControllingState(States newState)
         {
             CurrentCharacterControllingState.EndTransition();
@@ -75,18 +91,15 @@ namespace SLGame.Gameplay
 
         }
 
+        /// <summary>
+        /// Use this to lock ability to roll
+        /// </summary>
+        /// <returns> void </returns>
         public async void SetRollOnCooldown()
         {
             this.RollOnCooldown = true;
             await Task.Delay(RollCooldownDuration);
             this.RollOnCooldown = false;
-        }
-
-
-        private void EndTransition()
-        {
-            Debug.LogWarning("End transition");
-            CurrentCharacterControllingState.EndTransition();
         }
     }
 }

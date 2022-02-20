@@ -6,7 +6,7 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingStopRunState : CharacterControllingBaseState
     {
-        public CharacterControllingStopRunState(ref PlayerMovement playerMovementReference) : base(ref playerMovementReference) { }
+        public CharacterControllingStopRunState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller) { }
 
         private void GetAbilitiesInput()
         {
@@ -22,13 +22,13 @@ namespace SLGame.Gameplay
 
         public override void StartTransition()
         {
-            playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), true);
         }
 
         public override void EndTransition()
         {
-            playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
-            playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
+            _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
         }
     }
 }

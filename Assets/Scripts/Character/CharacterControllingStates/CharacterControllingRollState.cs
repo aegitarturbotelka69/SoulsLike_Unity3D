@@ -28,9 +28,9 @@ namespace SLGame.Gameplay
         /// </summary>
         /// <param name="playerMovementReference"> Reference to PlayerMovement script</param>
         /// <returns>void</returns>
-        public CharacterControllingRollState(ref PlayerMovement playerMovementReference) : base(ref playerMovementReference)
+        public CharacterControllingRollState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller)
         {
-            this.playerMovement = playerMovementReference;
+            this._playerMovement = playerMovementReference;
         }
 
 
@@ -57,46 +57,46 @@ namespace SLGame.Gameplay
         {
             if (VirtualInputManager.Instance.Run)
             {
-                playerMovement.ChangeControllingState(States.Run);
+                _playerMovement.ChangeControllingState(States.Run);
             }
 
             // !Attentione! Rework this trash below
             if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight || VirtualInputManager.Instance.MoveBack)
             {
-                playerMovement.ChangeControllingState(States.Move);
+                _playerMovement.ChangeControllingState(States.Move);
                 return;
             }
             else
             {
-                playerMovement.ChangeControllingState(States.Idle);
+                _playerMovement.ChangeControllingState(States.Idle);
                 return;
             }
         }
         private void Roll()
         {
-            float lookAngle = Mathf.Atan2(playerMovement.Direction.x, playerMovement.Direction.z) * Mathf.Rad2Deg + playerMovement._cameraTransform.eulerAngles.y;
+            float lookAngle = Mathf.Atan2(_playerMovement.Direction.x, _playerMovement.Direction.z) * Mathf.Rad2Deg + _playerMovement._cameraTransform.eulerAngles.y;
             Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
-            playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
-            playerMovement._characterController.Move(moveDirection.normalized * playerMovement.MoveSpeed * Time.deltaTime);
+            _playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
+            _playerMovement.CharacterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * Time.deltaTime);
         }
 
 
 
         public override void StartTransition()
         {
-            playerMovement.MoveSpeed = playerMovement.MoveSpeed * playerMovement.RollSpeedMultiplier;
+            _playerMovement.MoveSpeed = _playerMovement.MoveSpeed * _playerMovement.RollSpeedMultiplier;
 
-            playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
         }
 
         public override void EndTransition()
         {
             _rolling = false;
 
-            playerMovement.MoveSpeed = playerMovement.MoveSpeed / playerMovement.RollSpeedMultiplier;
-            playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
+            _playerMovement.MoveSpeed = _playerMovement.MoveSpeed / _playerMovement.RollSpeedMultiplier;
+            _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
 
-            playerMovement.SetRollOnCooldown();
+            _playerMovement.SetRollOnCooldown();
         }
     }
 }

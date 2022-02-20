@@ -4,11 +4,13 @@ namespace SLGame.Gameplay
 {
     public abstract class CharacterControllingBaseState : CharacterControllingTransitionState
     {
-        [SerializeField] public PlayerMovement playerMovement;
+        [SerializeField] protected PlayerMovement _playerMovement;
+        [SerializeField] protected CharacterController _characterController;
 
-        public CharacterControllingBaseState(ref PlayerMovement playerMovementReference)
+        public CharacterControllingBaseState(ref PlayerMovement playerMovementReference, ref CharacterController controller)
         {
-            this.playerMovement = playerMovementReference;
+            this._playerMovement = playerMovementReference;
+            this._characterController = controller;
         }
 
         virtual public void Execute()
