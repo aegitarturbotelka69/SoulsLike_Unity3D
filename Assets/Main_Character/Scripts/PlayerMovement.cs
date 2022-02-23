@@ -67,6 +67,7 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference, ref playerCharacterController));
             CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference, ref playerCharacterController));
             CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(ref playerMovementReference, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
@@ -78,7 +79,6 @@ namespace SLGame.Gameplay
 
         private void EndTransition()
         {
-            Debug.LogWarning("End transition");
             CurrentCharacterControllingState.EndTransition();
         }
 

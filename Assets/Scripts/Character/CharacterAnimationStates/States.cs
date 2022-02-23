@@ -10,6 +10,7 @@ namespace SLGame.Gameplay
         Move,
         Roll,
         Run,
-        StopRun
+        StopRun,
+        Falling
     }
 }
