@@ -8,9 +8,21 @@ namespace SLGame.Gameplay
     [RequireComponent(typeof(PlayerMovement))]
     public class PlayerGravityCheck : MonoBehaviour
     {
+        [Serializable]
+        private class SphereWithDetectionStatus
+        {
+            [SerializeField] public GameObject Sphere;
+            [SerializeField] public bool isGrounded;
+
+            public SphereWithDetectionStatus(GameObject sphere, bool status)
+            {
+                this.Sphere = sphere;
+                this.isGrounded = status;
+            }
+        }
+
         [Header("References:")]
         [SerializeField] private PlayerMovement _playerMovement;
-        [SerializeField] Transform GroundCheck;
         [SerializeField] private BoxCollider _playerBoxCollider;
 
         [Space(5)]
@@ -25,27 +37,13 @@ namespace SLGame.Gameplay
         [SerializeField] public float RangeAltitude;
 
         [Space(10)]
-
-        [SerializeField] float groundDistance = 0.4f;
         [SerializeField] private float StartingVelocityNumber = -2f;
         [SerializeField] LayerMask groundMask;
 
         [Header("In game: ")]
+        [SerializeField] public static bool PLAYER_IS_GROUNDED;
         [SerializeField] private List<SphereWithDetectionStatus> _listOfCollisionDetectionSpheres = new List<SphereWithDetectionStatus>();
-        [Serializable]
-        private class SphereWithDetectionStatus
-        {
-            [SerializeField] public GameObject Sphere;
-            [SerializeField] public bool isGrounded;
-
-            public SphereWithDetectionStatus(GameObject sphere, bool status)
-            {
-                this.Sphere = sphere;
-                this.isGrounded = status;
-            }
-        }
         [SerializeField] public Vector3 Velocity;
-        [SerializeField] private Ray FallingDetectionRay;
 
         private void Awake()
         {
@@ -108,14 +106,15 @@ namespace SLGame.Gameplay
                 }
             }
 
-            Debug.LogWarning(numberOfNotConnectedToTheGroundSpheres + " " + _listOfCollisionDetectionSpheres.Count);
             if (numberOfNotConnectedToTheGroundSpheres != _listOfCollisionDetectionSpheres.Count)
             {
                 Velocity.y = StartingVelocityNumber;
+                PLAYER_IS_GROUNDED = true;
             }
             else
             {
-                Debug.Log("Player is falling");
+                PLAYER_IS_GROUNDED = false;
+                _playerMovement.ChangeControllingState(States.Falling);
             }
 
             Velocity.y += Gravity * Time.deltaTime;

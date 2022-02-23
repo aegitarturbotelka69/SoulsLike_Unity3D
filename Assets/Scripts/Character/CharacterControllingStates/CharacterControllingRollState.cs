@@ -55,6 +55,8 @@ namespace SLGame.Gameplay
 
         private void CheckInput()
         {
+            // !Attentione! This needs to be reworked
+            // Causes animation problems
             if (VirtualInputManager.Instance.Run)
             {
                 _playerMovement.ChangeControllingState(States.Run);

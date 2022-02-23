@@ -10,9 +10,28 @@ namespace SLGame.Gameplay
             this._playerMovement = playerMovementReference;
         }
 
+        private void CheckInput()
+        {
+            if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight || VirtualInputManager.Instance.MoveBack)
+            {
+                _playerMovement.ChangeControllingState(States.Move);
+                return;
+            }
+            else
+            {
+                _playerMovement.ChangeControllingState(States.Idle);
+                return;
+            }
+        }
+
         public override void Execute()
         {
             base.Execute();
+
+            if (PlayerGravityCheck.PLAYER_IS_GROUNDED)
+            {
+                CheckInput();
+            }
         }
 
         public override void StartTransition()
