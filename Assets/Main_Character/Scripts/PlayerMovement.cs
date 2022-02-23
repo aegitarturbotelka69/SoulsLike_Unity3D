@@ -68,6 +68,7 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference, ref playerCharacterController));
             CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference, ref playerCharacterController));
             CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(ref playerMovementReference, ref playerCharacterController));
+            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(ref playerMovementReference, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }

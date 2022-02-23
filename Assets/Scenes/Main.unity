@@ -3174,7 +3174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149066765268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.997, z: 0}
+  m_LocalPosition: {x: 14.24, y: 15.25, z: 10.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1759673558}
@@ -3343,11 +3343,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovement: {fileID: 919132149066765270}
-  GroundCheck: {fileID: 492199087}
   _playerBoxCollider: {fileID: 0}
   _colliderEdgePrefab: {fileID: 6442961346719801300, guid: c4945c4bcd3cedc4cba1a1e0768ecc59, type: 3}
   RangeAltitude: 2.12
-  groundDistance: 0.07
   StartingVelocityNumber: -7
   groundMask:
     serializedVersion: 2

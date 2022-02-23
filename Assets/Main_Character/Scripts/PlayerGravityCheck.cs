@@ -117,6 +117,7 @@ namespace SLGame.Gameplay
                 _playerMovement.ChangeControllingState(States.Falling);
             }
 
+            Debug.LogWarning("Hero is falling as default");
             Velocity.y += Gravity * Time.deltaTime;
             _playerMovement.CharacterController.Move(Velocity * Time.deltaTime);
         }

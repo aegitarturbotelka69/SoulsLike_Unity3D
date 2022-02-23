@@ -11,6 +11,7 @@ namespace SLGame.Gameplay
         Roll,
         Run,
         StopRun,
-        Falling
+        Falling,
+        HardLand
     }
 }
