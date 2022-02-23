@@ -9,27 +9,25 @@ namespace SLGame.Gameplay
     {
         [Header("References:")]
         [SerializeField] private PlayerMovement _playerMovement;
+        [SerializeField] Transform GroundCheck;
 
         [Header("Stats: ")]
-        [SerializeField] public float Gravity = -9.81f;
+        [SerializeField] public const float Gravity = -9.81f;
+
+        [Space(10)]
+
+        [SerializeField] float groundDistance = 0.4f;
+        [SerializeField] private float StartingVelocityNumber = -2f;
+        [SerializeField] LayerMask groundMask;
 
         [Header("In game: ")]
         [SerializeField] public Vector3 Velocity;
-
-        [Space(10)]
-        [SerializeField] Transform GroundCheck;
-        [SerializeField] float groundDistance = 0.4f;
-        [SerializeField] LayerMask groundMask;
-
-        [SerializeField] private float StartingVelocityNumber = -2f;
-
         [SerializeField] bool isGrounded;
         void Start()
         {
             this._playerMovement = this.gameObject.GetComponent<PlayerMovement>();
         }
 
-        // Update is called once per frame
         void Update()
         {
             isGrounded = Physics.CheckSphere(GroundCheck.position, groundDistance, groundMask);
@@ -40,6 +38,7 @@ namespace SLGame.Gameplay
             }
 
             Velocity.y += Gravity * Time.deltaTime;
+
             _playerMovement.CharacterController.Move(Velocity * Time.deltaTime);
         }
 
