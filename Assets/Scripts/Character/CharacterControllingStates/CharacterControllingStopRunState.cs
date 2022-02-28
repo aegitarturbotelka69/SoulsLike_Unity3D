@@ -28,7 +28,28 @@ namespace SLGame.Gameplay
         public override void EndTransition()
         {
             _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
+
+
+            if (VirtualInputManager.Instance.MoveBack
+                || VirtualInputManager.Instance.MoveFront
+                || VirtualInputManager.Instance.MoveLeft
+                || VirtualInputManager.Instance.MoveRight)
+            {
+                _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Move];
+                _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
+                return;
+            }
+
+            if (VirtualInputManager.Instance.Roll)
+            {
+                _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Roll];
+                _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
+                return;
+            }
+
+            _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Idle];
             _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
+            return;
         }
     }
 }
