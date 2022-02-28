@@ -52,7 +52,7 @@ namespace SLGame.Gameplay
             float left = _playerBoxCollider.bounds.center.x - _playerBoxCollider.bounds.extents.x;
             float right = _playerBoxCollider.bounds.center.x + _playerBoxCollider.bounds.extents.x;
 
-            float bottom = _playerBoxCollider.bounds.center.y - _playerBoxCollider.bounds.extents.y;
+            float bottom = _playerBoxCollider.bounds.center.y - _playerBoxCollider.bounds.extents.y + (_playerBoxCollider.bounds.extents.y / 2);
 
             float front = _playerBoxCollider.bounds.center.z + _playerBoxCollider.bounds.extents.z;
             float back = _playerBoxCollider.bounds.center.z - _playerBoxCollider.bounds.extents.z;
@@ -67,6 +67,7 @@ namespace SLGame.Gameplay
             foreach (GameObject sphere in edgeSpheres)
             {
                 sphere.transform.parent = this.transform;
+                _listOfCollisionDetectionSpheres.Add(new SphereWithDetectionStatus(sphere, false));
             }
 
             float frontEdgeSphereSectionOffset = (edgeSpheres[0].transform.position - edgeSpheres[2].transform.position).magnitude / 5;
