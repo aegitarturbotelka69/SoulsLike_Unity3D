@@ -34486,7 +34486,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.9
-    functionName: EndTransition
+    functionName: ManualEndTransaction
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

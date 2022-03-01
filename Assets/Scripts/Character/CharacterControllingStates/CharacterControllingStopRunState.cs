@@ -25,10 +25,12 @@ namespace SLGame.Gameplay
             _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), true);
         }
 
-        public override void EndTransition()
+        public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
 
+            if (!endingManually)
+                return;
 
             if (VirtualInputManager.Instance.MoveBack
                 || VirtualInputManager.Instance.MoveFront

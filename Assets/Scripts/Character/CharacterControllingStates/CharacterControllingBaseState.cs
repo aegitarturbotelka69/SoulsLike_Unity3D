@@ -23,7 +23,7 @@ namespace SLGame.Gameplay
             throw new System.NotImplementedException();
         }
 
-        virtual public void EndTransition()
+        virtual public void EndTransition(bool endingManually)
         {
             throw new System.NotImplementedException();
         }

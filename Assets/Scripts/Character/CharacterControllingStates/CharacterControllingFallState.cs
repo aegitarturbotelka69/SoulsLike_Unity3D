@@ -70,7 +70,7 @@ namespace SLGame.Gameplay
 
             if (PlayerGravityCheck.PLAYER_IS_GROUNDED)
             {
-                _playerMovement.ChangeControllingState(States.HardLand);
+                _playerMovement.ChangeControllingState(States.HardLand, false);
                 return;
             }
 
@@ -84,7 +84,7 @@ namespace SLGame.Gameplay
             _playerMovement.CharacterAnimator.SetBool(States.Falling.ToString(), true);
         }
 
-        public override void EndTransition()
+        public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.Falling.ToString(), false);
         }

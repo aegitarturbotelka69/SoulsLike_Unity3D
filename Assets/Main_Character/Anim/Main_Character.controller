@@ -253,18 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e943cb6cedeed4cbd62a32bd8fa1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2241155374913385043
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ae979e74f1ad84580f0a434dd19740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1102 &-1086729202474277743
 AnimatorState:
   serializedVersion: 6
@@ -273,7 +261,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Roll
-  m_Speed: 1.25
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4306260927415545332}
@@ -288,7 +276,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 173931f78707ebe4f86f6f6f7b98aa1b, type: 3}
+  m_Motion: {fileID: 7400000, guid: 7a4fa6ad94ec79a40a688aa44799adf7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -510,8 +498,7 @@ AnimatorState:
   - {fileID: -418109227625282722}
   - {fileID: 7761247177732538378}
   - {fileID: 2540890923206840951}
-  m_StateMachineBehaviours:
-  - {fileID: -2241155374913385043}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -641,10 +628,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.23018265
-  m_TransitionOffset: 0.008032635
+  m_TransitionDuration: 0.23152947
+  m_TransitionOffset: 0.008032634
   m_ExitTime: 0.7510671
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -694,7 +681,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0.3306914
   m_ExitTime: 0.7368746
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -905,7 +892,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.22618312
   m_TransitionOffset: 0
   m_ExitTime: 0.7700957
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

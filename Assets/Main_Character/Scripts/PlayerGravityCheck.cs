@@ -115,7 +115,7 @@ namespace SLGame.Gameplay
             else
             {
                 PLAYER_IS_GROUNDED = false;
-                _playerMovement.ChangeControllingState(States.Falling);
+                _playerMovement.ChangeControllingState(States.Falling, false);
             }
 
             Velocity.y += Gravity * Time.deltaTime;

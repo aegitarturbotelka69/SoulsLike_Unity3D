@@ -40,12 +40,14 @@ namespace SLGame.Gameplay
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
         }
 
-        public override void EndTransition()
+        public override void EndTransition(bool endingManually)
         {
-
             _playerMovement.MoveSpeed = _playerMovement.MoveSpeed / _playerMovement.RollSpeedMultiplier;
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
             _playerMovement.PlaceRollOnCooldown();
+
+            if (!endingManually)
+                return;
 
             if (VirtualInputManager.Instance.MoveBack
                 || VirtualInputManager.Instance.MoveFront

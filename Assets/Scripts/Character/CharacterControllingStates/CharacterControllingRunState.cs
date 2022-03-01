@@ -17,12 +17,12 @@ namespace SLGame.Gameplay
                 && !VirtualInputManager.Instance.MoveLeft
                 && !VirtualInputManager.Instance.MoveRight)
             {
-                _playerMovement.ChangeControllingState(States.StopRun);
+                _playerMovement.ChangeControllingState(States.StopRun, false);
             }
 
             if (VirtualInputManager.Instance.Run)
             {
-                _playerMovement.ChangeControllingState(States.Move);
+                _playerMovement.ChangeControllingState(States.Move, false);
                 return;
             }
         }
@@ -96,7 +96,7 @@ namespace SLGame.Gameplay
             _playerMovement.CharacterAnimator.SetBool(States.Run.ToString(), true);
         }
 
-        public override void EndTransition()
+        public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.Run.ToString(), false);
         }

@@ -17,17 +17,17 @@ namespace SLGame.Gameplay
                 && !VirtualInputManager.Instance.MoveLeft
                 && !VirtualInputManager.Instance.MoveRight)
             {
-                _playerMovement.ChangeControllingState(States.Idle);
+                _playerMovement.ChangeControllingState(States.Idle, false);
             }
 
             if (VirtualInputManager.Instance.Roll && !_playerMovement.RollOnCooldown)
             {
-                _playerMovement.ChangeControllingState(States.Roll);
+                _playerMovement.ChangeControllingState(States.Roll, false);
             }
 
             if (VirtualInputManager.Instance.Run)
             {
-                _playerMovement.ChangeControllingState(States.Run);
+                _playerMovement.ChangeControllingState(States.Run, false);
             }
         }
         private void GetVerticalInput()
@@ -99,7 +99,7 @@ namespace SLGame.Gameplay
             _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
         }
 
-        public override void EndTransition()
+        public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), false);
         }

@@ -33,9 +33,6 @@ namespace SLGame.Gameplay
         [SerializeField] public float RunSpeedMultiplier = 4f;
 
         [Space(10)]
-        [SerializeField] public Vector3 FallVelocity;
-
-        [Space(10)]
 
         /// <summary>
         /// 1000 = 1 seconds real time
@@ -78,15 +75,14 @@ namespace SLGame.Gameplay
             CurrentCharacterControllingState.Execute();
         }
 
-        private void EndTransition()
+        private void ManualEndTransaction()
         {
-            CurrentCharacterControllingState.EndTransition();
+            CurrentCharacterControllingState.EndTransition(true);
         }
 
-
-        public void ChangeControllingState(States newState)
+        public void ChangeControllingState(States newState, bool endingManually = false)
         {
-            CurrentCharacterControllingState.EndTransition();
+            CurrentCharacterControllingState.EndTransition(endingManually);
             CurrentCharacterControllingState = CharacterControllingStates[newState];
             CurrentCharacterControllingState.StartTransition();
 

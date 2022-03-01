@@ -5,6 +5,6 @@ namespace SLGame.Gameplay
     public interface CharacterControllingTransitionState
     {
         void StartTransition();
-        void EndTransition();
+        void EndTransition(bool endingManually);
     }
 }

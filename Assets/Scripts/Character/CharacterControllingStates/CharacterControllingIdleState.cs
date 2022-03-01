@@ -17,7 +17,7 @@ namespace SLGame.Gameplay
                             || VirtualInputManager.Instance.MoveLeft
                             || VirtualInputManager.Instance.MoveRight)
             {
-                _playerMovement.ChangeControllingState(States.Move);
+                _playerMovement.ChangeControllingState(States.Move, false);
             }
         }
 
@@ -32,7 +32,7 @@ namespace SLGame.Gameplay
             _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
         }
 
-        public override void EndTransition()
+        public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), false);
         }
