@@ -92,11 +92,7 @@ namespace SLGame.Gameplay
 
         }
 
-        /// <summary>
-        /// Use this to lock ability to roll
-        /// </summary>
-        /// <returns> void </returns>
-        public async void SetRollOnCooldown()
+        public async void PlaceRollOnCooldown()
         {
             this.RollOnCooldown = true;
             await Task.Delay(RollCooldownDuration);

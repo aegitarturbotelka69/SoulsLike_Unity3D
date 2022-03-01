@@ -11,23 +11,6 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingRollState : CharacterControllingBaseState
     {
-        [Header("Stats")]
-
-        /// <summary>
-        /// _rollTIme = 1000f  => 1 sec real time
-        /// </summary>
-        ///  <param name="_rollTime"> Rolling time in milliseconds</param>
-        [SerializeField] private float _rollTime = 650f;
-
-        [Header("Info:")]
-        [SerializeField] private bool _rolling = false;
-
-
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        /// <param name="playerMovementReference"> Reference to PlayerMovement script</param>
-        /// <returns>void</returns>
         public CharacterControllingRollState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller)
         {
             this._playerMovement = playerMovementReference;
@@ -38,41 +21,7 @@ namespace SLGame.Gameplay
         public override void Execute()
         {
             base.Execute();
-
-            if (_rolling == false)
-            {
-                StartRollOperation();
-            }
             Roll();
-        }
-
-        private async void StartRollOperation()
-        {
-            _rolling = true;
-            await Task.Delay(Convert.ToInt32(_rollTime));
-            CheckInput();
-        }
-
-        private void CheckInput()
-        {
-            // !Attentione! This needs to be reworked
-            // Causes animation problems
-            if (VirtualInputManager.Instance.Run)
-            {
-                _playerMovement.ChangeControllingState(States.Run);
-            }
-
-            // !Attentione! Rework this trash below
-            if (VirtualInputManager.Instance.MoveFront || VirtualInputManager.Instance.MoveLeft || VirtualInputManager.Instance.MoveRight || VirtualInputManager.Instance.MoveBack)
-            {
-                _playerMovement.ChangeControllingState(States.Move);
-                return;
-            }
-            else
-            {
-                _playerMovement.ChangeControllingState(States.Idle);
-                return;
-            }
         }
         private void Roll()
         {
@@ -93,12 +42,31 @@ namespace SLGame.Gameplay
 
         public override void EndTransition()
         {
-            _rolling = false;
 
             _playerMovement.MoveSpeed = _playerMovement.MoveSpeed / _playerMovement.RollSpeedMultiplier;
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
+            _playerMovement.PlaceRollOnCooldown();
 
-            _playerMovement.SetRollOnCooldown();
+            if (VirtualInputManager.Instance.MoveBack
+                || VirtualInputManager.Instance.MoveFront
+                || VirtualInputManager.Instance.MoveLeft
+                || VirtualInputManager.Instance.MoveRight)
+            {
+                _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Move];
+                _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
+                return;
+            }
+
+            if (VirtualInputManager.Instance.Roll)
+            {
+                _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Roll];
+                _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
+                return;
+            }
+
+            _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Idle];
+            _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
+            return;
         }
     }
 }

@@ -118,7 +118,6 @@ namespace SLGame.Gameplay
                 _playerMovement.ChangeControllingState(States.Falling);
             }
 
-            Debug.LogWarning("Hero is falling as default");
             Velocity.y += Gravity * Time.deltaTime;
             _playerMovement.CharacterController.Move(Velocity * Time.deltaTime);
         }
@@ -131,7 +130,6 @@ namespace SLGame.Gameplay
                 RaycastHit hit;
                 if (Physics.Raycast(sphere.Sphere.transform.position, -Vector3.up, out hit, RangeAltitude))
                 {
-                    Debug.LogWarning(hit.collider.gameObject.name);
                     if (hit.collider.gameObject.layer == (int)Layers.Ground)
                     {
                         sphere.isGrounded = true;
