@@ -59,6 +59,15 @@ namespace SLGame.Input
             {
                 VirtualInputManager.Instance.Run = false;
             }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Tab))
+            {
+                VirtualInputManager.Instance.EquipWeapon = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.EquipWeapon = false;
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SLGame.Input
         public bool Roll;
         public bool Run;
 
+        public bool EquipWeapon;
+
 
 
         void Awake()
