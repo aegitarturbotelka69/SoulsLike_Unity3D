@@ -154,10 +154,10 @@ namespace SLGame.Gameplay
 
         private void OnAnimatorIK(int layerIndex)
         {
-            _playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
-            _playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1f);
-            _playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1f);
-            _playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1f);
+            _playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, _playerAnimator.GetFloat("IKLeftFootWeight"));
+            _playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, _playerAnimator.GetFloat("IKLeftFootWeight"));
+            _playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, _playerAnimator.GetFloat("IKRightFootWeight"));
+            _playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, _playerAnimator.GetFloat("IKRightFootWeight"));
 
             // Left Fook IK
             RaycastHit hit;
