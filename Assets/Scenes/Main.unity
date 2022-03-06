@@ -1027,7 +1027,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16854
+  m_Name: pb_Mesh16858
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3500,10 +3500,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerMovement: {fileID: 919132149066765270}
   _playerBoxCollider: {fileID: 0}
+  _playerAnimator: {fileID: 0}
   _colliderEdgePrefab: {fileID: 6442961346719801300, guid: c4945c4bcd3cedc4cba1a1e0768ecc59, type: 3}
   RangeAltitude: 2.12
   StartingVelocityNumber: -7
-  groundMask:
+  DistanceToGroundForFootIK: 0.189
+  _groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
   _listOfCollisionDetectionSpheres: []

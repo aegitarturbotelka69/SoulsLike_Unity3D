@@ -25,6 +25,8 @@ namespace SLGame.Gameplay
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private BoxCollider _playerBoxCollider;
 
+        [SerializeField] private Animator _playerAnimator;
+
         [Space(5)]
         [SerializeField] private GameObject _colliderEdgePrefab;
 
@@ -38,7 +40,13 @@ namespace SLGame.Gameplay
 
         [Space(10)]
         [SerializeField] private float StartingVelocityNumber = -2f;
-        [SerializeField] LayerMask groundMask;
+
+        /// <summary>
+        ///  This only using for AnimatorIK
+        /// </summary>
+        [SerializeField, Range(0f, 1f)] private float DistanceToGroundForFootIK;
+
+        [SerializeField] private LayerMask _groundLayerMask;
 
         [Header("In game: ")]
         [SerializeField] public static bool PLAYER_IS_GROUNDED;
@@ -48,6 +56,7 @@ namespace SLGame.Gameplay
         private void Awake()
         {
             _playerBoxCollider = this.gameObject.GetComponent<BoxCollider>();
+            _playerAnimator = this.gameObject.GetComponent<Animator>();
 
             float left = _playerBoxCollider.bounds.center.x - _playerBoxCollider.bounds.extents.x;
             float right = _playerBoxCollider.bounds.center.x + _playerBoxCollider.bounds.extents.x;
@@ -138,6 +147,25 @@ namespace SLGame.Gameplay
                 else
                 {
                     sphere.isGrounded = false;
+                }
+            }
+        }
+
+        private void OnAnimatorIK(int layerIndex)
+        {
+            _playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
+            _playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1f);
+
+            RaycastHit hit;
+            Ray ray = new Ray(_playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.up, Vector3.down);
+
+            if (Physics.Raycast(ray, out hit, DistanceToGroundForFootIK + 1f, _groundLayerMask))
+            {
+                if (hit.collider.gameObject.layer == (int)Layers.Ground)
+                {
+                    Vector3 currentFootPosition = hit.point;
+                    currentFootPosition.y += DistanceToGroundForFootIK;
+                    _playerAnimator.SetIKPosition(AvatarIKGoal.LeftFoot, currentFootPosition);
                 }
             }
         }
