@@ -11,11 +11,16 @@ namespace SLGame.Gameplay
 {
     public class PlayerWeapon : MonoBehaviour
     {
+        [SerializeField] private bool weaponEquiped = false;
         private void Update()
         {
             if (VirtualInputManager.Instance.EquipWeapon)
             {
-                this.gameObject.GetComponent<Animator>().SetBool("EquipWeapon", true);
+                weaponEquiped = !weaponEquiped;
+                Debug.LogWarning("Equiping weapon");
+                Animator animator = this.gameObject.GetComponent<Animator>();
+                animator.SetBool("EquipWeapon", weaponEquiped);
+                animator.SetLayerWeight(1, 1f);
             }
         }
     }
