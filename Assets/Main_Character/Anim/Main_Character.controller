@@ -996,6 +996,18 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
+    m_Name: Roll
+    m_StateMachine: {fileID: 314717389763222838}
+    m_Mask: {fileID: 31900000, guid: d764c963e0bd1384fbd01d32507f24b6, type: 2}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 0
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: UpperBody
     m_StateMachine: {fileID: -2516308864008068592}
     m_Mask: {fileID: 31900000, guid: 5c2986b59692690439a3c8df66b92161, type: 2}
@@ -1011,18 +1023,6 @@ AnimatorController:
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 1
     m_IKPass: 1
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
-    m_Name: Roll
-    m_StateMachine: {fileID: 314717389763222838}
-    m_Mask: {fileID: 31900000, guid: d764c963e0bd1384fbd01d32507f24b6, type: 2}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
-    m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
 --- !u!114 &43533805777772325
