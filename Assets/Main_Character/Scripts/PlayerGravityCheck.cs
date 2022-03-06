@@ -44,7 +44,8 @@ namespace SLGame.Gameplay
         /// <summary>
         ///  This only using for AnimatorIK
         /// </summary>
-        [SerializeField, Range(0f, 1f)] private float DistanceToGroundForFootIK;
+        [SerializeField, Range(-1f, 1f)] private float DistanceToGroundForFootIK;
+        [SerializeField, Range(-1f, 5f)] private float MaxDistanceToGroundForFootIK;
 
         [SerializeField] private LayerMask _groundLayerMask;
 
@@ -155,17 +156,35 @@ namespace SLGame.Gameplay
         {
             _playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
             _playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1f);
+            _playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1f);
+            _playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1f);
 
+            // Left Fook IK
             RaycastHit hit;
             Ray ray = new Ray(_playerAnimator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.up, Vector3.down);
-
-            if (Physics.Raycast(ray, out hit, DistanceToGroundForFootIK + 1f, _groundLayerMask))
+            if (Physics.Raycast(ray, out hit, DistanceToGroundForFootIK + MaxDistanceToGroundForFootIK, _groundLayerMask))
             {
                 if (hit.collider.gameObject.layer == (int)Layers.Ground)
                 {
                     Vector3 currentFootPosition = hit.point;
                     currentFootPosition.y += DistanceToGroundForFootIK;
                     _playerAnimator.SetIKPosition(AvatarIKGoal.LeftFoot, currentFootPosition);
+                    Vector3 forward = Vector3.ProjectOnPlane(this.gameObject.transform.forward, hit.normal);
+                    _playerAnimator.SetIKRotation(AvatarIKGoal.LeftFoot, Quaternion.LookRotation(forward, hit.normal));
+                }
+            }
+
+            // Right Fook IK
+            ray = new Ray(_playerAnimator.GetIKPosition(AvatarIKGoal.RightFoot) + Vector3.up, Vector3.down);
+            if (Physics.Raycast(ray, out hit, DistanceToGroundForFootIK + MaxDistanceToGroundForFootIK, _groundLayerMask))
+            {
+                if (hit.collider.gameObject.layer == (int)Layers.Ground)
+                {
+                    Vector3 currentFootPosition = hit.point;
+                    currentFootPosition.y += DistanceToGroundForFootIK;
+                    _playerAnimator.SetIKPosition(AvatarIKGoal.RightFoot, currentFootPosition);
+                    Vector3 forward = Vector3.ProjectOnPlane(this.gameObject.transform.forward, hit.normal);
+                    _playerAnimator.SetIKRotation(AvatarIKGoal.RightFoot, Quaternion.LookRotation(forward, hit.normal));
                 }
             }
         }
