@@ -41,18 +41,18 @@ namespace SLGame.Gameplay
         {
             Debug.LogWarning("Changing from steathed to armed parent position for weapon");
 
-            _currentSelectedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.parent = _currentSelectedWeapon.ArmedPosition.transform;
-            _currentSelectedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-            _currentSelectedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
+            CurrentEquipedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.parent = CurrentEquipedWeapon.ArmedPosition.transform;
+            CurrentEquipedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+            CurrentEquipedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
         }
 
         private void SteathWeapon()
         {
             Debug.LogWarning("Changing from armed to steathed parent position for weapon");
 
-            _currentSelectedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.parent = _currentSelectedWeapon.SteathedPosition.transform;
-            _currentSelectedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-            _currentSelectedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
+            CurrentEquipedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.parent = CurrentEquipedWeapon.SteathedPosition.transform;
+            CurrentEquipedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+            CurrentEquipedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
         }
 
         private void InitializeWeaponPrefabs()
