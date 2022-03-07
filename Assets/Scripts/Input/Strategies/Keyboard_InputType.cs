@@ -68,6 +68,15 @@ namespace SLGame.Input
             {
                 VirtualInputManager.Instance.EquipWeapon = false;
             }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse2))
+            {
+                VirtualInputManager.Instance.MoveToTopSelected = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.MoveToTopSelected = false;
+            }
         }
     }
 }

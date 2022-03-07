@@ -17,6 +17,7 @@ namespace SLGame.Input
         public bool Run;
 
         public bool EquipWeapon;
+        public bool MoveToTopSelected;
 
 
 

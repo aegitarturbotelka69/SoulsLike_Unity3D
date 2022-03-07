@@ -28,7 +28,6 @@ namespace SLGame.Gameplay
         public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
-            Debug.LogWarning("StopRun end transition come in");
 
             if (!endingManually)
                 return;
@@ -52,7 +51,6 @@ namespace SLGame.Gameplay
 
             _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
             _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Idle];
-            Debug.LogWarning("Moving to idle state");
             return;
         }
     }
