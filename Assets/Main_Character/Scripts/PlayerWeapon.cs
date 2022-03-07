@@ -18,6 +18,9 @@ namespace SLGame.Gameplay
             public string Name;
 
             public WeaponType WeaponType;
+            public GameObject WeaponPrefab;
+            public GameObject ArmedPosition;
+            public GameObject SteathedPosition;
         }
         [Header("References:")]
         [SerializeField] private Animator _playerAnimator;
@@ -34,11 +37,37 @@ namespace SLGame.Gameplay
 
         [SerializeField] public bool WeaponEquiped = false;
 
+        private void EquipWeapon()
+        {
+            Debug.LogWarning("Changing from steathed to armed parent position for weapon");
+
+            _currentSelectedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.parent = _currentSelectedWeapon.ArmedPosition.transform;
+            _currentSelectedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+            _currentSelectedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
+        }
+
+        private void SteathWeapon()
+        {
+            Debug.LogWarning("Changing from armed to steathed parent position for weapon");
+
+            _currentSelectedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.parent = _currentSelectedWeapon.SteathedPosition.transform;
+            _currentSelectedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+            _currentSelectedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
+        }
+
+        private void InitializeWeaponPrefabs()
+        {
+            foreach (Weapon weapon in ListOfWeapons)
+            {
+                GameObject obj = GameObject.Instantiate(weapon.WeaponPrefab, weapon.SteathedPosition.transform);
+            }
+        }
         private void Awake()
         {
             _playerAnimator = this.gameObject.GetComponent<Animator>();
             _currentSelectedWeaponIndex = 0;
             _currentSelectedWeapon = ListOfWeapons[_currentSelectedWeaponIndex];
+            InitializeWeaponPrefabs();
         }
         private void Update()
         {
