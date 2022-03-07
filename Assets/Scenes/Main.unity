@@ -3428,7 +3428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1335472479}
   m_Layer: 0
-  m_Name: WeaponPosition
+  m_Name: FastWeaponPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3612,6 +3612,36 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1469827736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1469827737}
+  m_Layer: 0
+  m_Name: HeavyWeaponPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1469827737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469827736}
+  m_LocalRotation: {x: 0.7026937, y: -0.7109098, z: 0.015146237, w: 0.024485597}
+  m_LocalPosition: {x: 0.099, y: -0.028, z: 0.056}
+  m_LocalScale: {x: 1.0437901, y: 1.04379, z: 1.0437901}
+  m_Children: []
+  m_Father: {fileID: 7398547590908920040}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 176.793, y: -359.224, z: -269.312}
 --- !u!1 &1501494918
 GameObject:
   m_ObjectHideFlags: 0
@@ -3635,13 +3665,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501494918}
-  m_LocalRotation: {x: -0.55213267, y: -0.31473157, z: -0.55298436, w: 0.53879666}
-  m_LocalPosition: {x: 0.067, y: 0.413, z: -0.078}
+  m_LocalRotation: {x: -0.45637852, y: -0.2243194, z: -0.6343192, w: 0.58227026}
+  m_LocalPosition: {x: 0.1206, y: 0.3753, z: -0.0179}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1603680304629147454}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -70.572, y: 54.705, z: -131.702}
+  m_LocalEulerAnglesHint: {x: -54.691, y: 33.351, z: -112.511}
 --- !u!1 &1510506935
 GameObject:
   m_ObjectHideFlags: 0
@@ -4544,7 +4574,7 @@ MonoBehaviour:
     Name: Longsword
     WeaponType: 2
     WeaponPrefab: {fileID: 919132148280464973}
-    ArmedPosition: {fileID: 1335472478}
+    ArmedPosition: {fileID: 1469827736}
     SteathedPosition: {fileID: 1501494918}
   _currentSelectedWeaponIndex: 0
   CurrentEquipedWeapon:
@@ -6262,6 +6292,7 @@ Transform:
   - {fileID: 1449892060543801031}
   - {fileID: 1186498211761787545}
   - {fileID: 1335472479}
+  - {fileID: 1469827737}
   m_Father: {fileID: 4106474133316763934}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
