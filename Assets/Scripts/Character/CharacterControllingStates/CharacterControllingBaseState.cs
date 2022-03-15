@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SLGame.Gameplay
 {
-    public abstract class CharacterControllingBaseState : CharacterControllingTransitionState
+    public abstract class CharacterControllingBaseState : ControllingTransitionState
     {
         [SerializeField] protected PlayerMovement _playerMovement;
         [SerializeField] protected CharacterController _characterController;
@@ -15,7 +15,7 @@ namespace SLGame.Gameplay
 
         virtual public void Execute()
         {
-            Debug.Log("Current State:" + this.GetType().ToString());
+            //Debug.Log("Current State:" + this.GetType().ToString());
         }
 
         virtual public void StartTransition()

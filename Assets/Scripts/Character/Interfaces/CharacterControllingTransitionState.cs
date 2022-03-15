@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SLGame.Gameplay
 {
-    public interface CharacterControllingTransitionState
+    public interface ControllingTransitionState
     {
         void StartTransition();
         void EndTransition(bool endingManually);
