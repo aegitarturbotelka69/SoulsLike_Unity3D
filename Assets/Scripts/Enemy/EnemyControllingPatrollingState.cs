@@ -23,6 +23,7 @@ namespace SLGame.Enemy
             {
                 if (_enemyAI.PatrolPoints.Count - 1 == _currentPatrollingPoint)
                 {
+                    _currentPatrollingPoint = 0;
                     _enemyAI.ChangeControllingState(States.Idle);
                 }
                 else
