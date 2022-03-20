@@ -946,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NavMeshAgent: {fileID: 354870064}
   Animator: {fileID: 919132148420153186}
+  _enemyForwardVision: {fileID: 0}
   PatrolPoints:
   - {x: 3.5, y: 0, z: -11}
   - {x: -7.5, y: 0, z: -12}
@@ -973,7 +974,11 @@ MonoBehaviour:
   _obstructionMask:
     serializedVersion: 2
     m_Bits: 64
+  TargetInterestedTime: 15
+  _enemyAI: {fileID: 0}
   _playerTransform: {fileID: 0}
+  _targetInterestedRemainTime: 0
+  _targetInterested: 0
   CanSeePlayer: 0
 --- !u!4 &354870063
 Transform:

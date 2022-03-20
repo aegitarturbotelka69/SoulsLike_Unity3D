@@ -13,6 +13,7 @@ namespace SLGame.Gameplay
         StopRun,
         Falling,
         HardLand,
-        Patrolling
+        Patrolling,
+        Chasing
     }
 }

@@ -25,6 +25,7 @@ namespace SLGame.Enemy
                 {
                     _currentPatrollingPoint = 0;
                     _enemyAI.ChangeControllingState(States.Idle);
+                    return;
                 }
                 else
                 {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using SLGame.Gameplay;
 using UnityEngine;
 
 namespace SLGame.Enemy
@@ -16,14 +17,35 @@ namespace SLGame.Enemy
         [SerializeField] private LayerMask _targetMask;
         [SerializeField] private LayerMask _obstructionMask;
 
+        [SerializeField] private float TargetInterestedTime;
+
         [Header("References:")]
-        [SerializeField] private GameObject _playerTransform;
+        [SerializeField] private EnemyAI _enemyAI;
+
+        /// <summary>
+        /// Contains singleton player gameobject 
+        /// </summary>
+        /// <value> Player gameobject </value>
+        [SerializeField] private Transform _playerTransform;
+        public Transform PlayerTransform
+        {
+            get { return _playerTransform; }
+            private set { _playerTransform = value; }
+        }
 
         [Header("In game:")]
+        [SerializeField] private float _targetInterestedRemainTime = 0f;
+        [SerializeField] private bool _targetInterested = false;
+        public bool TargetInterested
+        {
+            get { return _targetInterested; }
+            private set { _targetInterested = value; }
+        }
         [SerializeField] public bool CanSeePlayer = false;
         void Start()
         {
-            _playerTransform = Player.Instance.gameObject;
+            PlayerTransform = Player.Instance.gameObject.transform;
+            _enemyAI = this.gameObject.GetComponent<EnemyAI>();
 
             StartCoroutine(Observe());
         }
@@ -31,6 +53,21 @@ namespace SLGame.Enemy
         void Update()
         {
 
+        }
+
+        private IEnumerator TargetInterestedRemain()
+        {
+            _targetInterested = true;
+            _targetInterestedRemainTime = TargetInterestedTime;
+
+            while (_targetInterestedRemainTime > 0)
+            {
+                _targetInterestedRemainTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            _targetInterested = false;
+            yield break;
         }
 
         private IEnumerator Observe()
@@ -54,7 +91,10 @@ namespace SLGame.Enemy
                         if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask))
                         {
                             Debug.LogWarning($"Enemy: {this.gameObject.name} Detected Player");
+                            _enemyAI.ChangeControllingState(States.Chasing);
+                            StartCoroutine(TargetInterestedRemain());
                             CanSeePlayer = true;
+
                             yield return null;
                         }
                         else

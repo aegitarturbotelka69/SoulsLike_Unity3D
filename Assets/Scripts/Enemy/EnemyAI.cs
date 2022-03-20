@@ -11,6 +11,11 @@ namespace SLGame.Enemy
         [Header("References:")]
         [SerializeField] public NavMeshAgent NavMeshAgent;
         [SerializeField] public Animator Animator;
+
+        /// <summary>
+        /// Current object forward vision
+        /// </summary>
+        [SerializeField] private ForwardFOV _enemyForwardVision;
         [Header("Stats:")]
         [SerializeField] public Dictionary<States, EnemyControllingBaseState> EnemyControllingStates = new Dictionary<States, EnemyControllingBaseState>();
         [SerializeField] public List<Vector3> PatrolPoints;
@@ -21,9 +26,11 @@ namespace SLGame.Enemy
         private void Start()
         {
             this.Animator = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
+            this._enemyForwardVision = this.gameObject.GetComponent<ForwardFOV>();
 
             EnemyControllingStates.Add(States.Idle, new EnemyControllingIdleState(Animator, this));
             EnemyControllingStates.Add(States.Patrolling, new EnemyControllingPatrollingState(Animator, this));
+            EnemyControllingStates.Add(States.Chasing, new EnemyControllingChasingState(Animator, this, _enemyForwardVision));
 
             _currentState = EnemyControllingStates[States.Idle];
         }

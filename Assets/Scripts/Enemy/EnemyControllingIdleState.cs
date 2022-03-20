@@ -5,19 +5,24 @@ namespace SLGame.Enemy
 {
     public class EnemyControllingIdleState : EnemyControllingBaseState
     {
-        [SerializeField] private float timeToStartPatrolling = 5f;
+        [Header("Stats:")]
+        [SerializeField] private float _idlingTime = 5f;
+
+        [Header("In game:")]
+        [SerializeField] private float _idleTimeRemain = 5f;
 
         public EnemyControllingIdleState(Animator enemyAnimator, EnemyAI ai)
             : base(enemyAnimator, ai) { }
 
         private void AwaitPatrolState()
         {
-            if (timeToStartPatrolling > 0f)
+            if (_idleTimeRemain > 0f)
             {
-                timeToStartPatrolling -= Time.deltaTime;
+                _idleTimeRemain -= Time.deltaTime;
             }
             else
             {
+                _idleTimeRemain = _idlingTime;
                 _enemyAI.ChangeControllingState(States.Patrolling);
             }
         }
