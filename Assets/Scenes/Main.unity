@@ -959,9 +959,8 @@ MonoBehaviour:
   StaminaRestorationPower: 40
   LightAttackStaminaConsumption: 0
   LightAttackRotationSpeed: 150
-  LightAttackCooldownDuration: 1
+  LightAttackCooldownDuration: 500
   StaminaRemain: 100
-  LightAttackCooldownDurationRemain: 0
   LightAttackOnCooldown: 0
   _currentLeftDelayBeforeStaminaRestoration: 4
 --- !u!114 &354870062
