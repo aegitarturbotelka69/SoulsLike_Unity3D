@@ -7,7 +7,7 @@ namespace SLGame.Gameplay
         [SerializeField] protected PlayerMovement _playerMovement;
         [SerializeField] protected CharacterController _characterController;
 
-        public CharacterControllingBaseState(ref PlayerMovement playerMovementReference, ref CharacterController controller)
+        public CharacterControllingBaseState(PlayerMovement playerMovementReference, ref CharacterController controller)
         {
             this._playerMovement = playerMovementReference;
             this._characterController = controller;

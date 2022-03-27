@@ -7,18 +7,6 @@ namespace SLGame.Enemy
 {
     public class ForwardFOV : MonoBehaviour
     {
-        [Header("Stats: ")]
-        [SerializeField] public float Radius;
-
-        [SerializeField, Range(0f, 360f)] public float Angle;
-
-        [SerializeField] private float _forwardCheckDelay;
-
-        [SerializeField] private LayerMask _targetMask;
-        [SerializeField] private LayerMask _obstructionMask;
-
-        [SerializeField] private float TargetInterestedTime;
-
         [Header("References:")]
         [SerializeField] private EnemyAI _enemyAI;
 
@@ -32,6 +20,18 @@ namespace SLGame.Enemy
             get { return _playerTransform; }
             private set { _playerTransform = value; }
         }
+
+        [Header("Stats: ")]
+        [SerializeField] public float Radius;
+
+        [SerializeField, Range(0f, 360f)] public float Angle;
+
+        [SerializeField] private float _forwardCheckDelay;
+
+        [SerializeField] private LayerMask _targetMask;
+        [SerializeField] private LayerMask _obstructionMask;
+
+        [SerializeField] private float TargetInterestedTime;
 
         [Header("In game:")]
         [SerializeField] private float _targetInterestedRemainTime = 0f;
@@ -62,6 +62,12 @@ namespace SLGame.Enemy
 
             while (_targetInterestedRemainTime > 0)
             {
+                if (CanSeePlayer)
+                {
+                    _targetInterestedRemainTime = TargetInterestedTime;
+                    yield return null;
+                }
+
                 _targetInterestedRemainTime -= Time.deltaTime;
                 yield return null;
             }
@@ -75,7 +81,6 @@ namespace SLGame.Enemy
 
             while (true)
             {
-                yield return new WaitForSeconds(_forwardCheckDelay);
 
                 Collider[] rangeChecks = Physics.OverlapSphere(transform.position, Radius, _targetMask);
 
@@ -91,9 +96,11 @@ namespace SLGame.Enemy
                         if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask))
                         {
                             Debug.LogWarning($"Enemy: {this.gameObject.name} Detected Player");
-                            _enemyAI.ChangeControllingState(States.Chasing);
                             StartCoroutine(TargetInterestedRemain());
                             CanSeePlayer = true;
+                            TargetInterested = true;
+                            _targetInterestedRemainTime = TargetInterestedTime;
+                            yield return new WaitForSeconds(_forwardCheckDelay);
 
                             yield return null;
                         }

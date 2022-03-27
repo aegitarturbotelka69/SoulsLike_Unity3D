@@ -55,17 +55,16 @@ namespace SLGame.Gameplay
         private void Start()
         {
             CharacterAnimator = this.gameObject.GetComponent<Animator>();
-            // !Attentione! Must be a joke below
-            PlayerMovement playerMovementReference = this;
             this.CharacterController = this.gameObject.GetComponent<CharacterController>();
             CharacterController playerCharacterController = this.gameObject.GetComponent<CharacterController>();
-            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(ref playerMovementReference, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(ref playerMovementReference, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(ref playerMovementReference, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(ref playerMovementReference, ref playerCharacterController));
-            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(ref playerMovementReference, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(ref playerMovementReference, ref playerCharacterController));
-            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(ref playerMovementReference, ref playerCharacterController));
+
+            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(this, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }

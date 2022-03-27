@@ -5,7 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingRunState : CharacterControllingBaseState
     {
-        public CharacterControllingRunState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller)
+        public CharacterControllingRunState(PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(playerMovementReference, ref controller)
         {
             this._playerMovement = playerMovementReference;
         }

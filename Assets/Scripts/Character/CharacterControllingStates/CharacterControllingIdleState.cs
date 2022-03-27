@@ -5,7 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingIdleState : CharacterControllingBaseState
     {
-        public CharacterControllingIdleState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller)
+        public CharacterControllingIdleState(PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(playerMovementReference, ref controller)
         {
             this._playerMovement = playerMovementReference;
         }

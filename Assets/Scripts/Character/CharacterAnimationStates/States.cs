@@ -14,6 +14,8 @@ namespace SLGame.Gameplay
         Falling,
         HardLand,
         Patrolling,
-        Chasing
+        Chasing,
+        Attack,
+        DodgeBackJump
     }
 }

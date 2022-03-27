@@ -6,12 +6,18 @@ namespace SLGame.Enemy
 {
     public class EnemyControllingPatrollingState : EnemyControllingBaseState
     {
+        [Header("References:")]
+        /// <summary>
+        /// Enemy forward vision class
+        /// </summary>
+        [SerializeField] private ForwardFOV _fov;
 
         [Header("In game:")]
         [SerializeField] private uint _currentPatrollingPoint;
-        public EnemyControllingPatrollingState(Animator enemyAnimator, EnemyAI ai)
+        public EnemyControllingPatrollingState(Animator enemyAnimator, EnemyAI ai, ForwardFOV fov)
         : base(enemyAnimator, ai)
         {
+            this._fov = fov;
             _currentPatrollingPoint = 0;
         }
 
@@ -33,10 +39,22 @@ namespace SLGame.Enemy
                 }
             }
         }
+
+        /// <summary>
+        /// Enemy vision
+        /// </summary>
+        private void Observe()
+        {
+            if (_fov.CanSeePlayer || _fov.TargetInterested)
+            {
+                _enemyAI.ChangeControllingState(States.Chasing);
+            }
+        }
+
         public override void Execute()
         {
+            Observe();
             PatrolToPoint();
-
             base.Execute();
         }
         public override void StartTransition()

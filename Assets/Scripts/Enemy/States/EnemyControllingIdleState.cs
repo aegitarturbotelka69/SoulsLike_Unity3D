@@ -5,14 +5,23 @@ namespace SLGame.Enemy
 {
     public class EnemyControllingIdleState : EnemyControllingBaseState
     {
+        [Header("References:")]
+        [SerializeField] private ForwardFOV _fov;
+
         [Header("Stats:")]
-        [SerializeField] private float _idlingTime = 5f;
+        /// <summary>
+        /// Seconds of staying in starting position of patrolling
+        /// </summary>
+        [SerializeField] private float _idlingTime = 20f;
 
         [Header("In game:")]
-        [SerializeField] private float _idleTimeRemain = 5f;
+        [SerializeField] private float _idleTimeRemain = 0f;
 
-        public EnemyControllingIdleState(Animator enemyAnimator, EnemyAI ai)
-            : base(enemyAnimator, ai) { }
+        public EnemyControllingIdleState(Animator enemyAnimator, EnemyAI ai, ForwardFOV fov)
+            : base(enemyAnimator, ai)
+        {
+            this._fov = fov;
+        }
 
         private void AwaitPatrolState()
         {
@@ -26,10 +35,20 @@ namespace SLGame.Enemy
                 _enemyAI.ChangeControllingState(States.Patrolling);
             }
         }
+
+        private void Observe()
+        {
+            if (_fov.CanSeePlayer || _fov.TargetInterested)
+            {
+                _enemyAI.ChangeControllingState(States.Chasing);
+            }
+        }
+
         public override void Execute()
         {
-            base.Execute();
+            Observe();
             AwaitPatrolState();
+            base.Execute();
         }
         public override void StartTransition()
         {

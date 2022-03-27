@@ -5,7 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingFallState : CharacterControllingBaseState
     {
-        public CharacterControllingFallState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller)
+        public CharacterControllingFallState(PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(playerMovementReference, ref controller)
         {
             this._playerMovement = playerMovementReference;
         }

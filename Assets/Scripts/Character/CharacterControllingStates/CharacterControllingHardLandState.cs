@@ -5,7 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingHardLandState : CharacterControllingBaseState
     {
-        public CharacterControllingHardLandState(ref PlayerMovement playerMovementReference, ref CharacterController controller) : base(ref playerMovementReference, ref controller) { }
+        public CharacterControllingHardLandState(PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(playerMovementReference, ref controller) { }
 
         public override void Execute()
         {
