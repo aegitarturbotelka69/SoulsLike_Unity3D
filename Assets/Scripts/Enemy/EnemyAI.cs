@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SLGame.Gameplay;
 using UnityEngine;
 using UnityEngine.AI;
@@ -42,6 +43,7 @@ namespace SLGame.Enemy
         /// </summary>
         [SerializeField, Space(10)] public float LightAttackStaminaConsumption = 55f;
         [SerializeField] public float LightAttackRotationSpeed = 20f;
+        [SerializeField] public int LightAttackCooldownDuration;
 
         [Header("In game:"), Space(40)]
 
@@ -51,6 +53,12 @@ namespace SLGame.Enemy
         /// by default equals to Stamina
         /// </summary>
         [SerializeField] public float StaminaRemain;
+
+        /// <summary>
+        /// true if light attack on cooldown
+        /// </summary>
+        [SerializeField] public bool LightAttackOnCooldown;
+
         /// <summary>
         /// Current state of the enemy
         /// </summary>
@@ -105,6 +113,12 @@ namespace SLGame.Enemy
             }
         }
 
+        public async void SetLightAttackOnCooldown()
+        {
+            this.LightAttackOnCooldown = true;
+            await Task.Delay(LightAttackCooldownDuration);
+            this.LightAttackOnCooldown = false;
+        }
         public void ChangeControllingState(States newState, bool endingManually = false)
         {
             CurrentState.EndTransition(endingManually);

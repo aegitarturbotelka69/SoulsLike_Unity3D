@@ -7,7 +7,7 @@ namespace SLGame.Enemy
     {
         [Header("References:")]
         [SerializeField] private ForwardFOV _forwardFOV;
-        [SerializeField] private float _attackOffset = 1.5f;
+        [SerializeField] private float _attackOffset = 2.5f;
 
         public EnemyControllingChasingState(Animator animator, EnemyAI ai, ForwardFOV forwardFOV)
             : base(animator, ai)
@@ -26,7 +26,8 @@ namespace SLGame.Enemy
         private void CheckForAttackAvaliablity()
         {
             if (Vector3.Distance(_enemyAI.gameObject.transform.position, _forwardFOV.PlayerTransform.position) < _attackOffset
-                && _enemyAI.StaminaRemain > _enemyAI.LightAttackStaminaConsumption)
+                && _enemyAI.StaminaRemain > _enemyAI.LightAttackStaminaConsumption
+                && !_enemyAI.LightAttackOnCooldown)
             {
                 _enemyAI.ChangeControllingState(States.Attack);
             }

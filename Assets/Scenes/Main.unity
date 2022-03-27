@@ -958,8 +958,11 @@ MonoBehaviour:
   DelayBeforeRestoreStamina: 4
   StaminaRestorationPower: 40
   LightAttackStaminaConsumption: 0
-  LightAttackRotationSpeed: 300
+  LightAttackRotationSpeed: 150
+  LightAttackCooldownDuration: 1
   StaminaRemain: 100
+  LightAttackCooldownDurationRemain: 0
+  LightAttackOnCooldown: 0
   _currentLeftDelayBeforeStaminaRestoration: 4
 --- !u!114 &354870062
 MonoBehaviour:
@@ -1036,8 +1039,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1638856, y: 0.6226523, z: 1.3938668}
-  m_Center: {x: 0.08194338, y: 0.31594107, z: -0.03357406}
+  m_Size: {x: 1.1638856, y: 2.519675, z: 1.3938668}
+  m_Center: {x: 0.08194338, y: 1.2644523, z: -0.033574037}
 --- !u!1 &388057175
 GameObject:
   m_ObjectHideFlags: 0

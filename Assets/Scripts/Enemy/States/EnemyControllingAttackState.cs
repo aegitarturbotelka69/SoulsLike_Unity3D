@@ -13,9 +13,6 @@ namespace SLGame.Enemy
         /// </summary>
         [SerializeField] private ForwardFOV _fov;
 
-        [Header("Stats: ")]
-        [SerializeField] private float _rotationSpeed = 20f;
-
         public EnemyControllingAttackState(Animator enemyAnimator, EnemyAI ai, ForwardFOV fov)
             : base(enemyAnimator, ai)
         {
@@ -36,21 +33,22 @@ namespace SLGame.Enemy
         public override void EndTransition(bool endingManually)
         {
             _animator.SetBool(States.Attack.ToString(), false);
+            _enemyAI.SetLightAttackOnCooldown();
 
+            if (!endingManually)
+                return;
 
-            if (endingManually)
+            if (_fov.TargetInterested || _fov.CanSeePlayer)
             {
-                if (_fov.TargetInterested && _fov.CanSeePlayer)
-                {
-                    _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.Chasing];
-                    _enemyAI.Animator.SetBool(States.Chasing.ToString(), true);
-                    return;
-                }
-                else
-                {
-                    _enemyAI.ChangeControllingState(States.Patrolling);
-                    return;
-                }
+                _enemyAI.Animator.SetBool(States.Chasing.ToString(), true);
+                _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.Chasing];
+                return;
+            }
+            else
+            {
+                _enemyAI.Animator.SetBool(States.Move.ToString(), true);
+                _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.Patrolling];
+                return;
             }
         }
     }
