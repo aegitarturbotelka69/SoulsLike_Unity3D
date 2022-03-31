@@ -38,6 +38,14 @@ namespace SLGame.Enemy
             if (!endingManually)
                 return;
 
+            if ((_enemyAI.StaminaRemain / _enemyAI.Stamina) * 100 < 40)
+            {
+                Debug.LogWarning("Executing dodge back jump");
+                _enemyAI.Animator.SetBool(States.DodgeBackJump.ToString(), true);
+                _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.DodgeBackJump];
+                return;
+            }
+
             if (_fov.TargetInterested || _fov.CanSeePlayer)
             {
                 _enemyAI.Animator.SetBool(States.Chasing.ToString(), true);

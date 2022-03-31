@@ -1,20 +1,60 @@
 using UnityEngine;
 
 using SLGame.Gameplay;
+using System.Threading.Tasks;
 
 namespace SLGame.Enemy
 {
     public class EnemyControllingDodgeBackJumpState : EnemyControllingBaseState
     {
+        [Header("References: ")]
+
+        /// <summary>
+        /// Reference to enemy transform
+        /// </summary>
+        [SerializeField] private Transform _enemyTransform;
+
+        [Header("Stats: ")]
+
+        /// <summary>
+        /// Back jump time build-in.
+        /// </summary>
+        [SerializeField] private float _backJumpTime = 0.8f;
+
+        [SerializeField] private float _backJumpSpeedMultiplier = 4.5f;
+
+        [Header("In game: ")]
+        /// <summary>
+        /// Back jump time remain if logic executing, after execution reseting to build-in backJumpTime
+        /// </summary>
+        [SerializeField] private float _backJumpTimeRemain = 0.5f;
+
         public EnemyControllingDodgeBackJumpState(Animator enemyAnimator, EnemyAI ai)
-            : base(enemyAnimator, ai) { }
+            : base(enemyAnimator, ai)
+        {
+            _enemyTransform = ai.gameObject.GetComponent<Transform>();
+        }
         public override void Execute()
         {
-            base.Execute();
+            if (_backJumpTimeRemain > 0)
+            {
+                _enemyAI.Controller.Move(
+                        (-_enemyTransform.forward)
+                        * _enemyAI.NavMeshAgent.speed
+                        * _backJumpSpeedMultiplier
+                        * Time.deltaTime);
+
+                _backJumpTimeRemain -= Time.deltaTime;
+            }
+            else
+            {
+                _enemyAI.ChangeControllingState(States.Chasing);
+            }
         }
         public override void StartTransition()
         {
             _animator.SetBool(States.DodgeBackJump.ToString(), true);
+            _backJumpTimeRemain = _backJumpTime;
         }
 
         public override void EndTransition(bool endingManually)

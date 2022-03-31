@@ -11,7 +11,10 @@ namespace SLGame.Enemy
     {
         [Header("References:")]
         [SerializeField] public NavMeshAgent NavMeshAgent;
+
         [SerializeField] public Animator Animator;
+
+        [SerializeField] public CharacterController Controller;
 
         /// <summary>
         /// Current object forward vision
@@ -69,11 +72,15 @@ namespace SLGame.Enemy
         /// how much time before next stamina restoration
         /// </summary>
         [SerializeField] private float _currentLeftDelayBeforeStaminaRestoration = 0f;
-        private void Start()
+
+        private void Awake()
         {
+            this.Controller = this.gameObject.GetComponent<CharacterController>();
             this.Animator = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
             this._enemyForwardVision = this.gameObject.GetComponent<ForwardFOV>();
-
+        }
+        private void Start()
+        {
             EnemyControllingStates.Add(States.Idle, new EnemyControllingIdleState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.Patrolling, new EnemyControllingPatrollingState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.Chasing, new EnemyControllingChasingState(Animator, this, _enemyForwardVision));
@@ -99,7 +106,8 @@ namespace SLGame.Enemy
         {
             while (true)
             {
-                if (_currentLeftDelayBeforeStaminaRestoration <= 0f)
+                if (_currentLeftDelayBeforeStaminaRestoration <= 0f
+                    && StaminaRemain <= (Stamina + StaminaRestorationPower))
                 {
                     _currentLeftDelayBeforeStaminaRestoration = DelayBeforeRestoreStamina;
                     StaminaRemain += StaminaRestorationPower;
