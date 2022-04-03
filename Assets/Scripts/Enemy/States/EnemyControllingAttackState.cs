@@ -41,21 +41,18 @@ namespace SLGame.Enemy
             if ((_enemyAI.StaminaRemain / _enemyAI.Stamina) * 100 < 40)
             {
                 Debug.LogWarning("Executing dodge back jump");
-                _enemyAI.Animator.SetBool(States.DodgeBackJump.ToString(), true);
-                _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.DodgeBackJump];
+                _enemyAI.ManualStartTransactionSwitchState(States.DodgeBackJump);
                 return;
             }
 
             if (_fov.TargetInterested || _fov.CanSeePlayer)
             {
-                _enemyAI.Animator.SetBool(States.Chasing.ToString(), true);
-                _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.Chasing];
+                _enemyAI.ManualStartTransactionSwitchState(States.Chasing);
                 return;
             }
             else
             {
-                _enemyAI.Animator.SetBool(States.Move.ToString(), true);
-                _enemyAI.CurrentState = _enemyAI.EnemyControllingStates[States.Patrolling];
+                _enemyAI.ManualStartTransactionSwitchState(States.Patrolling);
                 return;
             }
         }

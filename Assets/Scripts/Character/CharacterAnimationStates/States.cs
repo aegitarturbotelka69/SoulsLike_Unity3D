@@ -16,6 +16,7 @@ namespace SLGame.Gameplay
         Patrolling,
         Chasing,
         Attack,
-        DodgeBackJump
+        DodgeBackJump,
+        RestoringPower
     }
 }

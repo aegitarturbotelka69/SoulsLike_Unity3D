@@ -19,9 +19,9 @@ namespace SLGame.Enemy
         /// <summary>
         /// Back jump time build-in.
         /// </summary>
-        [SerializeField] private float _backJumpTime = 0.8f;
+        [SerializeField] private float _backJumpTime = 0.5f;
 
-        [SerializeField] private float _backJumpSpeedMultiplier = 4.5f;
+        [SerializeField] private float _backJumpSpeedMultiplier = 3.5f;
 
         [Header("In game: ")]
         /// <summary>
@@ -48,7 +48,7 @@ namespace SLGame.Enemy
             }
             else
             {
-                _enemyAI.ChangeControllingState(States.Chasing);
+                EndTransition(true);
             }
         }
         public override void StartTransition()
@@ -60,6 +60,11 @@ namespace SLGame.Enemy
         public override void EndTransition(bool endingManually)
         {
             _animator.SetBool(States.DodgeBackJump.ToString(), false);
+
+            if ((_enemyAI.StaminaRemain / _enemyAI.Stamina) * 100 < 40)
+            {
+                _enemyAI.ManualStartTransactionSwitchState(States.RestoringPower);
+            }
         }
     }
 }

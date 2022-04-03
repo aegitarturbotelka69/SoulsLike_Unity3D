@@ -9,6 +9,7 @@ namespace SLGame.Enemy
 {
     public class EnemyAI : MonoBehaviour
     {
+        // * References
         [Header("References:")]
         [SerializeField] public NavMeshAgent NavMeshAgent;
 
@@ -22,6 +23,8 @@ namespace SLGame.Enemy
         [SerializeField] private ForwardFOV _enemyForwardVision;
 
         [SerializeField] public Dictionary<States, EnemyControllingBaseState> EnemyControllingStates = new Dictionary<States, EnemyControllingBaseState>();
+
+        // * Stats
         [Header("Stats:"), Space(40)]
         [SerializeField] public List<Vector3> PatrolPoints;
         [SerializeField] public float PatrolOffset;
@@ -48,6 +51,7 @@ namespace SLGame.Enemy
         [SerializeField] public float LightAttackRotationSpeed = 20f;
         [SerializeField] public int LightAttackCooldownDuration;
 
+        // * In game stats
         [Header("In game:"), Space(40)]
 
 
@@ -86,6 +90,7 @@ namespace SLGame.Enemy
             EnemyControllingStates.Add(States.Chasing, new EnemyControllingChasingState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.Attack, new EnemyControllingAttackState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.DodgeBackJump, new EnemyControllingDodgeBackJumpState(Animator, this));
+            EnemyControllingStates.Add(States.RestoringPower, new EnemyControllingRestoringPowerState(Animator, this));
 
             CurrentState = EnemyControllingStates[States.Idle];
 
@@ -95,6 +100,24 @@ namespace SLGame.Enemy
         private void Update()
         {
             CurrentState.Execute();
+        }
+
+        /// <summary>
+        /// Execute start transaction method for current state
+        /// </summary>
+        public void ManualStartTransaction()
+        {
+            CurrentState.StartTransition();
+        }
+
+        /// <summary>
+        /// Executes to change current state and call StartTransition method of this state
+        /// </summary>
+        /// <param name="newState"></param>
+        public void ManualStartTransactionSwitchState(States newState)
+        {
+            CurrentState = EnemyControllingStates[newState];
+            CurrentState.StartTransition();
         }
 
         public void ManualEndTransaction()

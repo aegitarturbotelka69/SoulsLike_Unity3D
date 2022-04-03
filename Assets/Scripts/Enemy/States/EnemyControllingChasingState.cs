@@ -1,5 +1,6 @@
 using SLGame.Gameplay;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace SLGame.Enemy
 {
@@ -8,6 +9,8 @@ namespace SLGame.Enemy
         [Header("References:")]
         [SerializeField] private ForwardFOV _forwardFOV;
         [SerializeField] private float _attackOffset = 2.5f;
+
+        [SerializeField] private float _chaseSpeedMultiplier = 2.5f;
 
         public EnemyControllingChasingState(Animator animator, EnemyAI ai, ForwardFOV forwardFOV)
             : base(animator, ai)
@@ -29,7 +32,14 @@ namespace SLGame.Enemy
                 && _enemyAI.StaminaRemain > _enemyAI.LightAttackStaminaConsumption
                 && !_enemyAI.LightAttackOnCooldown)
             {
+                if (_enemyAI.StaminaRemain < _enemyAI.LightAttackStaminaConsumption)
+                {
+                    _enemyAI.ChangeControllingState(States.DodgeBackJump);
+                    return;
+                }
+
                 _enemyAI.ChangeControllingState(States.Attack);
+                return;
             }
         }
 
@@ -43,11 +53,13 @@ namespace SLGame.Enemy
         }
         public override void StartTransition()
         {
+            _enemyAI.GetComponent<NavMeshAgent>().speed = (_enemyAI.GetComponent<NavMeshAgent>().speed * _chaseSpeedMultiplier);
             _animator.SetBool(States.Chasing.ToString(), true);
         }
 
         public override void EndTransition(bool endingManually)
         {
+            _enemyAI.GetComponent<NavMeshAgent>().speed = (_enemyAI.GetComponent<NavMeshAgent>().speed / _chaseSpeedMultiplier);
             _animator.SetBool(States.Chasing.ToString(), false);
         }
     }

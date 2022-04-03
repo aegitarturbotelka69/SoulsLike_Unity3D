@@ -926,6 +926,7 @@ GameObject:
   - component: {fileID: 354870061}
   - component: {fileID: 354870064}
   - component: {fileID: 354870066}
+  - component: {fileID: 354870065}
   m_Layer: 8
   m_Name: Spider
   m_TagString: Untagged
@@ -1016,7 +1017,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.7
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 500
@@ -1028,6 +1029,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!135 &354870065
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354870060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.3149137
+  m_Center: {x: 0, y: 0.81491494, z: 0}
 --- !u!143 &354870066
 CharacterController:
   m_ObjectHideFlags: 0
