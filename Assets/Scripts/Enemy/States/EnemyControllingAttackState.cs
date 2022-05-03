@@ -38,10 +38,15 @@ namespace SLGame.Enemy
             if (!endingManually)
                 return;
 
-            if ((_enemyAI.StaminaRemain / _enemyAI.Stamina) * 100 < 40)
+            if (_enemyAI.LightAttackOnCooldown)
             {
-                Debug.LogWarning("Executing dodge back jump");
-                _enemyAI.ManualStartTransactionSwitchState(States.DodgeBackJump);
+                if ((_enemyAI.StaminaRemain / _enemyAI.Stamina) * 100 < 40)
+                {
+                    _enemyAI.ManualStartTransactionSwitchState(States.DodgeBackJump);
+                    return;
+                }
+
+                _enemyAI.ManualStartTransactionSwitchState(States.RestoringPower);
                 return;
             }
 

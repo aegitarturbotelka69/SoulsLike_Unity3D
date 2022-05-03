@@ -13,20 +13,18 @@ namespace SLGame.Enemy
         /// </summary>
         [SerializeField] private ForwardFOV _fov;
 
-        [Header("Stats:")]
-        [SerializeField] private float _leftTimeWalk = 0.5f;
-        [SerializeField] private float _rightTimeWalk = 0.5f;
-
-        [Header("In game")]
-        [SerializeField] private float _leftTimeWalkRemain = 0.5f;
-        [SerializeField] private float _rightTimeWalkRemain = 0.5f;
-
-        public EnemyControllingRestoringPowerState(Animator enemyAnimator, EnemyAI ai)
-            : base(enemyAnimator, ai) { }
+        public EnemyControllingRestoringPowerState(Animator enemyAnimator, EnemyAI ai, ForwardFOV fov)
+            : base(enemyAnimator, ai)
+        {
+            this._fov = fov;
+        }
 
         private void WaitUntilStaminaRestored()
         {
-            if ((_enemyAI.StaminaRemain / _enemyAI.Stamina) * 100 > 60)
+            Quaternion rotationTarget = Quaternion.LookRotation(_fov.PlayerTransform.position - _enemyAI.transform.position);
+            _enemyAI.transform.rotation = Quaternion.RotateTowards(_enemyAI.transform.rotation, rotationTarget, 400 * Time.deltaTime);
+
+            if (_enemyAI.StaminaRemain > _enemyAI.LightAttackStaminaConsumption)
             {
                 _enemyAI.ChangeControllingState(States.Chasing);
             }

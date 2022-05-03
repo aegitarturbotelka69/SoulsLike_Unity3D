@@ -26,28 +26,33 @@ namespace SLGame.Enemy
                 _enemyAI.ChangeControllingState(States.Patrolling);
         }
 
+        /// <summary>
+        /// Checking enough mana, distance and cooldown for attack
+        /// </summary>
         private void CheckForAttackAvaliablity()
         {
-            if (Vector3.Distance(_enemyAI.gameObject.transform.position, _forwardFOV.PlayerTransform.position) < _attackOffset
-                && _enemyAI.StaminaRemain > _enemyAI.LightAttackStaminaConsumption
-                && !_enemyAI.LightAttackOnCooldown)
+            if (_enemyAI.StaminaRemain < _enemyAI.LightAttackStaminaConsumption
+                || _enemyAI.LightAttackOnCooldown)
             {
-                if (_enemyAI.StaminaRemain < _enemyAI.LightAttackStaminaConsumption)
-                {
-                    _enemyAI.ChangeControllingState(States.DodgeBackJump);
-                    return;
-                }
-
-                _enemyAI.ChangeControllingState(States.Attack);
+                _enemyAI.ChangeControllingState(States.RestoringPower);
                 return;
             }
         }
 
-
+        private void Attack()
+        {
+            if (Vector3.Distance(_enemyAI.gameObject.transform.position, _forwardFOV.PlayerTransform.position) < _attackOffset)
+            {
+                Debug.LogWarning("executing attack after chase");
+                _enemyAI.ChangeControllingState(States.Attack);
+                return;
+            }
+        }
         public override void Execute()
         {
-            ChasePlayer();
             CheckForAttackAvaliablity();
+            Attack();
+            ChasePlayer();
 
             base.Execute();
         }
