@@ -16,10 +16,11 @@ namespace SLGame.Input
         public bool Roll;
         public bool Run;
 
-        public bool EquipWeapon;
+        public bool LightWeapon;
+        public bool HeavyWeapon;
         public bool MoveToTopSelected;
 
-
+        public bool AdditionalMenu;
 
         void Awake()
         {

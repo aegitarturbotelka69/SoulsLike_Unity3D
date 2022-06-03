@@ -22,6 +22,13 @@ namespace SLGame.Gameplay.Camera
 
         [SerializeField] private float rotationX = 0f;
         [SerializeField] private float rotationY = 0f;
+
+        [SerializeField] private bool _rotatePossibility = true;
+
+        private void Awake()
+        {
+            SLGame.UI.UI.OnMenuOpened += ChangeRotatePossibilityStatus;
+        }
         private void Update()
         {
             GetMouseInput();
@@ -37,8 +44,17 @@ namespace SLGame.Gameplay.Camera
 
             mouse_X_Input = UnityEngine.Input.GetAxis("Mouse X") * mouse_X_Sensitivity;
         }
+
+        private void ChangeRotatePossibilityStatus(bool status)
+        {
+            // ! Here "!" is important, cause if UI shown status will be true but rotatePossibility must be false
+            _rotatePossibility = !status;
+        }
         private void Rotate()
         {
+            if (_rotatePossibility == false)
+                return;
+
             rotationY += mouse_X_Input;
             rotationX += mouse_Y_Input;
 
@@ -48,8 +64,6 @@ namespace SLGame.Gameplay.Camera
                 rotationY = 0f;
 
             transform.localEulerAngles = new Vector3(rotationX, rotationY, 0f);
-
-
         }
     }
 }

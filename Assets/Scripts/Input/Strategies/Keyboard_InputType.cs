@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SLGame.Input
@@ -60,22 +61,31 @@ namespace SLGame.Input
                 VirtualInputManager.Instance.Run = false;
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Tab))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
             {
-                VirtualInputManager.Instance.EquipWeapon = true;
+                VirtualInputManager.Instance.HeavyWeapon = true;
             }
             else
             {
-                VirtualInputManager.Instance.EquipWeapon = false;
+                VirtualInputManager.Instance.HeavyWeapon = false;
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse2))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))
             {
-                VirtualInputManager.Instance.MoveToTopSelected = true;
+                VirtualInputManager.Instance.LightWeapon = true;
             }
             else
             {
-                VirtualInputManager.Instance.MoveToTopSelected = false;
+                VirtualInputManager.Instance.LightWeapon = false;
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Tab))
+            {
+                VirtualInputManager.Instance.AdditionalMenu = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.AdditionalMenu = false;
             }
         }
     }
