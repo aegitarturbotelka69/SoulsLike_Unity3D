@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SLGame.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "WeaponSO", menuName = "Items/Weapons/WeaponSO", order = 0)]
+    [CreateAssetMenu(fileName = "Weapon", menuName = "Items/Weapons/Weapon", order = 0)]
     public class WeaponSO : ScriptableObject
     {
         /// <summary>
