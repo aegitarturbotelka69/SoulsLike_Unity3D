@@ -6,100 +6,79 @@ using UnityEngine;
 
 using SLGame.Input;
 using SLGame.Modules;
+using SLGame.ScriptableObjects;
 
 namespace SLGame.Gameplay
 {
     public class PlayerWeapon : MonoBehaviour
     {
-        [Serializable]
-        public class Weapon
-        {
-            public uint WeaponID;
-            public string Name;
-
-            public WeaponType WeaponType;
-            public GameObject WeaponPrefab;
-            public GameObject ArmedPosition;
-            public GameObject SteathedPosition;
-        }
         [Header("References:")]
         [SerializeField] private Animator _playerAnimator;
 
         [Header("Stats: ")]
-        [SerializeField] private Weapon Unarmed;
-        [SerializeField] private List<Weapon> ListOfWeapons = new List<Weapon>();
 
         [Header("In game:")]
 
-        [SerializeField] private int _currentSelectedWeaponIndex;
-        [SerializeField] public Weapon CurrentEquipedWeapon;
-        [SerializeField] private Weapon _currentSelectedWeapon;
+        [SerializeField] private Transform _steathedWeaponParentPosition;
+        [SerializeField] private Transform _armedWeaponParentPosition;
 
-        [SerializeField] public bool WeaponEquiped = false;
+        [SerializeField] private Gameplay.Weapon _currentlyEquippedLightWeapon;
+        [SerializeField] private Gameplay.Weapon _currentlyEquippedHeavyWeapon;
 
-        private void EquipWeapon()
-        {
-            Debug.LogWarning("Changing from steathed to armed parent position for weapon");
-
-            CurrentEquipedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.parent = CurrentEquipedWeapon.ArmedPosition.transform;
-            CurrentEquipedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-            CurrentEquipedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
-        }
+        /// <summary>
+        /// Equipping selected weapon to the player
+        /// </summary>
+        /// <param name="sender"> object </param>
+        /// <param name="selectedWeapon"> Weapon to equip </param>
+        // private void EquipWeapon(object sender, Weapon selectedWeapon)
+        // {
+        //     // ! Rework
+        //     if (selectedWeapon.Type == WeaponType.Fast)
+        //     {
+        //         _currentlyEquippedLightWeapon = selectedWeapon;
+        //         GameObject weapon = Instantiate(
+        //             original: selectedWeapon.Prefab,
+        //             position: selectedWeapon.SteathedTransform.Position,
+        //             rotation: Quaternion.Euler(selectedWeapon.SteathedTransform.Rotation));
+        //     }
+        //     else if (selectedWeapon.Type == WeaponType.Heavy)
+        //     {
+        //         _currentlyEquippedHeavyWeapon = selectedWeapon;
+        //         GameObject weapon = Instantiate(
+        //             original: selectedWeapon.Prefab,
+        //             position: selectedWeapon.SteathedTransform.Position,
+        //             rotation: Quaternion.Euler(selectedWeapon.SteathedTransform.Rotation));
+        //     }
+        // }
 
         private void SteathWeapon()
         {
-            Debug.LogWarning("Changing from armed to steathed parent position for weapon");
-
-            CurrentEquipedWeapon.ArmedPosition.transform.GetChild(0).gameObject.transform.parent = CurrentEquipedWeapon.SteathedPosition.transform;
-            CurrentEquipedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-            CurrentEquipedWeapon.SteathedPosition.transform.GetChild(0).gameObject.transform.localRotation = Quaternion.identity;
-        }
-
-        private void InitializeWeaponPrefabs()
-        {
-            foreach (Weapon weapon in ListOfWeapons)
-            {
-                GameObject obj = GameObject.Instantiate(weapon.WeaponPrefab, weapon.SteathedPosition.transform);
-            }
+            Debug.LogWarning("Steathing current weapon");
         }
         private void Awake()
         {
+            FindAndSetPositionsForWeapon();
+
             _playerAnimator = this.gameObject.GetComponent<Animator>();
-            _currentSelectedWeaponIndex = 0;
-            _currentSelectedWeapon = ListOfWeapons[_currentSelectedWeaponIndex];
-            InitializeWeaponPrefabs();
+
+            // UI.UI_WeaponSlot.OnWeaponSelectedTEST += EquipWeapon;
+            UI.UI_WeaponSlot.OnWeaponSelected += _currentlyEquippedHeavyWeapon.EquipWeapon;
+            UI.UI_WeaponSlot.OnWeaponSelected += _currentlyEquippedLightWeapon.EquipWeapon;
         }
         private void Update()
         {
-            if (VirtualInputManager.Instance.EquipWeapon)
-            {
-                switch (WeaponEquiped)
-                {
-                    case true:
-                        WeaponEquiped = false;
-                        _playerAnimator.SetBool("EquipWeapon", WeaponEquiped);
-                        break;
-                    case false:
-                        CurrentEquipedWeapon = _currentSelectedWeapon;
-                        WeaponEquiped = true;
-                        _playerAnimator.SetBool("EquipWeapon", WeaponEquiped);
-                        break;
-                }
-            }
+            // CheckForWeaponInput();
+        }
 
-            if (VirtualInputManager.Instance.MoveToTopSelected)
-            {
-                try
-                {
-                    _currentSelectedWeaponIndex++;
-                    _currentSelectedWeapon = ListOfWeapons[_currentSelectedWeaponIndex];
-                }
-                catch
-                {
-                    _currentSelectedWeaponIndex = 0;
-                    _currentSelectedWeapon = ListOfWeapons[_currentSelectedWeaponIndex];
-                }
-            }
+        /// <summary>
+        /// Find and set armed and steahed positions for weapons
+        /// </summary>
+        private void FindAndSetPositionsForWeapon()
+        {
+            // applying armed and steathed positions;
+            // !Maybe i should rework it
+            _steathedWeaponParentPosition = WeaponSteathedPosition.Transform;
+            _armedWeaponParentPosition = WeaponArmedPosition.Transform;
         }
     }
 }
