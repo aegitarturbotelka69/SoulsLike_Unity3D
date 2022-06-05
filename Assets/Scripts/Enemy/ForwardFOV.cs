@@ -95,7 +95,7 @@ namespace SLGame.Enemy
 
                         if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask))
                         {
-                            Debug.LogWarning($"Enemy: {this.gameObject.name} Detected Player");
+                            //Debug.LogWarning($"Enemy: {this.gameObject.name} Detected Player");
                             StartCoroutine(TargetInterestedRemain());
                             CanSeePlayer = true;
                             TargetInterested = true;

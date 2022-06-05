@@ -3093,7 +3093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3926250c75c1a4dab4ca3cc774c75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedWeapon: {fileID: 11400000, guid: 9471ac7b39ff6724c97619348e8ba6fd, type: 2}
+  _selectedWeapon: {fileID: 11400000, guid: 3ddf645396dec4a418c80f2b08abe461, type: 2}
 --- !u!1 &993789084
 GameObject:
   m_ObjectHideFlags: 0
@@ -5814,7 +5814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3926250c75c1a4dab4ca3cc774c75d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedWeapon: {fileID: 11400000, guid: a34e88b90db775141881134958eafe57, type: 2}
+  _selectedWeapon: {fileID: 11400000, guid: 6215c5b565659e04c97d0e36fb3c26de, type: 2}
 --- !u!1 &1956764246
 GameObject:
   m_ObjectHideFlags: 0
@@ -6965,13 +6965,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAnimator: {fileID: 0}
-  Unarmed: {fileID: 0}
-  ListOfWeapons:
-  - {fileID: 11400000, guid: 9471ac7b39ff6724c97619348e8ba6fd, type: 2}
-  _steathedWeaponParentPosition: {fileID: 0}
-  _armedWeaponParentPosition: {fileID: 0}
-  WeaponEquiped: 0
-  CurrentEquippedWeapon: {fileID: 0}
+  _steathedWeaponParentPosition: {fileID: 3157705596855123309}
+  _armedWeaponParentPosition: {fileID: 943223448854179402}
+  _currentlyEquippedLightWeapon: {fileID: 0}
+  _currentlyEquippedHeavyWeapon: {fileID: 0}
 --- !u!114 &919132149066765274
 MonoBehaviour:
   m_ObjectHideFlags: 0

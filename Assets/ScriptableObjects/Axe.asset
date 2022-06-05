@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14bd21a740a616468d27dc3e3236af4, type: 3}
-  m_Name: LongSword
+  m_Name: Axe
   m_EditorClassIdentifier: 
-  WeaponID: 0
-  Name: LongSword
-  Type: 2
-  AdressablesPrefabPath: longSwordPrefabAdressable
+  WeaponID: 1
+  Name: Light Axe
+  Type: 1
+  AdressablesPrefabPath: axePrefabAdressable
   ArmedTransform:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0}
   SteathedTransform:
-    Position: {x: 0.0172, y: -0.0133, z: -0.1213}
-    Rotation: {x: -112.774, y: -85.64499, z: 186.073}
-  Image: {fileID: 21300000, guid: 9f22afb0f393181479b9becad61c0f5a, type: 3}
+    Position: {x: 0.105, y: -0.51, z: -0.102}
+    Rotation: {x: -24.213, y: 70.077, z: 0}
+  Image: {fileID: 21300000, guid: f53e33792f260874ebc6792a80dc5929, type: 3}

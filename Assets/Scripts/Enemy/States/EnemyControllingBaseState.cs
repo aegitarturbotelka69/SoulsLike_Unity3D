@@ -15,7 +15,7 @@ namespace SLGame.Enemy
         }
         virtual public void Execute()
         {
-            Debug.Log("Current State:" + this.GetType().ToString());
+            //Debug.Log("Current State:" + this.GetType().ToString());
         }
         virtual public void StartTransition()
         {
