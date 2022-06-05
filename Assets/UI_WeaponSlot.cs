@@ -12,7 +12,7 @@ namespace SLGame.UI
         public static event EventHandler<WeaponArgs> OnWeaponSelected;
         [SerializeField] private WeaponSO _selectedWeapon;
 
-        private void Awake()
+        private void Start()
         {
             ApplyWeapon();
         }
@@ -23,6 +23,7 @@ namespace SLGame.UI
         public void ApplyWeapon()
         {
             UpdateUISprite();
+            //Debug.LogWarning("Invoking " + OnWeaponSelected.ToString());
             OnWeaponSelected?.Invoke(
                 sender: this,
                 e: new WeaponArgs

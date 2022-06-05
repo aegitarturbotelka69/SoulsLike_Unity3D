@@ -24,7 +24,7 @@ namespace SLGame.ScriptableObjects
         /// <summary>
         /// actual weapon object that will be spawned
         /// </summary>
-        public GameObject Prefab;
+        public string AdressablesPrefabPath;
 
         [Serializable]
         public class Transform

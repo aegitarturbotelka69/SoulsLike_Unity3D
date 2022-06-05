@@ -1,3 +1,5 @@
+using System;
+using SLGame.Modules;
 using SLGame.ScriptableObjects;
 using UnityEngine;
 
@@ -11,17 +13,42 @@ namespace SLGame.Gameplay
     {
         void SteathWeapon();
     }
+    [Serializable]
     public class Weapon : MonoBehaviour, IWeaponEquiper, IWeaponSteather
     {
-        [SerializeField] private WeaponSO _weapon;
-
+        [Header("References:")]
+        [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private WeaponSO _weaponScriptableObject;
         [SerializeField] private WeaponType _type;
-        public void EquipWeapon(object sender, WeaponArgs selectedWeapon)
+        [SerializeField] private GameObject _weaponGameObject;
+
+        /// <summary>
+        /// C'tor realization for Monobehaviour Weapon
+        /// </summary>
+        /// <param name="mainGameObject">Gameobject to add component</param>
+        /// <param name="playerWeapon">"Player hands"</param>
+        /// <param name="weaponType">WeaponType</param>
+        /// <returns></returns>
+        public static Weapon CreateComponent(GameObject mainGameObject, PlayerWeapon playerWeapon, WeaponType weaponType)
+        {
+            Weapon weaponComponent = mainGameObject.AddComponent<Weapon>();
+            weaponComponent._playerWeapon = playerWeapon;
+            weaponComponent._type = weaponType;
+
+            return weaponComponent;
+        }
+
+        public async void EquipWeapon(object sender, WeaponArgs selectedWeapon)
         {
             if (_type == selectedWeapon.WeaponType)
             {
-                // TODO: Possibly need to call Instanciate or something
-                // !     Main logic to apply weapon to player's hands
+                _weaponScriptableObject = selectedWeapon.Weapon;
+
+                AssetLoader loader = new AssetLoader();
+                _weaponGameObject = await loader.Load(_weaponScriptableObject.AdressablesPrefabPath.ToString());
+                _weaponGameObject.transform.SetParent(_playerWeapon._steathedWeaponParentPosition);
+                _weaponGameObject.transform.localPosition = _weaponScriptableObject.SteathedTransform.Position;
+                _weaponGameObject.transform.localRotation = Quaternion.Euler(_weaponScriptableObject.SteathedTransform.Rotation);
             }
         }
 
