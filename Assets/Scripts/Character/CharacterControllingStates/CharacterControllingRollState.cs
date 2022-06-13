@@ -26,7 +26,9 @@ namespace SLGame.Gameplay
         }
         private void Roll()
         {
-            float lookAngle = Mathf.Atan2(_playerMovement.Direction.x, _playerMovement.Direction.z) * Mathf.Rad2Deg + _playerMovement._cameraTransform.eulerAngles.y;
+            float lookAngle = Mathf.Atan2(_playerMovement.Direction.x, _playerMovement.Direction.z)
+                    * Mathf.Rad2Deg
+                    + _playerMovement._cameraTransform.eulerAngles.y;
             Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
             _playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
             _playerMovement.CharacterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * Time.deltaTime);

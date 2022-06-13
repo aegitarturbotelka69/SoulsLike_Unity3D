@@ -65,6 +65,7 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(this, ref playerCharacterController));
             CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(this, ref playerCharacterController));
             CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Attack, new CharacterControllingAttackState(this, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
@@ -87,6 +88,10 @@ namespace SLGame.Gameplay
 
         }
 
+        /// <summary>
+        /// Async operation that sets roll on cooldown
+        /// </summary>
+        /// <returns>void</returns>
         public async void PlaceRollOnCooldown()
         {
             this.RollOnCooldown = true;

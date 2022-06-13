@@ -1,4 +1,5 @@
 using System;
+using SLGame.Input;
 using SLGame.Modules;
 using SLGame.ScriptableObjects;
 using UnityEngine;
@@ -18,9 +19,11 @@ namespace SLGame.Gameplay
     {
         [Header("References:")]
         [SerializeField] private PlayerWeapon _playerWeapon;
-        [SerializeField] private WeaponSO _weaponScriptableObject;
+
+        [Header("Stats: ")]
         [SerializeField] private WeaponType _type;
         [SerializeField] private GameObject _weaponGameObject;
+        [SerializeField] public WeaponSO WeaponSO;
 
         /// <summary>
         /// C'tor realization for Monobehaviour Weapon
@@ -42,19 +45,25 @@ namespace SLGame.Gameplay
         {
             if (_type == selectedWeapon.WeaponType)
             {
-                _weaponScriptableObject = selectedWeapon.Weapon;
+                WeaponSO = selectedWeapon.Weapon;
 
                 AssetLoader loader = new AssetLoader();
-                _weaponGameObject = await loader.Load(_weaponScriptableObject.AdressablesPrefabPath.ToString());
+                _weaponGameObject = await loader.Load(WeaponSO.AdressablesPrefabPath.ToString());
                 _weaponGameObject.transform.SetParent(_playerWeapon._steathedWeaponParentPosition);
-                _weaponGameObject.transform.localPosition = _weaponScriptableObject.SteathedTransform.Position;
-                _weaponGameObject.transform.localRotation = Quaternion.Euler(_weaponScriptableObject.SteathedTransform.Rotation);
+                _weaponGameObject.transform.localPosition = WeaponSO.SteathedTransform.Position;
+                _weaponGameObject.transform.localRotation = Quaternion.Euler(WeaponSO.SteathedTransform.Rotation);
             }
         }
 
         public void SteathWeapon()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Get this weapon type
+        /// </summary>
+        /// <returns>WeaponType</returns>
+        public WeaponType GetWeaponType() => _type;
     }
 }

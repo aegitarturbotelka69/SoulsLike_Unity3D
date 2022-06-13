@@ -61,22 +61,22 @@ namespace SLGame.Input
                 VirtualInputManager.Instance.Run = false;
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                VirtualInputManager.Instance.HeavyWeapon = true;
-            }
-            else
-            {
-                VirtualInputManager.Instance.HeavyWeapon = false;
-            }
-
             if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))
             {
-                VirtualInputManager.Instance.LightWeapon = true;
+                VirtualInputManager.Instance.EquipHeavyWeapon = true;
             }
             else
             {
-                VirtualInputManager.Instance.LightWeapon = false;
+                VirtualInputManager.Instance.EquipHeavyWeapon = false;
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                VirtualInputManager.Instance.EquipLightWeapon = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.EquipLightWeapon = false;
             }
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.Tab))
@@ -86,6 +86,24 @@ namespace SLGame.Input
             else
             {
                 VirtualInputManager.Instance.AdditionalMenu = false;
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                VirtualInputManager.Instance.LightAttack = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.LightAttack = false;
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                VirtualInputManager.Instance.HeavyAttack = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.HeavyAttack = false;
             }
         }
     }

@@ -6,10 +6,7 @@ namespace SLGame.Gameplay
     public class CharacterControllingMoveState : CharacterControllingBaseState
     {
         public CharacterControllingMoveState(PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(playerMovementReference, ref controller)
-        {
-            this._playerMovement = playerMovementReference;
-        }
+            : base(playerMovementReference, ref controller) { }
 
         private void GetAbilitiesInput()
         {
