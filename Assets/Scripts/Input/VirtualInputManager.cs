@@ -16,9 +16,11 @@ namespace SLGame.Input
         public bool Roll;
         public bool Run;
 
-        public bool LightWeapon;
-        public bool HeavyWeapon;
-        public bool MoveToTopSelected;
+        public bool EquipLightWeapon;
+        public bool EquipHeavyWeapon;
+
+        public bool LightAttack;
+        public bool HeavyAttack;
 
         public bool AdditionalMenu;
 

@@ -5,6 +5,6 @@ using UnityEngine;
 public enum WeaponType
 {
     Unarmed = 0,
-    Fast = 1,
+    Light = 1,
     Heavy = 2
 }
