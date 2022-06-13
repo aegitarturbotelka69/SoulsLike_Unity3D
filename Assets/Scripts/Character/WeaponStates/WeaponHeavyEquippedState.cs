@@ -4,7 +4,7 @@ namespace SLGame.Gameplay
 {
     public class WeaponHeavyEquippedState : ITransitorBetweenWeapons, IAttack
     {
-        public void HeavyAttack()
+        public void HeavyAttack(Animator animator)
         {
             throw new System.NotImplementedException();
         }

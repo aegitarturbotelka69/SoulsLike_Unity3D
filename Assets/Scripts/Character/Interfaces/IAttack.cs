@@ -6,6 +6,6 @@ namespace SLGame.Gameplay
     {
         public void LightAttack(Animator animator);
 
-        public void HeavyAttack();
+        public void HeavyAttack(Animator animator);
     }
 }

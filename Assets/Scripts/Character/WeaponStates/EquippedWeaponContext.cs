@@ -29,7 +29,7 @@ namespace SLGame.Gameplay
 
         public void HeavyAttack()
         {
-            Attack.HeavyAttack();
+            Attack.HeavyAttack(_playerAnimator);
         }
 
         /// <summary>
