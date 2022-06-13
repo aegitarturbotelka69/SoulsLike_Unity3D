@@ -4,9 +4,9 @@ namespace SLGame.Gameplay
 {
     public class WeaponUnarmedState : ITransitorBetweenWeapons, IAttack
     {
-        public void HeavyAttack()
+        public void HeavyAttack(Animator animator)
         {
-            Debug.LogWarning("Unarmed Heavy attack");
+            animator.SetBool("HeavyAttack", true);
         }
 
         public void LightAttack(Animator animator)
