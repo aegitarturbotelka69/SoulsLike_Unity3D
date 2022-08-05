@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using UnityEngine;
-
 using SLGame.Input;
 
 namespace SLGame.Gameplay
@@ -66,6 +61,12 @@ namespace SLGame.Gameplay
 
         private void Update()
         {
+            GetInput();
+            _weaponContext.GetInput();
+        }
+
+        private void GetInput()
+        {
             if (VirtualInputManager.Instance.EquipLightWeapon)
             {
                 _weaponContext.ExecuteTransition(WeaponType.Light);
@@ -85,16 +86,6 @@ namespace SLGame.Gameplay
             {
                 _weaponContext.HeavyAttack();
             }
-        }
-
-        private void UpdateLightAttackStatus()
-        {
-            _playerAnimator.SetBool("LightAttack", false);
-        }
-
-        private void UpdateHeavyAttackStatus()
-        {
-            _playerAnimator.SetBool("HeavyAttack", false);
         }
 
         public PlayerMovement GetPlayerMovementReference() => _playerMovement;

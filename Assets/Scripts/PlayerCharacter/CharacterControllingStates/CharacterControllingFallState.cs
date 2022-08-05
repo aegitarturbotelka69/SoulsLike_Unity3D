@@ -3,31 +3,11 @@ using SLGame.Input;
 
 namespace SLGame.Gameplay
 {
-    public class CharacterControllingMoveState : CharacterControllingBaseState
+    public class CharacterControllingFallState : CharacterControllingBaseState
     {
-        public CharacterControllingMoveState(PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(playerMovementReference, ref controller) { }
+        public CharacterControllingFallState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(enumState, playerMovementReference, ref controller) { }
 
-        private void GetAbilitiesInput()
-        {
-            if (!VirtualInputManager.Instance.MoveFront
-                && !VirtualInputManager.Instance.MoveBack
-                && !VirtualInputManager.Instance.MoveLeft
-                && !VirtualInputManager.Instance.MoveRight)
-            {
-                _playerMovement.ChangeControllingState(States.Idle, false);
-            }
-
-            if (VirtualInputManager.Instance.Roll && !_playerMovement.RollOnCooldown)
-            {
-                _playerMovement.ChangeControllingState(States.Roll, false);
-            }
-
-            if (VirtualInputManager.Instance.Run)
-            {
-                _playerMovement.ChangeControllingState(States.Run, false);
-            }
-        }
         private void GetVerticalInput()
         {
             if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
@@ -86,20 +66,26 @@ namespace SLGame.Gameplay
         public override void Execute()
         {
             base.Execute();
-            GetAbilitiesInput();
-            GetHorizontalInput();
+
+            if (PlayerGravityCheck.PLAYER_IS_GROUNDED)
+            {
+                _playerMovement.ChangeControllingState(States.HardLand, false);
+                return;
+            }
+
             GetVerticalInput();
+            GetHorizontalInput();
             Move();
         }
 
         public override void StartTransition()
         {
-            _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(States.Falling.ToString(), true);
         }
 
         public override void EndTransition(bool endingManually)
         {
-            _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), false);
+            _playerMovement.CharacterAnimator.SetBool(States.Falling.ToString(), false);
         }
     }
 }

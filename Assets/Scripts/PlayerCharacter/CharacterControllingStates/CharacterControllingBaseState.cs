@@ -5,10 +5,16 @@ namespace SLGame.Gameplay
     public abstract class CharacterControllingBaseState : ControllingTransitionState
     {
         [SerializeField] protected PlayerMovement _playerMovement;
+
         [SerializeField] protected CharacterController _characterController;
 
-        public CharacterControllingBaseState(PlayerMovement playerMovementReference, ref CharacterController controller)
+        [SerializeField] protected States EnumState;
+        private States _enumState { get { return EnumState; } set { EnumState = value; } }
+
+
+        public CharacterControllingBaseState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
         {
+            this._enumState = enumState;
             this._playerMovement = playerMovementReference;
             this._characterController = controller;
         }
@@ -28,5 +34,7 @@ namespace SLGame.Gameplay
         {
             throw new System.NotImplementedException();
         }
+
+        virtual public States GetEnumState() => EnumState;
     }
 }

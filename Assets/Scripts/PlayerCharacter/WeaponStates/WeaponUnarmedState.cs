@@ -11,11 +11,7 @@ namespace SLGame.Gameplay
 
         public void LightAttack(Animator animator)
         {
-            Debug.LogWarning("Unarmed light attack");
-
-            animator.SetLayerWeight(1, 1f);
-            animator.SetBool("LightAttack", true);
-            //animator.
+            animator.SetLayerWeight((int)PlayerAnimationLayers.UnArmedWeapon, 1f);
         }
 
         public void SwitchWeapon()

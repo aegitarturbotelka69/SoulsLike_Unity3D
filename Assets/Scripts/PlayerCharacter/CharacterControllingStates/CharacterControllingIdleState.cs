@@ -5,11 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingIdleState : CharacterControllingBaseState
     {
-        public CharacterControllingIdleState(PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(playerMovementReference, ref controller)
-        {
-            this._playerMovement = playerMovementReference;
-        }
+        public CharacterControllingIdleState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+        : base(enumState, playerMovementReference, ref controller) { }
 
         private void GetAbilitiesInput()
         {

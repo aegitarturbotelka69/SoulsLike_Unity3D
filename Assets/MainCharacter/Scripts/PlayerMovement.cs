@@ -22,6 +22,7 @@ namespace SLGame.Gameplay
 
         [Header("Stats:")]
         [SerializeField] public CharacterControllingBaseState CurrentCharacterControllingState;
+        [SerializeField] public CharacterControllingBaseState PreviousCharacterControllingState;
         [SerializeField] public float MoveSpeed = 2f;
 
         [Space(10)]
@@ -58,14 +59,14 @@ namespace SLGame.Gameplay
             this.CharacterController = this.gameObject.GetComponent<CharacterController>();
             CharacterController playerCharacterController = this.gameObject.GetComponent<CharacterController>();
 
-            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Attack, new CharacterControllingAttackState(this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(States.Idle, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(States.Move, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(States.Roll, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(States.Run, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(States.StopRun, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(States.Falling, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(States.HardLand, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Attack, new CharacterControllingAttackState(States.Attack, this, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }
@@ -75,6 +76,9 @@ namespace SLGame.Gameplay
             CurrentCharacterControllingState.Execute();
         }
 
+        /// <summary>
+        /// Manual end of current state
+        /// </summary>
         private void ManualEndTransaction()
         {
             CurrentCharacterControllingState.EndTransition(true);
@@ -83,9 +87,9 @@ namespace SLGame.Gameplay
         public void ChangeControllingState(States newState, bool endingManually = false)
         {
             CurrentCharacterControllingState.EndTransition(endingManually);
+            PreviousCharacterControllingState = CurrentCharacterControllingState;
             CurrentCharacterControllingState = CharacterControllingStates[newState];
             CurrentCharacterControllingState.StartTransition();
-
         }
 
         /// <summary>
