@@ -47,5 +47,26 @@ namespace SLGame.Gameplay
                 // Disarm current weapon and arm new weapon;
             }
         }
+
+        public void GetInput()
+        {
+            if (VirtualInputManager.Instance.LightAttack)
+            {
+                _playerAnimator.SetBool("LightAttack", true);
+            }
+            else
+            {
+                _playerAnimator.SetBool("LightAttack", false);
+            }
+
+            if (VirtualInputManager.Instance.HeavyAttack)
+            {
+                _playerAnimator.SetBool("HeavyAttack", true);
+            }
+            else
+            {
+                _playerAnimator.SetBool("HeavyAttack", false);
+            }
+        }
     }
 }

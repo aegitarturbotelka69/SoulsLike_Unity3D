@@ -3,13 +3,10 @@ using SLGame.Input;
 
 namespace SLGame.Gameplay
 {
-    public class CharacterControllingRunState : CharacterControllingBaseState
+    public class CharacterControllingMoveState : CharacterControllingBaseState
     {
-        public CharacterControllingRunState(PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(playerMovementReference, ref controller)
-        {
-            this._playerMovement = playerMovementReference;
-        }
+        public CharacterControllingMoveState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(enumState, playerMovementReference, ref controller) { }
 
         private void GetAbilitiesInput()
         {
@@ -18,16 +15,19 @@ namespace SLGame.Gameplay
                 && !VirtualInputManager.Instance.MoveLeft
                 && !VirtualInputManager.Instance.MoveRight)
             {
-                _playerMovement.ChangeControllingState(States.StopRun, false);
+                _playerMovement.ChangeControllingState(States.Idle, false);
+            }
+
+            if (VirtualInputManager.Instance.Roll && !_playerMovement.RollOnCooldown)
+            {
+                _playerMovement.ChangeControllingState(States.Roll, false);
             }
 
             if (VirtualInputManager.Instance.Run)
             {
-                _playerMovement.ChangeControllingState(States.Move, false);
-                return;
+                _playerMovement.ChangeControllingState(States.Run, false);
             }
         }
-
         private void GetVerticalInput()
         {
             if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
@@ -79,27 +79,27 @@ namespace SLGame.Gameplay
 
                 Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
 
-                _playerMovement.CharacterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * _playerMovement.RunSpeedMultiplier * Time.deltaTime);
+                _playerMovement.CharacterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * Time.deltaTime);
             }
         }
 
         public override void Execute()
         {
             base.Execute();
+            GetAbilitiesInput();
             GetHorizontalInput();
             GetVerticalInput();
-            GetAbilitiesInput();
             Move();
         }
 
         public override void StartTransition()
         {
-            _playerMovement.CharacterAnimator.SetBool(States.Run.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
         }
 
         public override void EndTransition(bool endingManually)
         {
-            _playerMovement.CharacterAnimator.SetBool(States.Run.ToString(), false);
+            _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), false);
         }
     }
 }

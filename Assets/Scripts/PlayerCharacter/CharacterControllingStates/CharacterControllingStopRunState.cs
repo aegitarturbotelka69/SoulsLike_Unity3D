@@ -6,8 +6,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingStopRunState : CharacterControllingBaseState
     {
-        public CharacterControllingStopRunState(PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(playerMovementReference, ref controller) { }
+        public CharacterControllingStopRunState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(enumState, playerMovementReference, ref controller) { }
 
         private void GetAbilitiesInput()
         {

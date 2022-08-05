@@ -11,13 +11,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingRollState : CharacterControllingBaseState
     {
-        public CharacterControllingRollState(PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(playerMovementReference, ref controller)
-        {
-            this._playerMovement = playerMovementReference;
-        }
-
-
+        public CharacterControllingRollState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+            : base(enumState, playerMovementReference, ref controller) { }
 
         public override void Execute()
         {
