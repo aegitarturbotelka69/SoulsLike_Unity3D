@@ -11,13 +11,14 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingRollState : CharacterControllingBaseState
     {
+        [SerializeField] private float _rollSpeed;
         public CharacterControllingRollState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
             : base(enumState, playerMovementReference, ref controller) { }
 
         public override void Execute()
         {
-            base.Execute();
             Roll();
+            base.Execute();
         }
         private void Roll()
         {
@@ -26,21 +27,20 @@ namespace SLGame.Gameplay
                     + _playerMovement._cameraTransform.eulerAngles.y;
             Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
             _playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
-            _playerMovement.CharacterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * Time.deltaTime);
+            _playerMovement.CharacterController.Move(moveDirection.normalized * _rollSpeed * Time.deltaTime);
         }
 
 
 
         public override void StartTransition()
         {
-            _playerMovement.MoveSpeed = _playerMovement.MoveSpeed * _playerMovement.RollSpeedMultiplier;
+            this._rollSpeed = _playerMovement.MoveSpeed * _playerMovement.RollSpeedMultiplier;
 
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
         }
 
         public override void EndTransition(bool endingManually)
         {
-            _playerMovement.MoveSpeed = _playerMovement.MoveSpeed / _playerMovement.RollSpeedMultiplier;
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
             _playerMovement.PlaceRollOnCooldown();
 

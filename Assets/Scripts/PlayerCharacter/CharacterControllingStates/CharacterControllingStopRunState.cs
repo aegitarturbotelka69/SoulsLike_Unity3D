@@ -9,11 +9,6 @@ namespace SLGame.Gameplay
         public CharacterControllingStopRunState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
             : base(enumState, playerMovementReference, ref controller) { }
 
-        private void GetAbilitiesInput()
-        {
-
-        }
-
         public override void Execute()
         {
             base.Execute();
