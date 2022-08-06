@@ -16,11 +16,13 @@ namespace SLGame.Gameplay
         public override void StartTransition()
         {
             //base.StartTransition();
+            //_playerMovement.CharacterAnimator.SetBool(States.Attack.ToString(), false);
         }
 
         public override void EndTransition(bool endingManually)
         {
             //base.EndTransition(endingManually);
+            _playerMovement.CharacterAnimator.SetBool(States.Attack.ToString(), false);
         }
     }
 }
