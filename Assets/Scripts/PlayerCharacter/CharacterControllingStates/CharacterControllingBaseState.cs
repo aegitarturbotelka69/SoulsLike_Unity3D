@@ -22,7 +22,6 @@ namespace SLGame.Gameplay
         virtual public void Execute()
         {
             Debug.Log("Current State:" + this.GetType().ToString());
-            //throw new System.NotImplementedException();
         }
 
         virtual public void StartTransition()

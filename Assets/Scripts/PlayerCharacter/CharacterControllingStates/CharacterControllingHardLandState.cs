@@ -15,32 +15,15 @@ namespace SLGame.Gameplay
 
         public override void StartTransition()
         {
-            _playerMovement.CharacterAnimator.SetBool(States.HardLand.ToString(), true);
+            _playerMovement.CharacterAnimator.SetBool(this.EnumState.ToString(), true);
         }
 
         public override void EndTransition(bool endingManually)
         {
-            _playerMovement.CharacterAnimator.SetBool(States.HardLand.ToString(), false);
+            _playerMovement.CharacterAnimator.SetBool(this.EnumState.ToString(), false);
 
             if (!endingManually)
                 return;
-
-            if (VirtualInputManager.Instance.MoveBack
-                || VirtualInputManager.Instance.MoveFront
-                || VirtualInputManager.Instance.MoveLeft
-                || VirtualInputManager.Instance.MoveRight)
-            {
-                _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Move];
-                _playerMovement.CharacterAnimator.SetBool(States.Move.ToString(), true);
-                return;
-            }
-
-            if (VirtualInputManager.Instance.Roll)
-            {
-                _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Roll];
-                _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
-                return;
-            }
 
             _playerMovement.CurrentCharacterControllingState = _playerMovement.CharacterControllingStates[States.Idle];
             _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
