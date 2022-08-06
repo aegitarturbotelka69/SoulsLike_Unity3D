@@ -42,6 +42,8 @@ namespace SLGame.Gameplay
         [SerializeField, Tooltip("Duration in milliseconds")] public int RollCooldownDuration = 135;
         [SerializeField] public bool RollOnCooldown = false;
 
+        [SerializeField] public bool ReadyToTransition = false;
+
         [Header("Info:")]
         [SerializeField] public float zAxis;
         [Space(2)]
