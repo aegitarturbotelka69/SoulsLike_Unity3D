@@ -4,7 +4,7 @@ using SLGame.Gameplay;
 
 namespace SLGame.Enemy
 {
-    public class EnemyControllingAttackState : EnemyControllingBaseState
+    public class EnemyControllingLightAttackState : EnemyControllingBaseState
     {
         [Header("References: ")]
 
@@ -13,7 +13,7 @@ namespace SLGame.Enemy
         /// </summary>
         [SerializeField] private ForwardFOV _fov;
 
-        public EnemyControllingAttackState(Animator enemyAnimator, EnemyAI ai, ForwardFOV fov)
+        public EnemyControllingLightAttackState(Animator enemyAnimator, EnemyAI ai, ForwardFOV fov)
             : base(enemyAnimator, ai)
         {
             this._fov = fov;
@@ -26,13 +26,13 @@ namespace SLGame.Enemy
         }
         public override void StartTransition()
         {
-            _animator.SetBool(States.Attack.ToString(), true);
+            _animator.SetBool(States.LightAttack.ToString(), true);
             _enemyAI.StaminaRemain -= _enemyAI.LightAttackStaminaConsumption;
         }
 
         public override void EndTransition(bool endingManually)
         {
-            _animator.SetBool(States.Attack.ToString(), false);
+            _animator.SetBool(States.LightAttack.ToString(), false);
             _enemyAI.SetLightAttackOnCooldown();
 
             if (!endingManually)

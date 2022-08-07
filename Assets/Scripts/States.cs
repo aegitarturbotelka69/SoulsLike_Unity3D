@@ -15,7 +15,8 @@ namespace SLGame.Gameplay
         HardLand,
         Patrolling,
         Chasing,
-        Attack,
+        LightAttack,
+        HeavyAttack,
         DodgeBackJump,
         RestoringPower
     }

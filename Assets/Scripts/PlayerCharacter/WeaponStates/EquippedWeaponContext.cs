@@ -5,13 +5,19 @@ namespace SLGame.Gameplay
 {
     public class EquippedWeaponContext
     {
+        [Header("References:")]
         private Animator _playerAnimator;
         private PlayerWeapon _playerWeapon;
-
         public ITransitorBetweenWeapons Transitor { get; set; }
         public IAttack Attack { get; set; }
 
+        [Header("Stats: ")]
         [SerializeField] private Weapon _currentlyEquippedWeaponInHands;
+
+
+        [Header("In game:")]
+        [SerializeField] private bool _lightAttackOnCooldown;
+        [SerializeField] private bool _heavyAttackOnCooldown;
 
         public EquippedWeaponContext(PlayerWeapon playerWeapon, Animator animator, ITransitorBetweenWeapons transitor, IAttack attack)
         {
@@ -24,7 +30,7 @@ namespace SLGame.Gameplay
         public void LightAttack()
         {
             Attack.LightAttack(_playerAnimator);
-            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.Attack);
+            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.LightAttack);
         }
 
         public void HeavyAttack()

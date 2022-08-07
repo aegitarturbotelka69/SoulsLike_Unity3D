@@ -88,7 +88,7 @@ namespace SLGame.Enemy
             EnemyControllingStates.Add(States.Idle, new EnemyControllingIdleState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.Patrolling, new EnemyControllingPatrollingState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.Chasing, new EnemyControllingChasingState(Animator, this, _enemyForwardVision));
-            EnemyControllingStates.Add(States.Attack, new EnemyControllingAttackState(Animator, this, _enemyForwardVision));
+            EnemyControllingStates.Add(States.LightAttack, new EnemyControllingLightAttackState(Animator, this, _enemyForwardVision));
             EnemyControllingStates.Add(States.DodgeBackJump, new EnemyControllingDodgeBackJumpState(Animator, this));
             EnemyControllingStates.Add(States.RestoringPower, new EnemyControllingRestoringPowerState(Animator, this, _enemyForwardVision));
 
