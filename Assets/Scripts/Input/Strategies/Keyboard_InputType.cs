@@ -88,7 +88,7 @@ namespace SLGame.Input
                 VirtualInputManager.Instance.AdditionalMenu = false;
             }
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0))
+            if (UnityEngine.Input.GetKey(KeyCode.Mouse0))
             {
                 VirtualInputManager.Instance.LightAttack = true;
             }

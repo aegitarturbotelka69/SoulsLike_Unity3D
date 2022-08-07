@@ -3,9 +3,9 @@ using SLGame.Input;
 
 namespace SLGame.Gameplay
 {
-    public class CharacterControllingAttackState : CharacterControllingBaseState
+    public class CharacterControllingLightAttackState : CharacterControllingBaseState
     {
-        public CharacterControllingAttackState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+        public CharacterControllingLightAttackState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
             : base(enumState, playerMovementReference, ref controller) { }
 
         public override void Execute()
@@ -21,8 +21,14 @@ namespace SLGame.Gameplay
 
         public override void EndTransition(bool endingManually)
         {
+            _playerMovement.CharacterAnimator.SetBool(States.LightAttack.ToString(), false);
+
+            if (!endingManually)
+                return;
+
+            _playerMovement.ChangeControllingState(States.Idle);
+            _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
             //base.EndTransition(endingManually);
-            _playerMovement.CharacterAnimator.SetBool(States.Attack.ToString(), false);
         }
     }
 }

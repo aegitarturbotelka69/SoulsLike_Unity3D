@@ -44,7 +44,7 @@ namespace SLGame.Enemy
             if (Vector3.Distance(_enemyAI.gameObject.transform.position, _forwardFOV.PlayerTransform.position) < _attackOffset)
             {
                 //Debug.LogWarning("executing attack after chase");
-                _enemyAI.ChangeControllingState(States.Attack);
+                _enemyAI.ChangeControllingState(States.LightAttack);
                 return;
             }
         }
