@@ -36,6 +36,7 @@ namespace SLGame.Gameplay
         public void HeavyAttack()
         {
             Attack.HeavyAttack(_playerAnimator);
+            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.HeavyAttack);
         }
 
         /// <summary>

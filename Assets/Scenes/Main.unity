@@ -6898,7 +6898,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132149066765268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aca4878ed1bac9b40a47a57b2c421113, type: 3}
+  m_Script: {fileID: 11500000, guid: f1877fc591faca443bd241695eefa543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 0}
@@ -6924,7 +6924,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132149066765268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b46e9f808cb8e2448a37414cf48dbac, type: 3}
+  m_Script: {fileID: 11500000, guid: c17212d445850034dbd5fc2b718b8ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovement: {fileID: 919132149066765270}
@@ -6962,7 +6962,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132149066765268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb50471781713014bb673c3a667181bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1da4279c049076045b3f27cf817a23e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAnimator: {fileID: 0}

@@ -69,6 +69,7 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(States.Falling, this, ref playerCharacterController));
             CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(States.HardLand, this, ref playerCharacterController));
             CharacterControllingStates.Add(States.LightAttack, new CharacterControllingLightAttackState(States.LightAttack, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.HeavyAttack, new CharacterControllingHeavyAttackState(States.HeavyAttack, this, ref playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }

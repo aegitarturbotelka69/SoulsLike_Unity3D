@@ -91059,8 +91059,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.5
-    functionName: UpdateHeavyAttackStatus
+  - time: 1.8333334
+    functionName: ManualEndTransaction
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
