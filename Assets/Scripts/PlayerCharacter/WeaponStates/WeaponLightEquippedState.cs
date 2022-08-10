@@ -4,12 +4,12 @@ namespace SLGame.Gameplay
 {
     public class WeaponLightEquippedState : ITransitorBetweenWeapons, IAttack
     {
-        public void HeavyAttack(Animator animator)
+        public void LightAttack()
         {
             throw new System.NotImplementedException();
         }
 
-        public void LightAttack(Animator animator)
+        public void HeavyAttack()
         {
             throw new System.NotImplementedException();
         }

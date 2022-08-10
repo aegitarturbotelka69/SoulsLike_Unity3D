@@ -84,6 +84,7 @@ namespace SLGame.Gameplay
         /// </summary>
         private void ManualEndTransaction()
         {
+            Debug.LogWarning("Manually ending:" + CurrentCharacterControllingState.ToString());
             CurrentCharacterControllingState.EndTransition(true);
         }
 
