@@ -9,15 +9,7 @@ namespace SLGame.Gameplay
         [SerializeField] private Animator _playerAnimator;
         [SerializeField] private PlayerMovement _playerMovement;
 
-        [Header("In game:")]
-
-        /// <summary>
-        /// true = player have weapon in the hands, false = player steathed all weapons
-        /// </summary>
-        [SerializeField] private bool _weaponEquipped = false;
-
-        [Space(10)]
-
+        #region TransformPositions
         /// <summary>
         /// Transform of object that using to parent steathed weapon
         /// </summary>
@@ -27,8 +19,13 @@ namespace SLGame.Gameplay
         /// Transform of object that using to parent armed weapon
         /// </summary>
         [SerializeField] public Transform _armedWeaponParentPosition;
+        #endregion TransformPositions
 
-        [Space(10)]
+        [Header("In game:")]
+        /// <summary>
+        /// Represents current weapon state
+        /// </summary>
+        [SerializeField] private WeaponBaseState _weaponCurrentState;
 
         /// <summary>
         /// Stores currently equipped light weapon in the menu
@@ -40,11 +37,6 @@ namespace SLGame.Gameplay
         /// </summary>
         [SerializeField] private Weapon _currentlyEquippedHeavyWeapon;
 
-        /// <summary>
-        /// Contains equipped weapon in hands.
-        /// Handles weapon switch logic
-        /// </summary>
-        [SerializeField] private EquippedWeaponContext _weaponContext;
         private void Awake()
         {
             _playerAnimator = this.gameObject.GetComponent<Animator>();
@@ -56,38 +48,19 @@ namespace SLGame.Gameplay
             UI.UI_WeaponSlot.OnWeaponSelected += _currentlyEquippedHeavyWeapon.EquipWeapon;
             UI.UI_WeaponSlot.OnWeaponSelected += _currentlyEquippedLightWeapon.EquipWeapon;
 
-            _weaponContext = new EquippedWeaponContext(this, _playerAnimator, new WeaponUnarmedState(), new WeaponUnarmedState());
+            // !Hard-coded
+            _weaponCurrentState = new WeaponUnarmedState(_playerAnimator, this);
         }
 
         private void Update()
         {
-            GetInput();
-            _weaponContext.GetInput();
+            _weaponCurrentState.GetInput();
         }
 
-        private void GetInput()
-        {
-            if (VirtualInputManager.Instance.EquipLightWeapon)
-            {
-                _weaponContext.ExecuteTransition(WeaponType.Light);
-            }
-
-            if (VirtualInputManager.Instance.EquipHeavyWeapon)
-            {
-                _weaponContext.ExecuteTransition(WeaponType.Heavy);
-            }
-
-            if (VirtualInputManager.Instance.LightAttack)
-            {
-                _weaponContext.LightAttack();
-            }
-
-            if (VirtualInputManager.Instance.HeavyAttack)
-            {
-                _weaponContext.HeavyAttack();
-            }
-        }
-
+        /// <summary>
+        /// Get PlayerMovement reference
+        /// </summary>
+        /// <returns>PlayerMovement script component</returns>
         public PlayerMovement GetPlayerMovementReference() => _playerMovement;
     }
 }

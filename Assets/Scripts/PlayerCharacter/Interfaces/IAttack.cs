@@ -4,8 +4,8 @@ namespace SLGame.Gameplay
 {
     public interface IAttack
     {
-        void LightAttack(Animator animator);
+        void LightAttack();
 
-        void HeavyAttack(Animator animator);
+        void HeavyAttack();
     }
 }

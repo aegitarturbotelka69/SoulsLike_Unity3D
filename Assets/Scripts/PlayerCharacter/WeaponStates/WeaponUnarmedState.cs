@@ -1,22 +1,69 @@
+using SLGame.Input;
 using UnityEngine;
 
 namespace SLGame.Gameplay
 {
-    public class WeaponUnarmedState : ITransitorBetweenWeapons, IAttack
+    public class WeaponUnarmedState : WeaponBaseState
     {
-        public void HeavyAttack(Animator animator)
-        {
-            animator.SetBool("HeavyAttack", true);
-        }
+        /// <summary>
+        /// Reference to PlayerWeapon script
+        /// </summary>
+        [SerializeField] private PlayerWeapon _playerWeapon;
 
-        public void LightAttack(Animator animator)
+        /// <summary>
+        /// Reference to Player Animator Controller
+        /// </summary>
+        [SerializeField] private Animator _playerAnimatorController;
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="animator">Player Animator Controller</param>4
+        /// <param name="playerWeapon">PlayerWeapon Script</param>
+        public WeaponUnarmedState(Animator animator, PlayerWeapon playerWeapon)
         {
+            this._playerAnimatorController = animator;
+            this._playerWeapon = playerWeapon;
+
             animator.SetLayerWeight((int)PlayerAnimationLayers.UnArmedWeapon, 1f);
         }
-
-        public void SwitchWeapon()
+        public override void GetInput()
         {
-            throw new System.NotImplementedException();
+            if (VirtualInputManager.Instance.LightAttack)
+            {
+                LightAttack();
+                _playerAnimatorController.SetBool(States.LightAttack.ToString(), true);
+            }
+            else
+            {
+                _playerAnimatorController.SetBool(States.LightAttack.ToString(), false);
+            }
+
+            if (VirtualInputManager.Instance.HeavyAttack)
+            {
+                HeavyAttack();
+                _playerAnimatorController.SetBool(States.HeavyAttack.ToString(), true);
+            }
+            else
+            {
+                _playerAnimatorController.SetBool(States.HeavyAttack.ToString(), false);
+            }
         }
+
+        public override void LightAttack()
+        {
+            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.LightAttack);
+        }
+
+        public override void HeavyAttack()
+        {
+            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.HeavyAttack);
+        }
+
+        public override void SwitchWeapon()
+        {
+            _playerAnimatorController.SetLayerWeight((int)PlayerAnimationLayers.UnArmedWeapon, 0f);
+        }
+
     }
 }
