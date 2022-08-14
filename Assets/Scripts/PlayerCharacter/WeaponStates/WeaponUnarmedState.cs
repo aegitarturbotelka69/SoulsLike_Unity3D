@@ -29,7 +29,9 @@ namespace SLGame.Gameplay
         }
         public override void GetInput()
         {
-            if (VirtualInputManager.Instance.LightAttack)
+            if (VirtualInputManager.Instance.LightAttack
+                && _playerWeapon.CanAttack
+                && PlayerGravityCheck.PLAYER_IS_GROUNDED)
             {
                 LightAttack();
                 _playerAnimatorController.SetBool(States.LightAttack.ToString(), true);
@@ -39,7 +41,9 @@ namespace SLGame.Gameplay
                 _playerAnimatorController.SetBool(States.LightAttack.ToString(), false);
             }
 
-            if (VirtualInputManager.Instance.HeavyAttack)
+            if (VirtualInputManager.Instance.HeavyAttack
+                && _playerWeapon.CanAttack
+                && PlayerGravityCheck.PLAYER_IS_GROUNDED)
             {
                 HeavyAttack();
                 _playerAnimatorController.SetBool(States.HeavyAttack.ToString(), true);

@@ -9,6 +9,8 @@ namespace SLGame.Gameplay
         [SerializeField] private Animator _playerAnimator;
         [SerializeField] private PlayerMovement _playerMovement;
 
+        [SerializeField] private PlayerGravityCheck _playerGravity;
+
         #region TransformPositions
         /// <summary>
         /// Transform of object that using to parent steathed weapon
@@ -47,6 +49,7 @@ namespace SLGame.Gameplay
         {
             _playerAnimator = this.gameObject.GetComponent<Animator>();
             _playerMovement = this.gameObject.GetComponent<PlayerMovement>();
+            _playerGravity = this.gameObject.GetComponent<PlayerGravityCheck>();
 
             this._currentlyEquippedLightWeapon = Weapon.CreateComponent(this.gameObject, this, WeaponType.Light);
             this._currentlyEquippedHeavyWeapon = Weapon.CreateComponent(this.gameObject, this, WeaponType.Heavy);
@@ -56,6 +59,11 @@ namespace SLGame.Gameplay
 
             // !Hard-coded
             _weaponCurrentState = new WeaponUnarmedState(_playerAnimator, this);
+        }
+
+        private void Start()
+        {
+            CanAttack = true;
         }
 
         private void Update()

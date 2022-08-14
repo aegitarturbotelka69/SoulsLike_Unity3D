@@ -6,8 +6,17 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingStopRunState : CharacterControllingBaseState
     {
-        public CharacterControllingStopRunState(States enumState, PlayerMovement playerMovementReference, CharacterController controller)
-            : base(enumState, playerMovementReference, controller) { }
+        [Header("References:")]
+        [SerializeField] protected PlayerWeapon _playerWeapon;
+        public CharacterControllingStopRunState(
+            States enumState,
+            PlayerMovement playerMovementReference,
+            CharacterController controller,
+            PlayerWeapon playerWeaponReference)
+            : base(enumState, playerMovementReference, controller)
+        {
+            this._playerWeapon = playerWeaponReference;
+        }
 
         public override void Execute()
         {
@@ -19,11 +28,14 @@ namespace SLGame.Gameplay
         public override void StartTransition()
         {
             _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), true);
+            _playerWeapon.CanAttack = false;
         }
 
         public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.StopRun.ToString(), false);
+
+            _playerWeapon.CanAttack = true;
 
             if (!endingManually)
                 return;

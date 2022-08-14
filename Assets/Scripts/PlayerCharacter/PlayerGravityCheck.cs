@@ -50,6 +50,9 @@ namespace SLGame.Gameplay
         [SerializeField] private LayerMask _groundLayerMask;
 
         [Header("In game: ")]
+        /// <summary>
+        /// Defines if player connected to the ground by his legs
+        /// </summary>
         [SerializeField] public static bool PLAYER_IS_GROUNDED;
         [SerializeField] private List<SphereWithDetectionStatus> _listOfCollisionDetectionSpheres = new List<SphereWithDetectionStatus>();
         [SerializeField] public Vector3 Velocity;
