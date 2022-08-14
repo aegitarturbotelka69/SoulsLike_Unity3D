@@ -5,8 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingHeavyAttackState : CharacterControllingBaseState
     {
-        public CharacterControllingHeavyAttackState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(enumState, playerMovementReference, ref controller) { }
+        public CharacterControllingHeavyAttackState(States enumState, PlayerMovement playerMovementReference, CharacterController controller)
+            : base(enumState, playerMovementReference, controller) { }
 
         public override void Execute()
         {

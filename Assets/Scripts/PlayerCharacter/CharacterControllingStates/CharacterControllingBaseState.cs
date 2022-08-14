@@ -12,7 +12,7 @@ namespace SLGame.Gameplay
         private States _enumState { get { return EnumState; } set { EnumState = value; } }
 
 
-        public CharacterControllingBaseState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
+        public CharacterControllingBaseState(States enumState, PlayerMovement playerMovementReference, CharacterController controller)
         {
             this._enumState = enumState;
             this._playerMovement = playerMovementReference;

@@ -11,9 +11,20 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingRollState : CharacterControllingBaseState
     {
+        [Header("References:")]
+        [SerializeField] private PlayerWeapon _playerWeapon;
+
+        [Header("In game")]
         [SerializeField] private float _rollSpeed;
-        public CharacterControllingRollState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
-            : base(enumState, playerMovementReference, ref controller) { }
+        public CharacterControllingRollState(
+            States enumState,
+            PlayerMovement playerMovementReference,
+            CharacterController controller,
+            PlayerWeapon playerWeaponReference)
+            : base(enumState, playerMovementReference, controller)
+        {
+            this._playerWeapon = playerWeaponReference;
+        }
 
         public override void Execute()
         {
@@ -27,7 +38,7 @@ namespace SLGame.Gameplay
                     + _playerMovement._cameraTransform.eulerAngles.y;
             Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
             _playerMovement.transform.rotation = Quaternion.Euler(0f, lookAngle, 0f);
-            _playerMovement.CharacterController.Move(moveDirection.normalized * _rollSpeed * Time.deltaTime);
+            _characterController.Move(moveDirection.normalized * _rollSpeed * Time.deltaTime);
         }
 
 
@@ -37,12 +48,15 @@ namespace SLGame.Gameplay
             this._rollSpeed = _playerMovement.MoveSpeed * _playerMovement.RollSpeedMultiplier;
 
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), true);
+            _playerWeapon.CanAttack = false;
         }
 
         public override void EndTransition(bool endingManually)
         {
             _playerMovement.CharacterAnimator.SetBool(States.Roll.ToString(), false);
             _playerMovement.PlaceRollOnCooldown();
+
+            _playerWeapon.CanAttack = true;
 
             if (!endingManually)
                 return;
