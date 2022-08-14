@@ -13,12 +13,14 @@ namespace SLGame.Gameplay
     public class PlayerMovement : MonoBehaviour
     {
         [Header("References:")]
-        [SerializeField] public CharacterController CharacterController;
+        [SerializeField] private CharacterController CharacterController;
+
+        [SerializeField] private PlayerWeapon _playerWeapon;
         [SerializeField] public Transform _cameraTransform;
         [SerializeField] public Animator CharacterAnimator;
 
         [SerializeField]
-        public Dictionary<States, CharacterControllingBaseState> CharacterControllingStates = new Dictionary<States, CharacterControllingBaseState>();
+        public Dictionary<States, CharacterControllingBaseState> CharacterControllingStates = new Dictionary<States, CharacterControllingBaseState>(capacity: 10);
 
         [Header("Stats:")]
         [SerializeField] public CharacterControllingBaseState CurrentCharacterControllingState;
@@ -60,16 +62,17 @@ namespace SLGame.Gameplay
             CharacterAnimator = this.gameObject.GetComponent<Animator>();
             this.CharacterController = this.gameObject.GetComponent<CharacterController>();
             CharacterController playerCharacterController = this.gameObject.GetComponent<CharacterController>();
+            this._playerWeapon = this.gameObject.GetComponent<PlayerWeapon>();
 
-            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(States.Idle, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(States.Move, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(States.Roll, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(States.Run, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(States.StopRun, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(States.Falling, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(States.HardLand, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.LightAttack, new CharacterControllingLightAttackState(States.LightAttack, this, ref playerCharacterController));
-            CharacterControllingStates.Add(States.HeavyAttack, new CharacterControllingHeavyAttackState(States.HeavyAttack, this, ref playerCharacterController));
+            CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(States.Idle, this, playerCharacterController));
+            CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(States.Move, this, playerCharacterController));
+            CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(States.Roll, this, playerCharacterController, _playerWeapon));
+            CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(States.Run, this, playerCharacterController));
+            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(States.StopRun, this, playerCharacterController));
+            CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(States.Falling, this, playerCharacterController));
+            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(States.HardLand, this, playerCharacterController));
+            CharacterControllingStates.Add(States.LightAttack, new CharacterControllingLightAttackState(States.LightAttack, this, playerCharacterController));
+            CharacterControllingStates.Add(States.HeavyAttack, new CharacterControllingHeavyAttackState(States.HeavyAttack, this, playerCharacterController));
 
             CurrentCharacterControllingState = CharacterControllingStates[States.Idle];
         }

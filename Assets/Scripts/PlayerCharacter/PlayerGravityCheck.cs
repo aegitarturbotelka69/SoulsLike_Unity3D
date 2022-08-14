@@ -129,7 +129,7 @@ namespace SLGame.Gameplay
             }
 
             Velocity.y += Gravity * Time.deltaTime;
-            _playerMovement.CharacterController.Move(Velocity * Time.deltaTime);
+            _playerMovement.gameObject.GetComponent<CharacterController>().Move(Velocity * Time.deltaTime);
         }
 
         private void PlayerIsGrounded()

@@ -5,8 +5,8 @@ namespace SLGame.Gameplay
 {
     public class CharacterControllingRunState : CharacterControllingBaseState
     {
-        public CharacterControllingRunState(States enumState, PlayerMovement playerMovementReference, ref CharacterController controller)
-        : base(enumState, playerMovementReference, ref controller) { }
+        public CharacterControllingRunState(States enumState, PlayerMovement playerMovementReference, CharacterController controller)
+        : base(enumState, playerMovementReference, controller) { }
 
         private void GetAbilitiesInput()
         {
@@ -76,7 +76,7 @@ namespace SLGame.Gameplay
 
                 Vector3 moveDirection = Quaternion.Euler(0f, lookAngle, 0f) * Vector3.forward;
 
-                _playerMovement.CharacterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * _playerMovement.RunSpeedMultiplier * Time.deltaTime);
+                _characterController.Move(moveDirection.normalized * _playerMovement.MoveSpeed * _playerMovement.RunSpeedMultiplier * Time.deltaTime);
             }
         }
 

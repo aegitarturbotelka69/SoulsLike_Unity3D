@@ -22,6 +22,12 @@ namespace SLGame.Gameplay
         #endregion TransformPositions
 
         [Header("In game:")]
+
+        /// <summary>
+        /// Defines can player use attack at the current moment
+        /// </summary>
+        [SerializeField] public bool CanAttack;
+
         /// <summary>
         /// Represents current weapon state
         /// </summary>
