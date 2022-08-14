@@ -68,9 +68,9 @@ namespace SLGame.Gameplay
             CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(States.Move, this, playerCharacterController));
             CharacterControllingStates.Add(States.Roll, new CharacterControllingRollState(States.Roll, this, playerCharacterController, _playerWeapon));
             CharacterControllingStates.Add(States.Run, new CharacterControllingRunState(States.Run, this, playerCharacterController));
-            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(States.StopRun, this, playerCharacterController));
+            CharacterControllingStates.Add(States.StopRun, new CharacterControllingStopRunState(States.StopRun, this, playerCharacterController, _playerWeapon));
             CharacterControllingStates.Add(States.Falling, new CharacterControllingFallState(States.Falling, this, playerCharacterController));
-            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(States.HardLand, this, playerCharacterController));
+            CharacterControllingStates.Add(States.HardLand, new CharacterControllingHardLandState(States.HardLand, this, playerCharacterController, _playerWeapon));
             CharacterControllingStates.Add(States.LightAttack, new CharacterControllingLightAttackState(States.LightAttack, this, playerCharacterController));
             CharacterControllingStates.Add(States.HeavyAttack, new CharacterControllingHeavyAttackState(States.HeavyAttack, this, playerCharacterController));
 
