@@ -23,11 +23,11 @@ namespace SLGame.Gameplay
         {
             _playerMovement.CharacterAnimator.SetBool(States.HeavyAttack.ToString(), false);
 
-            if (!endingManually)
-                return;
+            // if (!endingManually)
+            //     return;
 
-            _playerMovement.ChangeControllingState(States.Idle);
-            _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
+            // _playerMovement.ChangeControllingState(States.Idle);
+            // _playerMovement.CharacterAnimator.SetBool(States.Idle.ToString(), true);
             //base.EndTransition(endingManually);
         }
     }

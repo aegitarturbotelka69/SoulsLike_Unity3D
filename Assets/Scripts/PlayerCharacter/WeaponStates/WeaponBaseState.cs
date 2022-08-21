@@ -4,8 +4,6 @@ namespace SLGame.Gameplay
 {
     public abstract class WeaponBaseState : ITransitorBetweenWeapons, IAttack
     {
-        public abstract void GetInput();
-
         /// <summary>
         /// Main logic for Light Attack
         /// </summary>
