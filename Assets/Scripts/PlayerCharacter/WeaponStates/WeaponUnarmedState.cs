@@ -27,41 +27,15 @@ namespace SLGame.Gameplay
 
             animator.SetLayerWeight((int)PlayerAnimationLayers.UnArmedWeapon, 1f);
         }
-        public override void GetInput()
-        {
-            if (VirtualInputManager.Instance.LightAttack
-                && _playerWeapon.CanAttack
-                && PlayerGravityCheck.PLAYER_IS_GROUNDED)
-            {
-                LightAttack();
-                _playerAnimatorController.SetBool(States.LightAttack.ToString(), true);
-            }
-            else
-            {
-                _playerAnimatorController.SetBool(States.LightAttack.ToString(), false);
-            }
-
-            if (VirtualInputManager.Instance.HeavyAttack
-                && _playerWeapon.CanAttack
-                && PlayerGravityCheck.PLAYER_IS_GROUNDED)
-            {
-                HeavyAttack();
-                _playerAnimatorController.SetBool(States.HeavyAttack.ToString(), true);
-            }
-            else
-            {
-                _playerAnimatorController.SetBool(States.HeavyAttack.ToString(), false);
-            }
-        }
 
         public override void LightAttack()
         {
-            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.LightAttack);
+            // future logic for enabling damage dealing 
         }
 
         public override void HeavyAttack()
         {
-            _playerWeapon.GetPlayerMovementReference().ChangeControllingState(States.HeavyAttack);
+            // future logic for enabling damage dealing
         }
 
         public override void SwitchWeapon()

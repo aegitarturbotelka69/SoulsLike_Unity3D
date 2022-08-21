@@ -68,7 +68,7 @@ namespace SLGame.Gameplay
 
         private void Update()
         {
-            _weaponCurrentState.GetInput();
+
         }
 
         /// <summary>
