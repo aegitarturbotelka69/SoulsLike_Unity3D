@@ -1,3 +1,5 @@
+Unity documentation: https://docs.unity3d.com/Packages/com.unity.rendering.hybrid@0.51/api/index.html
+
 Code is not great\
 But if you want to pull\
 Feel free to do it\

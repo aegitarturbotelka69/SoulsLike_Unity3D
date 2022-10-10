@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Threading.Tasks;
-using SLGame.Gameplay;
 using UnityEngine;
 
 namespace SLGame.Enemy

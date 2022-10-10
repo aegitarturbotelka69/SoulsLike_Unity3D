@@ -47,8 +47,9 @@ namespace SLGame.Gameplay
             {
                 WeaponSO = selectedWeapon.Weapon;
 
-                AssetLoader loader = new AssetLoader();
-                _weaponGameObject = await loader.Load(WeaponSO.AdressablesPrefabPath.ToString());
+                AssetLoader loader = new AssetLoader(WeaponSO.AdressablesPrefabPath.ToString());
+
+                _weaponGameObject = await loader.Load();
                 _weaponGameObject.transform.SetParent(_playerWeapon._steathedWeaponParentPosition);
                 _weaponGameObject.transform.localPosition = WeaponSO.SteathedTransform.Position;
                 _weaponGameObject.transform.localRotation = Quaternion.Euler(WeaponSO.SteathedTransform.Rotation);

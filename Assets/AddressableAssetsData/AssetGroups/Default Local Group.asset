@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: longSwordPrefabAdressable
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: bca6ef3378f4de34e96c205a4fe8b58f
+    m_Address: spiderPrefabAddressable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dbfbbf553fc8d8a4999786c96c759234, type: 2}
   m_SchemaSet:
