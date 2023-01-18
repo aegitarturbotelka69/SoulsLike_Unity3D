@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace SLGame.Modules
 {
-    public class AssetLoader : IConvertGameObjectToEntity
+    public class AssetLoader
     {
         /// <summary>
         /// Asset path in Addressables tab
@@ -16,12 +15,6 @@ namespace SLGame.Modules
         /// Cached gameobject after loading
         /// </summary>
         public GameObject _cachedGameObject { get; private set; }
-
-        /// <summary>
-        /// Cached entity after loading
-        /// </summary>
-        public Entity _cachedEntity { get; private set; }
-
 
         /// <summary>
         /// ctor
@@ -58,27 +51,6 @@ namespace SLGame.Modules
             _cachedGameObject.SetActive(false);
             Addressables.ReleaseInstance(_cachedGameObject);
             _cachedGameObject = null;
-        }
-
-        /// <summary>
-        /// Convert gameobject to entity
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        /// <param name="dstManager">EntityManager</param>
-        /// <param name="conversionSystem"></param>
-        public async void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-        {
-            using (BlobAssetStore assetStore = new BlobAssetStore())
-            {
-                await Load();
-
-                Entity prefabEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(
-                    root: _cachedGameObject,
-                    settings: GameObjectConversionSettings.FromWorld(dstManager.World, assetStore)
-                );
-
-                this._cachedEntity = prefabEntity;
-            }
         }
     }
 }

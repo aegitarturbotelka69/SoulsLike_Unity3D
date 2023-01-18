@@ -526,9 +526,6 @@ GameObject:
   - component: {fileID: 8252718819398494334}
   - component: {fileID: 8252718819398494335}
   - component: {fileID: 8252718819398494332}
-  - component: {fileID: 8252718819398494333}
-  - component: {fileID: -6014771116127396521}
-  - component: {fileID: -153805448647944372}
   m_Layer: 8
   m_Name: Spider
   m_TagString: Untagged
@@ -650,45 +647,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.6, z: 0}
---- !u!135 &8252718819398494333
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8252718819398494306}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.3149137
-  m_Center: {x: 0, y: 0.81491494, z: 0}
---- !u!114 &-6014771116127396521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8252718819398494306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 835687154aa984f47a2b061a43fe2ac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameObjectToEntity: {fileID: 8252718819398494306}
---- !u!114 &-153805448647944372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8252718819398494306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &8252718819435891219
 GameObject:
   m_ObjectHideFlags: 0
