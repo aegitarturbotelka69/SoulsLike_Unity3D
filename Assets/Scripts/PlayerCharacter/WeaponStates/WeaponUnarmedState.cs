@@ -8,7 +8,7 @@ namespace SLGame.Gameplay
         /// <summary>
         /// Reference to PlayerWeapon script
         /// </summary>
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private WeaponLogicAssembler _playerWeapon;
 
         /// <summary>
         /// Reference to Player Animator Controller
@@ -20,7 +20,7 @@ namespace SLGame.Gameplay
         /// </summary>
         /// <param name="animator">Player Animator Controller</param>4
         /// <param name="playerWeapon">PlayerWeapon Script</param>
-        public WeaponUnarmedState(Animator animator, PlayerWeapon playerWeapon)
+        public WeaponUnarmedState(Animator animator, WeaponLogicAssembler playerWeapon)
         {
             this._playerAnimatorController = animator;
             this._playerWeapon = playerWeapon;

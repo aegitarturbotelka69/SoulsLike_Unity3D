@@ -15,7 +15,7 @@ namespace SLGame.Gameplay
         [Header("References:")]
         [SerializeField] private CharacterController CharacterController;
 
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private WeaponLogicAssembler _playerWeapon;
         [SerializeField] public Transform _cameraTransform;
         [SerializeField] public Animator CharacterAnimator;
 
@@ -62,7 +62,7 @@ namespace SLGame.Gameplay
             CharacterAnimator = this.gameObject.GetComponent<Animator>();
             this.CharacterController = this.gameObject.GetComponent<CharacterController>();
             CharacterController playerCharacterController = this.gameObject.GetComponent<CharacterController>();
-            this._playerWeapon = this.gameObject.GetComponent<PlayerWeapon>();
+            this._playerWeapon = this.gameObject.GetComponent<WeaponLogicAssembler>();
 
             CharacterControllingStates.Add(States.Idle, new CharacterControllingIdleState(States.Idle, this, playerCharacterController));
             CharacterControllingStates.Add(States.Move, new CharacterControllingMoveState(States.Move, this, playerCharacterController));

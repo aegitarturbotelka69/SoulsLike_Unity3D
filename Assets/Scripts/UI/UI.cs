@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SLGame.UI
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class UI : MonoBehaviour
     {
         public static event Action<bool> OnMenuOpened;

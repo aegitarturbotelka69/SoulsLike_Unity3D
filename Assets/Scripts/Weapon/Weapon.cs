@@ -18,7 +18,7 @@ namespace SLGame.Gameplay
     public class Weapon : MonoBehaviour, IWeaponEquiper, IWeaponSteather
     {
         [Header("References:")]
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private WeaponLogicAssembler _playerWeapon;
 
         [Header("Stats: ")]
         [SerializeField] private WeaponType _type;
@@ -32,7 +32,7 @@ namespace SLGame.Gameplay
         /// <param name="playerWeapon">"Player hands"</param>
         /// <param name="weaponType">WeaponType</param>
         /// <returns></returns>
-        public static Weapon CreateComponent(GameObject mainGameObject, PlayerWeapon playerWeapon, WeaponType weaponType)
+        public static Weapon CreateComponent(GameObject mainGameObject, WeaponLogicAssembler playerWeapon, WeaponType weaponType)
         {
             Weapon weaponComponent = mainGameObject.AddComponent<Weapon>();
             weaponComponent._playerWeapon = playerWeapon;

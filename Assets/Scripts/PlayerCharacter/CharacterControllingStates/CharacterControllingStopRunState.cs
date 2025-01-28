@@ -7,12 +7,12 @@ namespace SLGame.Gameplay
     public class CharacterControllingStopRunState : CharacterControllingBaseState
     {
         [Header("References:")]
-        [SerializeField] protected PlayerWeapon _playerWeapon;
+        [SerializeField] protected WeaponLogicAssembler _playerWeapon;
         public CharacterControllingStopRunState(
             States enumState,
             PlayerMovement playerMovementReference,
             CharacterController controller,
-            PlayerWeapon playerWeaponReference)
+            WeaponLogicAssembler playerWeaponReference)
             : base(enumState, playerMovementReference, controller)
         {
             this._playerWeapon = playerWeaponReference;

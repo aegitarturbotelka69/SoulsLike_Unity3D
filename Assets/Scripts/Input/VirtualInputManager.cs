@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 
 namespace SLGame.Input
@@ -31,6 +32,8 @@ namespace SLGame.Input
         void Start()
         {
             _inputStrategy = this.gameObject.AddComponent<Keyboard_InputType>();
+
+            
         }
 
         void Update()

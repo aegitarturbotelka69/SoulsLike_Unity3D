@@ -6,12 +6,12 @@ namespace SLGame.Gameplay
     public class CharacterControllingHardLandState : CharacterControllingBaseState
     {
         [Header("References:")]
-        [SerializeField] protected PlayerWeapon _playerWeapon;
+        [SerializeField] protected WeaponLogicAssembler _playerWeapon;
         public CharacterControllingHardLandState(
             States enumState,
             PlayerMovement playerMovementReference,
             CharacterController controller,
-            PlayerWeapon playerWeaponReference)
+            WeaponLogicAssembler playerWeaponReference)
         : base(enumState, playerMovementReference, controller)
         {
             this._playerWeapon = playerWeaponReference;

@@ -12,7 +12,7 @@ namespace SLGame.Gameplay
     public class CharacterControllingRollState : CharacterControllingBaseState
     {
         [Header("References:")]
-        [SerializeField] private PlayerWeapon _playerWeapon;
+        [SerializeField] private WeaponLogicAssembler _playerWeapon;
 
         [Header("In game")]
         [SerializeField] private float _rollSpeed;
@@ -20,7 +20,7 @@ namespace SLGame.Gameplay
             States enumState,
             PlayerMovement playerMovementReference,
             CharacterController controller,
-            PlayerWeapon playerWeaponReference)
+            WeaponLogicAssembler playerWeaponReference)
             : base(enumState, playerMovementReference, controller)
         {
             this._playerWeapon = playerWeaponReference;

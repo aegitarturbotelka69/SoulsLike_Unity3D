@@ -1,9 +1,8 @@
 using UnityEngine;
-using SLGame.Input;
 
 namespace SLGame.Gameplay
 {
-    public class PlayerWeapon : MonoBehaviour
+    public class WeaponLogicAssembler : MonoBehaviour
     {
         [Header("References:")]
         [SerializeField] private Animator _playerAnimator;
